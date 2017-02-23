@@ -13,6 +13,9 @@ using Microsoft.Win32;
 using System.Threading;
 using System.Xml;
 
+
+using Storage;
+using StorageArea.Model;
 namespace PccNew
 {
     public partial class PCC : Form
@@ -226,6 +229,28 @@ namespace PccNew
                     pcccontrol2.flag = false;
                 }
                 pcccontrol2.setModelData(this.handle);
+                #region
+                //货位的处理
+                if (pcccontrol2.storageAreaState != 0)
+                {
+                    switch (pcccontrol2.storageAreaState)
+                    {
+                        case 1:
+                            Storage_PCC.Change(0, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 1, 1);
+                            break;
+                        case 2:
+                            Storage_PCC.Change(1, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 1, 1);
+                            break;
+                        case 3:
+                            Storage_PCC.Change(0, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 0, 1);
+                            break;
+                        case 4:
+                            Storage_PCC.Change(1, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 0, 1);
+                            break;
+                    }
+                    pcccontrol2.storageAreaState = 0;
+                }
+                #endregion
                 pcccontrol2.flag = true;
             }
             catch (Exception ex)
@@ -288,6 +313,41 @@ namespace PccNew
             }
         }
 
+
+
+
+        //storage 货位处理
+        #region 
+
+        public General Storage_PCC = null;
+        public General Storage_NEW = null;
+
+        //配餐车 货位的点击 触发事件
+        private static void PCC_placeSelected(StorageArea.Model.Place selectedPlace)
+        {
+            var placeData = selectedPlace.GetData();
+        }
+        private static void NEW_placeSelected(StorageArea.Model.Place selectedPlace)
+        {
+            var placeData = selectedPlace.GetData();
+        }
+
+        //初始化 托盘
+        public void InitializStorage()
+        {
+          //初始化 配餐 托盘
+            Storage_PCC = new General();
+            Storage_PCC.Initialize("StorageArea_pcc");
+            Storage_PCC.connection.PlaceSelected += PCC_placeSelected;
+            Storage_PCC.FullAll();
+
+            //初始化 新库 托盘
+            Storage_NEW = new General();
+            Storage_NEW.Initialize("StorageArea_new");
+            Storage_NEW.connection.PlaceSelected += NEW_placeSelected;
+            Storage_NEW.FullAll();
+        }
+        #endregion
 
     }
 }

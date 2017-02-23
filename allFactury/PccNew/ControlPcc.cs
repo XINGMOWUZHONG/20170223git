@@ -275,6 +275,7 @@ namespace PccNew
             }
             else if (drnow["ForkStatus"].ToString().Trim() !="0")
             {
+                storageAreaState = storageAreaControl(int.Parse(lastDr["ForkStatus"].ToString()), int.Parse(drnow["ForkStatus"].ToString()));
                 lastDr = drnow;
                 return false;
             }
@@ -677,6 +678,45 @@ namespace PccNew
             {
                 return 0;
             }
+        }
+        #endregion
+
+
+        //------------------------
+        #region 配餐车货位的处理
+        //1 showleft 2 showright 3 hideleft 4 hideright
+        public int storageAreaState = 0;
+        public int storageAreaControl(int lastState, int state)
+        {
+            if (lastState % 2 == 1 && state % 2 == 1)
+            {
+                if (lastState / 10 == 1 && state / 10 == 2)
+                {
+                    //show
+                    if (lastState % 10 == 1)
+                    {
+                        return 1;
+                    }
+                    else if (lastState % 10 == 3)
+                    {
+                        return 2;
+                    }
+
+                }
+                else if (lastState / 10 == 2 && state / 10 == 1)
+                {
+                    //hide
+                    if (lastState % 10 == 1)
+                    {
+                        return 3;
+                    }
+                    else if (lastState % 10 == 3)
+                    {
+                        return 4;
+                    }
+                }
+            }
+            return 0;
         }
         #endregion
     }
