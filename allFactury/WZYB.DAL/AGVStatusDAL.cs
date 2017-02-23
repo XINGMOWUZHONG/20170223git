@@ -53,10 +53,10 @@ namespace WZYB.DAL
             strSql.Append("@carId,@line,@direction,@sequence,@backLine,@position)");
             SqlParameter[] parameters = {
 					new SqlParameter("@carId", SqlDbType.Int,4),
-					new SqlParameter("@line", SqlDbType.Int,4),
+					new SqlParameter("@line", SqlDbType.NVarChar,10),
 					new SqlParameter("@direction", SqlDbType.Int,4),
 					new SqlParameter("@sequence", SqlDbType.Int,4),
-					new SqlParameter("@backLine", SqlDbType.Int,4),
+					new SqlParameter("@backLine", SqlDbType.NVarChar,10),
 					new SqlParameter("@position", SqlDbType.Float,8)};
             parameters[0].Value = model.carId;
             parameters[1].Value = model.line;
@@ -86,10 +86,10 @@ namespace WZYB.DAL
             strSql.Append(" where carId=@carId ");
             SqlParameter[] parameters = {
 					new SqlParameter("@carId", SqlDbType.Int,4),
-					new SqlParameter("@line", SqlDbType.Int,4),
+					new SqlParameter("@line", SqlDbType.NVarChar,10),
 					new SqlParameter("@direction", SqlDbType.Int,4),
 					new SqlParameter("@sequence", SqlDbType.Int,4),
-					new SqlParameter("@backLine", SqlDbType.Int,4),
+					new SqlParameter("@backLine", SqlDbType.NVarChar,10),
 					new SqlParameter("@position", SqlDbType.Float,8)};
             parameters[0].Value = model.carId;
             parameters[1].Value = model.line;
@@ -168,7 +168,7 @@ namespace WZYB.DAL
 
         #region 自定义方法
 
-        public static int getCountByLine(int line)
+        public static int getCountByLine(string line)
         {
             string strSql = "select count(*) from T_AGVStatus where line = " + line;
             object obj = DbHelperSQL.GetSingle(strSql);

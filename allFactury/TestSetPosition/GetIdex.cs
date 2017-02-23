@@ -144,5 +144,30 @@ namespace TestSetPosition
                 return -1;
             }
         }
+
+        public static float getOCSPathLength(string name)
+        {
+            try
+            {
+                Dictionary<String, float> pl = (Dictionary<String, float>)GetCache("OCSPathLength");
+                return pl[name];
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+
+        public static void SetOCSPathLengthSetCache(string[,] values)
+        {
+            Dictionary<String, float> pl = new Dictionary<String, float>();
+
+            for (int i = 0; i < values.GetLength(0); i++ )
+            {
+                pl.Add(values[i, 0], float.Parse(values[i, 1]));
+            }
+
+            SetCache("OCSPathLength", pl);
+        }
     }
 }

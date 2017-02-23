@@ -152,10 +152,7 @@ namespace WZYB.BLL
                     {
                         model.carId = int.Parse(dt.Rows[n]["carId"].ToString());
                     }
-                    if (dt.Rows[n]["line"].ToString() != "")
-                    {
-                        model.line = int.Parse(dt.Rows[n]["line"].ToString());
-                    }
+                    model.line = dt.Rows[n]["line"].ToString();
                     if (dt.Rows[n]["direction"].ToString() != "")
                     {
                         model.direction = int.Parse(dt.Rows[n]["direction"].ToString());
@@ -164,10 +161,7 @@ namespace WZYB.BLL
                     {
                         model.sequence = int.Parse(dt.Rows[n]["sequence"].ToString());
                     }
-                    if (dt.Rows[n]["backLine"].ToString() != "")
-                    {
-                        model.backLine = int.Parse(dt.Rows[n]["backLine"].ToString());
-                    }
+                    model.backLine = dt.Rows[n]["backLine"].ToString();
                     if (dt.Rows[n]["position"].ToString() != "")
                     {
                         model.position = decimal.Parse(dt.Rows[n]["position"].ToString());
@@ -190,7 +184,7 @@ namespace WZYB.BLL
 
         #region 自定义方法
 
-        public static int getCountByLine(int line)
+        public static int getCountByLine(string line)
         {
             return AGVStatusDAL.getCountByLine(line);
         }

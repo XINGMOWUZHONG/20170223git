@@ -42,7 +42,7 @@ namespace TestSetPosition
         /// <summary>
         /// 悬挂小车数量
         /// </summary>
-        private int ocsCarCount = 46;
+        private int ocsCarCount = 1;
         /// <summary>
         /// 悬挂小车速度
         /// </summary>
@@ -74,12 +74,21 @@ namespace TestSetPosition
         /// <summary>
         /// 悬挂线体长度
         /// </summary>
-        private float[] ocsLineLength = { 0,   12.894f,    11.925f,    11.925f,    11.925f,    11.94f,     1.16f,      1.15f,      1.14f,      1.171f,     11.93f,
-                                            1.142f,     11.93f,    1.15f,      11.93f,    1.154f,     11.93f,    1.151f,     11.93f,    1.144f,     11.93f,
-                                            1.153f,     11.93f,    1.151f,     11.93f,    1.151f,     11.93f,    1.152f,     11.93f,    1.152f,     11.93f,
-                                            1.143f,     11.93f,    1.152f,     11.93f,    1.578f,     11.744f,    1.145f,     1.151f,     1.145f,     1.151f,
-                                            1.151f,     1.152f,     1.151f,     1.153f,     1.144f,     1.151f,     1.153f,     1.151f,     1.142f,     1.153f,
-                                            1.145f,     1.148f,     1.154f,     0.785f};
+        private string[,] ocsLineLength = { { "B2011", "5.65819" }, { "B2021", "5.83319" }, { "B2031", "5.83319" }, { "B2041", "5.83319" }, { "B2051", "5.83319" }, { "B2061", "5.83319" }, { "B2071", "5.83319" }, { "B2081", "5.83319" }, { "B2091", "5.83319" }, { "B2101", "5.83319" }
+                                          , { "B2111", "5.83319" }, { "B2121", "5.83319" }, { "B2131", "5.83319" }, { "B2141", "5.83319" }, { "B2151", "5.83319" }, { "B2161", "5.83319" }, { "B2171", "5.83319" }, { "B2181", "5.83319" }, { "B2172", "6.06394" }, { "B1060", "11.7471" }
+                                          , { "B1020", "6.3" }, { "B1030", "6.3" }, { "B1040", "6" }, { "B1080", "10" }, { "B1070", "11" }, { "B2182", "6.06394" }, { "B2012", "6.06394" }, { "B2022", "6.06394" }, { "B2032", "6.06394" }, { "B2042", "6.06394" }, { "B2052", "6.06394" }
+                                          , { "B2062", "6.06394" }, { "B2072", "6.06394" }, { "B2082", "6.06394" }, { "B2092", "6.06394" }, { "B2102", "6.06394" }, { "B2112", "6.06394" }, { "B2122", "6.06394" }, { "B2132", "6.06394" }, { "B2142", "6.06394" }, { "B2152", "6.06394" }
+                                          , { "B2162", "6.06394" }, { "B1120", "3.41372" }, { "B1150", "4.67788" }, { "B1010", "2" }, { "B1090", "2.5" }, { "B1100", "2" }, { "B1110", "8.2" }, { "B1180", "4.3" }, { "B1170", "2.5" }, { "B1160", "2" }, { "B1140", "4.4" }
+                                          , { "B1130", "2.4" }, { "B1191", "2.64248" }, { "B1201", "8.5" }, { "B1211", "10.7" }, { "B1221", "7" }, { "B1231", "7" }, { "B1241", "8.3" }, { "B1251", "7" }, { "B1050", "4.14248" }
+                                          , { "A2210", "5.52644" }, { "A2310", "5.52644" }, { "A2410", "5.52644" }, { "A2510", "5.52644" }, { "A2610", "5.52644" }, { "A2710", "5.52644" }, { "A2810", "5.52644" }, { "A2910", "5.52644" }, { "A2110", "5.52644" }, { "A3110", "5.52644" }
+                                          , { "A3910", "5.52644" }, { "A3810", "5.52644" }, { "A3710", "5.52644" }, { "A3610", "5.52644" }, { "A3510", "5.52644" }, { "A3410", "5.52644" }, { "A3310", "5.52644" }, { "A3210", "5.52644" }, { "A1110", "11.5" }, { "A1120", "8.3" }
+                                          , { "A1130", "8.3" }, { "A1140", "5.7854" }, { "A1150", "2" }, { "A1160", "4.9208" }, { "A1170", "14.9354" }, { "A1180", "13" }, { "A1100", "5.85642" }, { "A1020", "13.7708" }, { "A1030", "10.2" }, { "A1040", "8.2" }, { "A1050", "9" }
+                                          , { "A1060", "4.94248" }, { "A1070", "2" }, { "A1080", "1.94248" }, { "A1090", "4.8854" }, { "A1010", "2" }
+                                          , { "C1390", "4.19204" }, { "C1130", "13" }, { "C1120", "14" }, { "C1110", "7" }, { "C1100", "2.2" }, { "C2820", "2.5" }, { "C2810", "3.3354" }, { "C1090", "6" }, { "C1080", "2.5" }, { "C1140", "4.68076" }, { "C1150", "5" }, { "C1160", "2.5" }
+                                          , { "C1170", "6" }, { "C1180", "17" }, { "C1190", "3" }, { "C1200", "10" }, { "C1210", "2.5" }, { "C1360", "11" }, { "C1370", "11" }, { "C1380", "14.7425" }, { "C1350", "5" }, { "C1340", "3" }, { "C1330", "4" }, { "C1320", "4" }
+                                          , { "C1310", "3" }, { "C1300", "3" }, { "C1290", "3" }, { "C1280", "3" }, { "C1270", "3" }, { "C1260", "3" }, { "C1250", "3" }, { "C1240", "2" }, { "C1230", "2" }, { "C1220", "1" }, { "C1070", "4.50642" }, { "C1060", "1" }, { "C1050", "5.7" }
+                                          , { "C1040", "4.3" }, { "C1030", "12" }, { "C1020", "12.3" }, { "C1010", "3" }, { "C2710", "2.85321" }, { "C2610", "2.85321" }, { "C2510", "2.85321" }, { "C2410", "2.85321" }, { "C2310", "2.85321" }, { "C2210", "2.85321" }, { "C2110", "2.85321" }
+                                          , { "C1410", "2.1927" }};
 
         /// <summary>
         /// 悬挂小车路线
@@ -334,71 +343,73 @@ namespace TestSetPosition
             ocsThread = new Thread[ocsCarCount];
             ocsTempLine = new int[ocsCarCount + 1];
 
-            int[] ocsTmpSequence = new int[1000];
-            for (int i = 1; i <= 5; i++)
-            //for (int i = 1; i <= ocsCarCount; i++)
-            {
-                ocsTempLine[i] = 0;
-                OCSStatus model = OCSStatusBLL.GetModel(i);
+            GetIdex.SetOCSPathLengthSetCache(ocsLineLength);
 
-                if (model != null)
-                {
-                    model.line = int.Parse(ocsPath[i].Split(',')[0]);
-                    model.sequence = ocsTmpSequence[model.line] + 1;
-                    ocsTmpSequence[model.line]++;
-                    OCSStatusBLL.Update(model);
-                }
-                else
-                {
-                    model = new OCSStatus();
-                    model.carId = i;
-                    model.line = int.Parse(ocsPath[i].Split(',')[0]);
-                    model.direction = 1;
-                    model.sequence = ocsTmpSequence[model.line] + 1;
-                    model.backLine = 1;
-                    model.position = -1;
-                    ocsTmpSequence[model.line]++;
-                    OCSStatusBLL.Add(model);
-                }
-            }
+            //int[] ocsTmpSequence = new int[1000];
+            ////for (int i = 1; i <= 5; i++)
+            //for (int i = 1; i <= ocsCarCount; i++)
+            //{
+            //    ocsTempLine[i] = 0;
+            //    OCSStatus model = OCSStatusBLL.GetModel(i);
+
+            //    if (model != null)
+            //    {
+            //        model.line = int.Parse(ocsPath[i].Split(',')[0]);
+            //        model.sequence = ocsTmpSequence[model.line] + 1;
+            //        ocsTmpSequence[model.line]++;
+            //        OCSStatusBLL.Update(model);
+            //    }
+            //    else
+            //    {
+            //        model = new OCSStatus();
+            //        model.carId = i;
+            //        model.line = int.Parse(ocsPath[i].Split(',')[0]);
+            //        model.direction = 1;
+            //        model.sequence = ocsTmpSequence[model.line] + 1;
+            //        model.backLine = 1;
+            //        model.position = -1;
+            //        ocsTmpSequence[model.line]++;
+            //        OCSStatusBLL.Add(model);
+            //    }
+            //}
 
             //agv数据初始化
-            agvCarPos = new float[agvCarCount + 1];
-            agvThread = new Thread[agvCarCount];
-            agvTempLine = new int[agvCarCount + 1];
-            agvdirection = new int[agvCarCount + 1];
-            agvStopTime = new int[agvCarCount + 1];
+            //agvCarPos = new float[agvCarCount + 1];
+            //agvThread = new Thread[agvCarCount];
+            //agvTempLine = new int[agvCarCount + 1];
+            //agvdirection = new int[agvCarCount + 1];
+            //agvStopTime = new int[agvCarCount + 1];
 
-            int[] agvTmpSequence = new int[10000];
+            //int[] agvTmpSequence = new int[10000];
 
-            for (int i = 1; i <= agvCarCount; i++)
-            {
-                agvTempLine[i] = 0;
-                agvdirection[i] = 0;
-                agvStopTime[i] = 0;
-                AGVStatus model = AGVStatusBLL.GetModel(i);
+            //for (int i = 1; i <= agvCarCount; i++)
+            //{
+            //    agvTempLine[i] = 0;
+            //    agvdirection[i] = 0;
+            //    agvStopTime[i] = 0;
+            //    AGVStatus model = AGVStatusBLL.GetModel(i);
 
-                if (model != null)
-                {
-                    model.line = int.Parse(agvPath[i].Split(',')[0]);
-                    model.direction = 1;
-                    model.sequence = agvTmpSequence[model.line] + 1;
-                    agvTmpSequence[model.line]++;
-                    AGVStatusBLL.Update(model);
-                }
-                else
-                {
-                    model = new AGVStatus();
-                    model.carId = i;
-                    model.line = int.Parse(agvPath[i].Split(',')[0]);
-                    model.direction = 1;
-                    model.sequence = agvTmpSequence[model.line] + 1;
-                    model.backLine = 1;
-                    model.position = -1;
-                    agvTmpSequence[model.line]++;
-                    AGVStatusBLL.Add(model);
-                }
-            }
+            //    if (model != null)
+            //    {
+            //        model.line = int.Parse(agvPath[i].Split(',')[0]);
+            //        model.direction = 1;
+            //        model.sequence = agvTmpSequence[model.line] + 1;
+            //        agvTmpSequence[model.line]++;
+            //        AGVStatusBLL.Update(model);
+            //    }
+            //    else
+            //    {
+            //        model = new AGVStatus();
+            //        model.carId = i;
+            //        model.line = int.Parse(agvPath[i].Split(',')[0]);
+            //        model.direction = 1;
+            //        model.sequence = agvTmpSequence[model.line] + 1;
+            //        model.backLine = 1;
+            //        model.position = -1;
+            //        agvTmpSequence[model.line]++;
+            //        AGVStatusBLL.Add(model);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -406,109 +417,108 @@ namespace TestSetPosition
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer2_Tick(object sender, EventArgs e)
+        private void tim_OCSAGVTest_Tick(object sender, EventArgs e)
         {
-           
             //ocs数据模拟
-            for (int i = 1; i < ocsCarPos.Length; i++)
-            {
-                OCSStatus model = OCSStatusBLL.GetModel(i);
+            //for (int i = 1; i < ocsCarPos.Length; i++)
+            //{
+            //    OCSStatus model = OCSStatusBLL.GetModel(i);
 
-                if (ocsCarPos[i] > 0)
-                {
-                    if (ocsCarPos[i] >= ocsLineLength[int.Parse(ocsPath[i].Split(',')[ocsTempLine[i]])])
-                    {
-                        if (ocsTempLine[i] + 1 >= ocsPath[i].Split(',').Length)
-                            ocsTempLine[i] = 0;
-                        else
-                            ocsTempLine[i]++;
-                        model.line = int.Parse(ocsPath[i].Split(',')[ocsTempLine[i]]);
-                        int count = OCSStatusBLL.getCountByLine(model.line);
-                        model.sequence = count + 1;
-                        OCSStatusBLL.Update(model);
-                    }
-                }
-            }
+            //    if (ocsCarPos[i] > 0)
+            //    {
+            //        if (ocsCarPos[i] >= ocsLineLength[int.Parse(ocsPath[i].Split(',')[ocsTempLine[i]])])
+            //        {
+            //            if (ocsTempLine[i] + 1 >= ocsPath[i].Split(',').Length)
+            //                ocsTempLine[i] = 0;
+            //            else
+            //                ocsTempLine[i]++;
+            //            model.line = int.Parse(ocsPath[i].Split(',')[ocsTempLine[i]]);
+            //            int count = OCSStatusBLL.getCountByLine(model.line);
+            //            model.sequence = count + 1;
+            //            OCSStatusBLL.Update(model);
+            //        }
+            //    }
+            //}
 
-            //agv数据模拟
-            for (int i = 1; i < agvCarPos.Length; i++)
-            {
-                AGVStatus model = AGVStatusBLL.GetModel(i);
+            ////agv数据模拟
+            //for (int i = 1; i < agvCarPos.Length; i++)
+            //{
+            //    AGVStatus model = AGVStatusBLL.GetModel(i);
 
-                if (agvCarPos[i] > 0)
-                {
-                    if (agvCarPos[i] >= agvLineLength[int.Parse(agvPath[i].Split(',')[agvTempLine[i]])] || agvCarPos[i] == agvEndPos)
-                    {
-                        if (agvdirection[i] == 0)
-                        {
-                            if (agvTempLine[i] + 1 < agvPath[i].Split(',').Length)
-                            {
-                                agvTempLine[i]++;
-                            }
-                            else
-                            {
-                                if (agvStopTime[i] > 3000)
-                                {
-                                    if (agvdirection[i] == 0)
-                                        agvdirection[i] = 1;
-                                    else
-                                        agvdirection[i] = 0;
+            //    if (agvCarPos[i] > 0)
+            //    {
+            //        if (agvCarPos[i] >= agvLineLength[int.Parse(agvPath[i].Split(',')[agvTempLine[i]])] || agvCarPos[i] == agvEndPos)
+            //        {
+            //            if (agvdirection[i] == 0)
+            //            {
+            //                if (agvTempLine[i] + 1 < agvPath[i].Split(',').Length)
+            //                {
+            //                    agvTempLine[i]++;
+            //                }
+            //                else
+            //                {
+            //                    if (agvStopTime[i] > 3000)
+            //                    {
+            //                        if (agvdirection[i] == 0)
+            //                            agvdirection[i] = 1;
+            //                        else
+            //                            agvdirection[i] = 0;
 
-                                    agvStopTime[i] += 0;
-                                }
-                                else
-                                {
-                                    agvStopTime[i] += 500;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (agvTempLine[i] - 1 > 0)
-                            {
-                                agvTempLine[i]--;
-                            }
-                            else
-                            {
-                                if (agvStopTime[i] > 3000)
-                                {
-                                    if (agvdirection[i] == 0)
-                                        agvdirection[i] = 1;
-                                    else
-                                        agvdirection[i] = 0;
+            //                        agvStopTime[i] += 0;
+            //                    }
+            //                    else
+            //                    {
+            //                        agvStopTime[i] += 500;
+            //                    }
+            //                }
+            //            }
+            //            else
+            //            {
+            //                if (agvTempLine[i] - 1 > 0)
+            //                {
+            //                    agvTempLine[i]--;
+            //                }
+            //                else
+            //                {
+            //                    if (agvStopTime[i] > 3000)
+            //                    {
+            //                        if (agvdirection[i] == 0)
+            //                            agvdirection[i] = 1;
+            //                        else
+            //                            agvdirection[i] = 0;
 
-                                    agvStopTime[i] += 0;
-                                }
-                                else
-                                {
-                                    agvStopTime[i] += 500;
-                                }
-                            }
-                        }
+            //                        agvStopTime[i] += 0;
+            //                    }
+            //                    else
+            //                    {
+            //                        agvStopTime[i] += 500;
+            //                    }
+            //                }
+            //            }
 
-                        model.line = int.Parse(agvPath[i].Split(',')[agvTempLine[i]]);
-                        int count = AGVStatusBLL.getCountByLine(model.line);
+            //            model.line = int.Parse(agvPath[i].Split(',')[agvTempLine[i]]);
+            //            int count = AGVStatusBLL.getCountByLine(model.line);
 
-                        if (model.line == 6 || model.line == 8 || model.line == 10 || model.line == 14)
-                        {
-                            if (agvdirection[i] == 0)
-                                model.direction = 2;
-                            else
-                                model.direction = 1;
-                        }
-                        else
-                        {
-                            if (agvdirection[i] == 0)
-                                model.direction = 1;
-                            else
-                                model.direction = 2;
-                        }
+            //            if (model.line == 6 || model.line == 8 || model.line == 10 || model.line == 14)
+            //            {
+            //                if (agvdirection[i] == 0)
+            //                    model.direction = 2;
+            //                else
+            //                    model.direction = 1;
+            //            }
+            //            else
+            //            {
+            //                if (agvdirection[i] == 0)
+            //                    model.direction = 1;
+            //                else
+            //                    model.direction = 2;
+            //            }
 
-                        model.sequence = count + 1;
-                        AGVStatusBLL.Update(model);
-                    }
-                }
-            }
+            //            model.sequence = count + 1;
+            //            AGVStatusBLL.Update(model);
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -516,7 +526,7 @@ namespace TestSetPosition
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer3_Tick(object sender, EventArgs e)
+        private void tim_ComTCPUpdate_Tick(object sender, EventArgs e)
         {
             double time, timeStep;
             ComTCPLib.UpdateData(handle, out time, out timeStep);
@@ -525,8 +535,11 @@ namespace TestSetPosition
         #endregion
 
         #region 界面按钮处理
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_Start_Click(object sender, EventArgs e)
         {
+            if (isStart == true)
+                return;
+
             remote.sendReset();
             remote.sendPlay();
             Connect();
@@ -534,31 +547,31 @@ namespace TestSetPosition
             Thread.Sleep(1000);
             isStart = true;
 
-            timer2.Enabled = true;
-            timer3.Enabled = true;
+            tim_OCSAGVTest.Enabled = true;
+            tim_ComTCPUpdate.Enabled = true;
 
             //启动悬挂小车线程
-            for (int i = 0; i < 5; i++)
-            //for (int i = 0; i < ocsCarCount; i++)
+            //for (int i = 0; i < 5; i++)
+            for (int i = 0; i < ocsCarCount; i++)
             {
                 ocsThread[i] = new Thread(new ParameterizedThreadStart(OCSThreadFunc));
                 ocsThread[i].Start(i + 1);
             }
 
-            //启动AGV小车线程
-            for (int i = 0; i < agvCarCount; i++)
-            {
-                agvThread[i] = new Thread(new ParameterizedThreadStart(AGVThreadFunc));
-                agvThread[i].Start(i + 1);
-            }
+            ////启动AGV小车线程
+            //for (int i = 0; i < agvCarCount; i++)
+            //{
+            //    agvThread[i] = new Thread(new ParameterizedThreadStart(AGVThreadFunc));
+            //    agvThread[i].Start(i + 1);
+            //}
 
-            //PCC-----
-            setBaseData();
-            timer4.Enabled = true;
-            timer5.Enabled = true;
+            ////PCC-----
+            //setBaseData();
+            //timer4.Enabled = true;
+            //tim_PCC.Enabled = true;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btn_Stop_Click(object sender, EventArgs e)
         {
             remote.sendReset();
             remote.sendReset();
@@ -570,24 +583,28 @@ namespace TestSetPosition
                 ocsThread[i].Abort();
             }
 
-            timer2.Enabled = false;
-            timer3.Enabled = false;
+            tim_OCSAGVTest.Enabled = false;
+            tim_ComTCPUpdate.Enabled = false;
             timer4.Enabled = false;
-            timer5.Enabled = false;
+            tim_PCC.Enabled = false;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btn_Pause_Click(object sender, EventArgs e)
         {
-            remote.sendPause();
-            isStart = false;
+            if (isStart == true)
+            {
+                btn_Pause.Text = "继续";
+                remote.sendPause();
+                isStart = false;
+            }
+            else
+            {
+                btn_Pause.Text = "暂停";
+                remote.sendPlay();
+                isStart = true;
+            }
         }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            remote.sendPlay();
-            isStart = true;
-        }
-
+        
         #endregion
 
         #region 悬挂小车处理逻辑
@@ -598,62 +615,98 @@ namespace TestSetPosition
         /// <param name="o"></param>
         private void OCSThreadFunc(object o)
         {
-            int index = Convert.ToInt32(o);
-
-            while (true)
+            try
             {
-                if (isStart)
+                int index = Convert.ToInt32(o);
+                bool isF = true;
+
+                while (true)
                 {
-                    //数据库最新数据
-                    OCSStatus model = OCSStatusBLL.GetModel(index);
-
-                    if (model.position == -1)
+                    if (isStart)
                     {
-                        //内存数据
-                        //OCSStatus oldModel = ocsModelList.Find(s => s.carId == index);
-                        int i = ocsModelList.FindIndex(s => s.carId == index);
-                        
-                        //初始
-                        if (i == -1)
-                        {
-                            int count = OCSStatusBLL.getCountByLine(model.line);
 
-                            ocsCarPos[index] = (count - model.sequence) * ocsCarWidth + ocsStartPos;
-                            ocsModelList.Add(model);
+                        //数据库最新数据
+                        OCSStatus model = OCSStatusBLL.GetModel(index);
+
+                        if (isF)
+                        {
+                            ocsCarPos[index] = 0.01f;
+                            isF = false;
                         }
                         else
                         {
-                            //驱动段改变
-                            if (ocsModelList[i].line != model.line)
+                            if (model.position == -1)
                             {
-                                if (model.direction == 1)
-                                    ocsCarPos[index] = ocsStartPos;
+                                //内存数据
+                                //OCSStatus oldModel = ocsModelList.Find(s => s.carId == index);
+                                int i = ocsModelList.FindIndex(s => s.carId == index);
+
+                                //初始
+                                if (i == -1)
+                                {
+                                    int count = OCSStatusBLL.getCountByLine(model.line);
+
+                                    ocsCarPos[index] = (count - model.sequence) * ocsCarWidth + ocsStartPos;
+                                    ocsModelList.Add(model);
+                                }
                                 else
-                                    ocsCarPos[index] = ocsLineLength[model.line] - ocsStartPos;
+                                {
+                                    //驱动段改变
+                                    if (ocsModelList[i].line != model.line)
+                                    {
+                                        if (model.direction == 1)
+                                            ocsCarPos[index] = ocsStartPos;
+                                        else
+                                            ocsCarPos[index] = GetIdex.getOCSPathLength(model.line) - ocsStartPos;
+                                    }
+                                    else
+                                    {
+                                        if (model.direction == 1)
+                                            ocsCarPos[index] += ocsSpeed;
+                                        else if (model.direction == 2)
+                                            ocsCarPos[index] -= ocsSpeed;
+                                    }
+
+                                    ocsModelList[i] = model;
+                                }
                             }
                             else
                             {
-                                if (model.direction == 1)
-                                    ocsCarPos[index] += ocsSpeed;
-                                else if (model.direction == 2)
-                                    ocsCarPos[index] -= ocsSpeed;
+                                ocsCarPos[index] = float.Parse(model.position.ToString());
                             }
-
-                            ocsModelList[i] = model;
                         }
-                    }
-                    else
-                    {
-                        ocsCarPos[index] = float.Parse(model.position.ToString());
-                    }
-                      
-                    int index1 = GetIdex.getDicOutputIndex("ocsCar" + index + "01_input_pos");
-                    ComTCPLib.SetOutputAsREAL32(handle, index1, float.Parse(ocsCarPos[index].ToString()));
-                    index1 = GetIdex.getDicOutputIndex("ocsCar" + index + "01_input_Path");
-                    ComTCPLib.SetOutputAsINT(handle, index1, int.Parse(model.line.ToString()));
-                }
+                        
+                        //设定位置
+                        int index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Pos");
+                        ComTCPLib.SetOutputAsREAL32(handle, index1, float.Parse(ocsCarPos[index].ToString()));
 
-                Thread.Sleep(ocsThreadTime);
+                        //设定驱动段
+                        index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Path");
+                        ComTCPLib.SetOutputAsINT(handle, index1, int.Parse(model.line.Substring(1)));
+
+                        //设定区域
+                        int tmpArea = 0;
+                        if (model.line.Substring(0, 1).ToLower() == "a")
+                            tmpArea = 1;
+                        else if (model.line.Substring(0, 1).ToLower() == "b")
+                            tmpArea = 2;
+                        else if (model.line.Substring(0, 1).ToLower() == "c")
+                            tmpArea = 3;
+
+                        index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Area");
+                        ComTCPLib.SetOutputAsINT(handle, index1, tmpArea);
+
+                        //设定是否显示阀体
+                        index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Ftv");
+                        ComTCPLib.SetOutputAsINT(handle, index1, 1);
+                    }
+
+                    Thread.Sleep(ocsThreadTime);
+                }
+            }
+            catch(Exception ex)
+            {
+
             }
         }
 
@@ -715,13 +768,13 @@ namespace TestSetPosition
                                 if(model.direction == 1)
                                     agvCarPos[index] = agvStartPos;
                                 else
-                                    agvCarPos[index] = agvLineLength[model.line] - agvStartPos;
+                                    agvCarPos[index] = agvLineLength[int.Parse(model.line)] - agvStartPos;
                             }
                             else
                             {
                                 if (model.direction == 1)
                                 {
-                                    if (agvCarPos[index] < agvLineLength[model.line])
+                                    if (agvCarPos[index] < agvLineLength[int.Parse(model.line)])
                                         agvCarPos[index] += agvSpeed;
                                 }
                                 else if (model.direction == 2)
@@ -752,8 +805,7 @@ namespace TestSetPosition
         }
 
         #endregion
-
-
+        
         #region 配餐车逻辑
         //-------------------------------------------------------------------------------
         //从新设置基础数据
@@ -762,7 +814,7 @@ namespace TestSetPosition
         public void setBaseData()
         {
             dd = new DBtest();
-            this.timer5.Interval = int.Parse(System.Configuration.ConfigurationManager.AppSettings["car_interval"].ToString());
+            this.tim_PCC.Interval = int.Parse(System.Configuration.ConfigurationManager.AppSettings["car_interval"].ToString());
 
             pcccontrol2.setBaseData(this.handle);
         }
@@ -795,7 +847,7 @@ namespace TestSetPosition
             dd.testdata2();
         }
 
-        private void timer5_Tick(object sender, EventArgs e)
+        private void tim_PCC_Tick(object sender, EventArgs e)
         {
             //PCC刷新数据
             setModelData();
@@ -804,5 +856,119 @@ namespace TestSetPosition
 
         #endregion
 
+        #region 视角切换
+        
+        int videoIndex = 0;
+        private void button15_Click(object sender, EventArgs e)
+        {
+            remote.setCustomView("V_CGK");
+            videoIndex = 0;
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            remote.setCustomView("V_PCC");
+            videoIndex = 2;
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            remote.setCustomView("V_RXZZ");
+            videoIndex = 0;
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            remote.setCustomView("V_MFZZ");
+            videoIndex = 0;
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            remote.setCustomView("V_ZGJG");
+            videoIndex = 1;
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            remote.setCustomView("V_XGL");
+            videoIndex = 0;
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            remote.setCustomView("V_ALL");
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            remote.lookFromTop();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            remote.lookFromBottom();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            remote.lookFromBack();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            remote.lookFromFront();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            remote.lookFromRight();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            remote.lookFromLeft();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            remote.lookFromIsometry();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            remote.panUp(0.2f);
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            remote.panDown(0.2f);
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            remote.panLeft(0.2f);
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            remote.panRight(0.2f);
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            remote.zoomOut(0.2f);
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            remote.zoomIn(0.2f);
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            remote.resetZoom();
+        }
+        #endregion
     }
 }

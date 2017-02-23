@@ -14,10 +14,10 @@ namespace WZYB.Model
     {
         #region Model
         private int _carid;
-        private int _line;
+        private string _line;
         private int _direction;
         private int _sequence;
-        private int _backline;
+        private string _backline;
         private decimal? _position;
         /// <summary>
         /// 车辆ID
@@ -30,7 +30,7 @@ namespace WZYB.Model
         /// <summary>
         /// 所在驱动段
         /// </summary>
-        public int line
+        public string line
         {
             set { _line = value; }
             get { return _line; }
@@ -54,7 +54,7 @@ namespace WZYB.Model
         /// <summary>
         /// 上一条驱动段
         /// </summary>
-        public int backLine
+        public string backLine
         {
             set { _backline = value; }
             get { return _backline; }
