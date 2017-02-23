@@ -340,7 +340,10 @@ namespace IPhysics
         {
             sendData("view3D.setBackground('" + color + "')");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
         public void setCustomView(String name)
         {
             sendData("view3D.setCustomView('" + name + "')");
