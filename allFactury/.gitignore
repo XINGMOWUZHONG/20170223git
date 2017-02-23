@@ -22,8 +22,7 @@ $RECYCLE.BIN/
 *.config
 *.iphz
 *.cache
-*.sln
-*.suo
+
 *Debug
 *Release
 
