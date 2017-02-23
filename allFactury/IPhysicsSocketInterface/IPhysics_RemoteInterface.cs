@@ -343,7 +343,7 @@ namespace IPhysics
 
         public void setCustomView(String name)
         {
-            sendData("setCustomView('" + name + "')");
+            sendData("view3D.setCustomView('" + name + "')");
         }
     }
 }
