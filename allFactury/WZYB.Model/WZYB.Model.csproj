@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CGKddj.cs" />
+    <Compile Include="CGKcar.cs" />
+    <Compile Include="CGKpellert.cs" />
     <Compile Include="AGVStatus.cs" />
     <Compile Include="OCSStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

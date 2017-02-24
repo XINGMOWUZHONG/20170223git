@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CGKDAL.cs" />
     <Compile Include="AGVStatusDAL.cs" />
     <Compile Include="OCSStatusDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComTCPLib.cs" />
+    <Compile Include="ControlLk.cs" />
     <Compile Include="ControlPcc.cs" />
     <Compile Include="DBtest.cs" />
     <Compile Include="GetIdex.cs" />
@@ -103,6 +104,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FactoryHubInterface.DBUtility\WZYB.DBUtility.csproj">
+      <Project>{7e139430-6b5a-4bf9-a7a1-b3e672654ffe}</Project>
+      <Name>WZYB.DBUtility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IPhysicsSocketInterface\IPhysics_SocketInterface.csproj">
       <Project>{dfd63cc0-7b92-4248-ba6d-eaa44feb7185}</Project>
       <Name>IPhysics_SocketInterface</Name>
