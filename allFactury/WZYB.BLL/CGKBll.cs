@@ -12,7 +12,7 @@ namespace WZYB.BLL
     /// <summary>
     /// 业务逻辑类AGVStatusBLL 的摘要说明。
     /// </summary>
-    public class CGK
+    public class CGKBll
     {
         #region  成员方法
         public static string CGK_pallert = System.Configuration.ConfigurationManager .AppSettings [ "LKtable_pallert"].ToString ();

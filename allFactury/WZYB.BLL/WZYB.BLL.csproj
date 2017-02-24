@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CGK.cs" />
+    <Compile Include="RackBll.cs" />
+    <Compile Include="CGKBll.cs" />
     <Compile Include="AGVStatusBLL.cs" />
     <Compile Include="OCSStatusBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
