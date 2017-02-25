@@ -40,7 +40,7 @@ namespace WZYB.BLL
         {
             try
             {
-                DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_csc);
+                DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_ddj);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     return DataTableToCGKddj(ds.Tables[0])[0];
@@ -56,7 +56,7 @@ namespace WZYB.BLL
         {
             try
             {
-                DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_csc);
+                DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_pallert);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     return DataTableToCGKpellert(ds.Tables[0])[0];
@@ -73,7 +73,7 @@ namespace WZYB.BLL
         {
             try
             {
-                DataSet ds = CGKDAL.getDatasetByTable(CGK_csc);
+                DataSet ds = CGKDAL.getDatasetByTable(CGK_pallert);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     return DataTableToCGKpellert(ds.Tables[0]);
