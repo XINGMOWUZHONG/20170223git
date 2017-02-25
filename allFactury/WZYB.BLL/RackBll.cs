@@ -15,37 +15,58 @@ namespace WZYB.BLL
     public class RackBll
     {
         #region  成员方法
-      
-       
+
+
         public static Rack GetRackModelByid(int id)
         {
-            DataSet ds = RackDAL.getRackDatasetById(id);
-            if(ds!=null )
+            try
             {
-                return DataTableToRack(ds.Tables[0])[0];
+                DataSet ds = RackDAL.getRackDatasetById(id);
+                if (ds != null)
+                {
+                    return DataTableToRack(ds.Tables[0])[0];
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public static Rack GetRackModelByCoordinate(int x,int y,int z,int type)
+        public static Rack GetRackModelByCoordinate(int x, int y, int z, int type)
         {
-            DataSet ds = RackDAL.getRackDatasetByCoordinate(x,y,z,type);
-            if (ds != null)
+            try
             {
-                return DataTableToRack(ds.Tables[0])[0];
+                DataSet ds = RackDAL.getRackDatasetByCoordinate(x, y, z, type);
+                if (ds != null)
+                {
+                    return DataTableToRack(ds.Tables[0])[0];
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 
         public static List<Rack> GetRackAll()
         {
-            DataSet ds = RackDAL.getRackDatasetAll();
-            if (ds != null)
+            try
             {
-                return DataTableToRack(ds.Tables[0]);
+                DataSet ds = RackDAL.getRackDatasetAll();
+                if (ds != null)
+                {
+                    return DataTableToRack(ds.Tables[0]);
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static List<Rack> DataTableToRack(DataTable dt)
@@ -86,14 +107,14 @@ namespace WZYB.BLL
                     {
                         model.Rack_state = int.Parse(dt.Rows[n]["state"].ToString());
                     }
-                   
+
                     modelList.Add(model);
                 }
             }
             return modelList;
         }
 
-     
+
         #endregion
 
     }

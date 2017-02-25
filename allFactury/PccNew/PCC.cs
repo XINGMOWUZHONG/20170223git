@@ -157,6 +157,11 @@ namespace PccNew
             timer1.Enabled = true;
             timer2.Enabled = true;
             timer3.Enabled = true;
+
+            //20170225 add --------------
+            LKcontrol.IsStart = true;
+            Storagecontrol.IsStart = true;
+            startThreadAll();
         }
 
         //停止运行
@@ -168,6 +173,9 @@ namespace PccNew
             timer1.Enabled = false;
             timer2.Enabled = false;
             timer3.Enabled = false;
+
+            //20170225 add ---------
+            StopThreadAll();
         }
 
         //暂停
@@ -177,6 +185,8 @@ namespace PccNew
             timer1.Enabled = false;
             timer2.Enabled = false;
             timer3.Enabled = false;
+            //20170225 add ---------
+            LKcontrol.IsStart = false;
         }
 
         //继续
@@ -314,26 +324,10 @@ namespace PccNew
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //20170225 add ---------
         #region 20170225 new jicheng----------------------------------------------------------
         public ControlLk LKcontrol = new ControlLk();
         public ControlStorage Storagecontrol = new ControlStorage();
-        public bool IsStart = false;
 
         public void startThreadAll()
         {

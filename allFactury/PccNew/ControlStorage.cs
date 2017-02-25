@@ -17,18 +17,25 @@ namespace PccNew
 
         public void StorageThreadFunc(object o)
         {
-            Storage.General g = o as Storage.General;
-            while (true)
+            try
             {
-                if (IsStart)
+                Storage.General g = o as Storage.General;
+                while (true)
                 {
-                    List<Rack> allRack = RackBll.GetRackAll();
-                    foreach (Rack r in allRack )
+                    if (IsStart)
                     {
-                        g.Change(r.Rack_z, r.Rack_colum ,r.Rack_row ,r.Rack_state,r.Rack_id);
+                        List<Rack> allRack = RackBll.GetRackAll();
+                        foreach (Rack r in allRack)
+                        {
+                            g.Change(r.Rack_z, r.Rack_colum, r.Rack_row, r.Rack_state, r.Rack_id);
+                        }
                     }
+                    Thread.Sleep(sleepTime);
                 }
-                Thread.Sleep(sleepTime);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
         }

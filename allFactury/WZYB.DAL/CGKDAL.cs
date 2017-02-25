@@ -19,18 +19,32 @@ namespace WZYB.DAL
         /// </summary>
         public static DataSet getDatasetByIdAndTable(int id, string table)
         {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * from "+table+" where id ="+id.ToString ());
-            return DbHelperSQL.Query(strSql.ToString());
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("select * from " + table + " where id =" + id.ToString());
+                return DbHelperSQL.Query(strSql.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public static DataSet getDatasetByTable( string table)
+        public static DataSet getDatasetByTable(string table)
         {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * from " + table + "");
-            return DbHelperSQL.Query(strSql.ToString());
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("select * from " + table + "");
+                return DbHelperSQL.Query(strSql.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        
+
     }
 }

@@ -19,20 +19,27 @@ namespace PccNew
 
         public void PallertThreadFunc(object o)
         {
-            int[] xmlIndex = getPallertXmlIndex();
-            while (true)
+            try
             {
-                if(IsStart )
+                int[] xmlIndex = getPallertXmlIndex();
+                while (true)
                 {
-                    List<CGKpellert> listPallert = CGKBll.GetCGKpellertModelAll();
-                    setPallertData(listPallert, xmlIndex);
+                    if (IsStart)
+                    {
+                        List<CGKpellert> listPallert = CGKBll.GetCGKpellertModelAll();
+                        setPallertData(listPallert, xmlIndex);
+                    }
+                    Thread.Sleep(sleepTime);
                 }
-                Thread.Sleep(sleepTime);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
         }
 
-        private void setPallertData( List<CGKpellert> o, int[] xmlIndex)
+        private void setPallertData(List<CGKpellert> o, int[] xmlIndex)
         {
             foreach (CGKpellert pallert in o)
             {
@@ -43,18 +50,18 @@ namespace PccNew
         //i （1-50）
         private int[] getPallertXmlIndex()
         {
-            string str ="";
-            int [] arr = new int [50];
+            string str = "";
+            int[] arr = new int[50];
             int m;
-            for (int i = 1; i < 51;i++ )
+            for (int i = 1; i < 51; i++)
             {
-                if(i<11)
+                if (i < 11)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE"+i.ToString ();
+                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE" + i.ToString();
                 }
                 else if (i < 17)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE" + i.ToString()+"02";
+                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE" + i.ToString() + "02";
                 }
                 else if (i < 23)
                 {
@@ -62,11 +69,11 @@ namespace PccNew
                 }
                 else if (i < 33)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString() ;
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString();
                 }
                 else if (i < 39)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString()+"02";
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString() + "02";
                 }
                 else if (i < 45)
                 {
@@ -89,26 +96,33 @@ namespace PccNew
 
         public void DDJThreadFunc(object o)
         {
-            CGKddj lastDdj = null;
-            int DdjId = Convert.ToInt16(o);
-            int[] DDJXmlIndex = getDdjXmlIndex(DdjId);
-            while (true)
+            try
             {
-                if (IsStart)
+                CGKddj lastDdj = null;
+                int DdjId = Convert.ToInt16(o);
+                int[] DDJXmlIndex = getDdjXmlIndex(DdjId);
+                while (true)
                 {
-                    CGKddj thisDdj = CGKBll.GetCGKddjModel(DdjId);
-                    if (thisDdj!= null)
+                    if (IsStart)
                     {
-                        setDdjData(lastDdj, thisDdj, DDJXmlIndex);
-                        lastDdj = thisDdj;
+                        CGKddj thisDdj = CGKBll.GetCGKddjModel(DdjId);
+                        if (thisDdj != null)
+                        {
+                            setDdjData(lastDdj, thisDdj, DDJXmlIndex);
+                            lastDdj = thisDdj;
+                        }
                     }
+                    Thread.Sleep(sleepTime);
                 }
-                Thread.Sleep(sleepTime);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
         }
 
-        private void setDdjData(CGKddj lastddj,CGKddj thisddj, int[] xmlIndex)
+        private void setDdjData(CGKddj lastddj, CGKddj thisddj, int[] xmlIndex)
         {
             int DDJXmlIndex_state = xmlIndex[0];
             int DDJXmlIndex_tgt = xmlIndex[1];
@@ -117,7 +131,7 @@ namespace PccNew
             int DDJXmlIndex_platformtgt = xmlIndex[4];
             int DDJXmlIndex_pallertstate = xmlIndex[5];
 
-           
+
 
             if (lastddj == null)
             {
@@ -129,7 +143,7 @@ namespace PccNew
                 {
                     ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_source, thisddj.CGKddj_source);
                 }
-                ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_state,UInt16.Parse ( thisddj.CGKddj_state.ToString ()));
+                ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_state, UInt16.Parse(thisddj.CGKddj_state.ToString()));
                 ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_tgt, thisddj.CGKddj_tgt);
                 ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_forktgt, thisddj.CGKddj_forktgt);
                 ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_platformtgt, thisddj.CGKddj_platformtgt);
@@ -144,26 +158,26 @@ namespace PccNew
                 else
                 {
                     if (thisddj.CGKddj_source != lastddj.CGKddj_source)
-                    ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_source, thisddj.CGKddj_source);
+                        ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_source, thisddj.CGKddj_source);
                 }
                 if (thisddj.CGKddj_state != lastddj.CGKddj_state)
                     ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_state, UInt16.Parse(thisddj.CGKddj_state.ToString()));
                 if (thisddj.CGKddj_tgt != lastddj.CGKddj_tgt)
-                ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_tgt, thisddj.CGKddj_tgt);
+                    ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_tgt, thisddj.CGKddj_tgt);
                 if (thisddj.CGKddj_forktgt != lastddj.CGKddj_forktgt)
-                ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_forktgt, thisddj.CGKddj_forktgt);
+                    ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_forktgt, thisddj.CGKddj_forktgt);
                 if (thisddj.CGKddj_platformtgt != lastddj.CGKddj_platformtgt)
-                ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_platformtgt, thisddj.CGKddj_platformtgt);
+                    ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_platformtgt, thisddj.CGKddj_platformtgt);
                 if (thisddj.CGKddj_pallertstate != lastddj.CGKddj_pallertstate)
                     ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_pallertstate, UInt16.Parse(thisddj.CGKddj_pallertstate.ToString()));
             }
-            
+
         }
         // i (1 - 3)
         private int[] getDdjXmlIndex(int i)
         {
             int[] index = new int[6];
-            index[0] = GetIdex.getDicOutputIndex("TCP_ATTRIBUTE01_IN_DDJ"+i.ToString ()+"_DDJ_STATE");
+            index[0] = GetIdex.getDicOutputIndex("TCP_ATTRIBUTE01_IN_DDJ" + i.ToString() + "_DDJ_STATE");
             index[1] = GetIdex.getDicOutputIndex("TCP_ATTRIBUTE01_IN_DDJ" + i.ToString() + "_DDJ_CARTGT");
             index[2] = GetIdex.getDicOutputIndex("TCP_ATTRIBUTE01_IN_DDJ" + i.ToString() + "_DDJ_CARORI");
             index[3] = GetIdex.getDicOutputIndex("TCP_ATTRIBUTE01_IN_DDJ" + i.ToString() + "_DDJ_FORK_TGT");
@@ -180,21 +194,28 @@ namespace PccNew
 
         public void CarThreadFunc(object o)
         {
-            CGKcar lastCar = null;
-            int CarId = Convert.ToInt16(o);
-            int[] CarXmlIndex = getCarXmlIndex(CarId);
-            while (true)
+            try
             {
-                if (IsStart)
+                CGKcar lastCar = null;
+                int CarId = Convert.ToInt16(o);
+                int[] CarXmlIndex = getCarXmlIndex(CarId);
+                while (true)
                 {
-                    CGKcar thisCar = CGKBll.GetCGKcarModel(CarId);
-                    if (thisCar != null)
+                    if (IsStart)
                     {
-                        setCarData(lastCar, thisCar, CarXmlIndex);
-                        lastCar = thisCar;
+                        CGKcar thisCar = CGKBll.GetCGKcarModel(CarId);
+                        if (thisCar != null)
+                        {
+                            setCarData(lastCar, thisCar, CarXmlIndex);
+                            lastCar = thisCar;
+                        }
                     }
+                    Thread.Sleep(sleepTime);
                 }
-                Thread.Sleep(sleepTime);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
         }
@@ -215,9 +236,9 @@ namespace PccNew
                 {
                     ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_source);
                 }
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state,UInt16.Parse ( thisData.CGKcar_state.ToString ()));
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, UInt16.Parse(thisData.CGKcar_state.ToString()));
                 ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt);
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse (thisData.CGKcar_pallertstate.ToString ()));
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_pallertstate.ToString()));
             }
             else if (!thisData.Equals(lastData))
             {
@@ -228,31 +249,31 @@ namespace PccNew
                 else
                 {
                     if (thisData.CGKcar_source != lastData.CGKcar_source)
-                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_source);
+                        ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_source);
                 }
                 if (thisData.CGKcar_state != lastData.CGKcar_state)
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, UInt16.Parse ( thisData.CGKcar_state.ToString ()));
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, UInt16.Parse(thisData.CGKcar_state.ToString()));
                 if (thisData.CGKcar_tgt != lastData.CGKcar_tgt)
                     ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt);
                 if (thisData.CGKcar_pallertstate != lastData.CGKcar_pallertstate)
                     ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_pallertstate.ToString()));
-               
+
             }
 
         }
         //i (1 2)
         private int[] getCarXmlIndex(int i)
         {
-            string str="";
-            if(i == 1)
+            string str = "";
+            if (i == 1)
             {
-                str ="RUKU";
+                str = "RUKU";
             }
-            else if(i == 2)
+            else if (i == 2)
             {
-                str ="CHUKU";
+                str = "CHUKU";
             }
-            int [] index = new int [4];
+            int[] index = new int[4];
             index[0] = GetIdex.getDicOutputIndex("TCP_ATTRIBUTE01_IN_" + str + "_STATE");
             index[1] = GetIdex.getDicOutputIndex("TCP_ATTRIBUTE01_IN_" + str + "_TGT");
             index[2] = GetIdex.getDicOutputIndex("TCP_ATTRIBUTE01_IN_" + str + "_ORI");

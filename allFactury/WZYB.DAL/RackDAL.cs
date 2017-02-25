@@ -14,31 +14,52 @@ namespace WZYB.DAL
     /// </summary>
     public class RackDAL
     {
-        
+
         /// <summary>
         /// 获得前几行数据
         /// </summary>
         public static DataSet getRackDatasetById(int id)
         {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString () + " where id =" + id.ToString());
-            return DbHelperSQL.Query(strSql.ToString());
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + " where id =" + id.ToString());
+                return DbHelperSQL.Query(strSql.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public static DataSet getRackDatasetByCoordinate(int x, int y,int z,int type)
+        public static DataSet getRackDatasetByCoordinate(int x, int y, int z, int type)
         {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + " where colum="+x.ToString ()+" and row ="+y.ToString ()+" and rack_z ="+z.ToString ()+" and racktype="+type .ToString ()+"");
-            return DbHelperSQL.Query(strSql.ToString());
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + " where colum=" + x.ToString() + " and row =" + y.ToString() + " and rack_z =" + z.ToString() + " and racktype=" + type.ToString() + "");
+                return DbHelperSQL.Query(strSql.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static DataSet getRackDatasetAll()
         {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() );
-            return DbHelperSQL.Query(strSql.ToString());
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString());
+                return DbHelperSQL.Query(strSql.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        
+
     }
 }
