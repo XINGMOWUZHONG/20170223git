@@ -64,27 +64,27 @@ namespace PccNew
                 }
                 else if (i < 17)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE" + i.ToString() + "02";
+                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE" + (i-10).ToString() + "02";
                 }
                 else if (i < 23)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE" + i.ToString() + "03";
+                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE" + (i - 16).ToString() + "03";
                 }
                 else if (i < 33)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString();
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + (i - 22).ToString();
                 }
                 else if (i < 39)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString() + "02";
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + (i - 32).ToString() + "02";
                 }
                 else if (i < 45)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString() + "03";
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + (i - 38).ToString() + "03";
                 }
                 else if (i < 51)
                 {
-                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString() + "04";
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + (i - 44).ToString() + "04";
                 }
                 m = GetIdex.getDicOutputIndex(str);
                 arr[i - 1] = m;
