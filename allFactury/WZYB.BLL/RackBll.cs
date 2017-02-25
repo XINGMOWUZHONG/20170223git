@@ -22,7 +22,7 @@ namespace WZYB.BLL
             try
             {
                 DataSet ds = RackDAL.getRackDatasetById(id);
-                if (ds != null)
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     return DataTableToRack(ds.Tables[0])[0];
                 }
@@ -39,7 +39,7 @@ namespace WZYB.BLL
             try
             {
                 DataSet ds = RackDAL.getRackDatasetByCoordinate(x, y, z, type);
-                if (ds != null)
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     return DataTableToRack(ds.Tables[0])[0];
                 }
@@ -57,7 +57,7 @@ namespace WZYB.BLL
             try
             {
                 DataSet ds = RackDAL.getRackDatasetAll();
-                if (ds != null)
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     return DataTableToRack(ds.Tables[0]);
                 }
