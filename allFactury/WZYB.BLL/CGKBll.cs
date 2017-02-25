@@ -15,47 +15,75 @@ namespace WZYB.BLL
     public class CGKBll
     {
         public static string CGK_pallert = System.Configuration.ConfigurationManager.AppSettings["LKtable_pallert"].ToString();
-        public static string CGK_ddj = System.Configuration.ConfigurationManager.AppSettings["LKtable_car"].ToString();
+        public static string CGK_ddj = System.Configuration.ConfigurationManager.AppSettings["LKtable_ddj"].ToString();
         public static string CGK_csc = System.Configuration.ConfigurationManager.AppSettings["LKtable_csc"].ToString();
         #region  成员方法
-        
-       
+
+
         public static CGKcar GetCGKcarModel(int id)
         {
-            DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_csc);
-            if(ds!=null )
+            try
             {
-               return DataTableToCGKcar(ds.Tables[0])[0];
+                DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_csc);
+                if (ds != null && ds.Tables.Count >0 && ds.Tables [0].Rows.Count > 0)
+                {
+                    return DataTableToCGKcar(ds.Tables[0])[0];
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         public static CGKddj GetCGKddjModel(int id)
         {
-            DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_csc);
-            if (ds != null)
+            try
             {
-                return DataTableToCGKddj(ds.Tables[0])[0];
+                DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_csc);
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    return DataTableToCGKddj(ds.Tables[0])[0];
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         public static CGKpellert GetCGKpellertModel(int id)
         {
-            DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_csc);
-            if (ds != null)
+            try
             {
-                return DataTableToCGKpellert(ds.Tables[0])[0];
+                DataSet ds = CGKDAL.getDatasetByIdAndTable(id, CGK_csc);
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    return DataTableToCGKpellert(ds.Tables[0])[0];
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static List<CGKpellert> GetCGKpellertModelAll()
         {
-            DataSet ds = CGKDAL.getDatasetByTable( CGK_csc);
-            if (ds != null)
+            try
             {
-                return DataTableToCGKpellert(ds.Tables[0]);
+                DataSet ds = CGKDAL.getDatasetByTable(CGK_csc);
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    return DataTableToCGKpellert(ds.Tables[0]);
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 
@@ -94,7 +122,7 @@ namespace WZYB.BLL
                     {
                         model.CGKcar_pallertstate = int.Parse(dt.Rows[n]["pallertstate"].ToString());
                     }
-                   
+
                     modelList.Add(model);
                 }
             }
@@ -143,7 +171,7 @@ namespace WZYB.BLL
                     {
                         model.CGKddj_platformtgt = float.Parse(dt.Rows[n]["plattgt"].ToString());
                     }
-                   
+
                     modelList.Add(model);
                 }
             }
@@ -168,14 +196,14 @@ namespace WZYB.BLL
                     {
                         model.CGKpellertstate = int.Parse(dt.Rows[n]["state"].ToString());
                     }
-                   
+
                     modelList.Add(model);
                 }
             }
             return modelList;
         }
 
-     
+
         #endregion
 
     }
