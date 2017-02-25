@@ -41,9 +41,12 @@ namespace PccNew
 
         private void setPallertData(List<CGKpellert> o, int[] xmlIndex)
         {
-            foreach (CGKpellert pallert in o)
+            if (o != null)
             {
-                ComTCPLib.SetOutputAsINT(1, xmlIndex[pallert.CGKpellertid], pallert.CGKpellertstate);
+                foreach (CGKpellert pallert in o)
+                {
+                    ComTCPLib.SetOutputAsINT(1, xmlIndex[pallert.CGKpellertid], pallert.CGKpellertstate);
+                }
             }
         }
 

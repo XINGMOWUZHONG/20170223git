@@ -25,9 +25,12 @@ namespace PccNew
                     if (IsStart)
                     {
                         List<Rack> allRack = RackBll.GetRackAll();
-                        foreach (Rack r in allRack)
+                        if (allRack != null)
                         {
-                            g.Change(r.Rack_z, r.Rack_colum, r.Rack_row, r.Rack_state, r.Rack_id);
+                            foreach (Rack r in allRack)
+                            {
+                                g.Change(r.Rack_z, r.Rack_colum, r.Rack_row, r.Rack_state, r.Rack_id);
+                            }
                         }
                     }
                     Thread.Sleep(sleepTime);

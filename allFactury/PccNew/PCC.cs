@@ -161,6 +161,7 @@ namespace PccNew
             //20170225 add --------------
             LKcontrol.IsStart = true;
             Storagecontrol.IsStart = true;
+            InitializStorage();
             startThreadAll();
         }
 
