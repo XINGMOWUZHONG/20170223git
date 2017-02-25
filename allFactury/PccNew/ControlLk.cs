@@ -40,6 +40,7 @@ namespace PccNew
             }
         }
 
+        //i （1-50）
         private int[] getPallertXmlIndex()
         {
             string str ="";
