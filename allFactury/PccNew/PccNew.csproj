@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComTCPLib.cs" />
+    <Compile Include="ControlStorage.cs" />
     <Compile Include="ControlLk.cs" />
     <Compile Include="ControlPcc.cs" />
     <Compile Include="DBtest.cs" />
@@ -115,6 +116,18 @@
     <ProjectReference Include="..\Storage\Storage.csproj">
       <Project>{95eefb5a-3ec8-4ff2-9863-fe8df042bd6e}</Project>
       <Name>Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WZYB.BLL\WZYB.BLL.csproj">
+      <Project>{2bbd41be-1c10-4e2c-90f3-966eed71ef50}</Project>
+      <Name>WZYB.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WZYB.DAL\WZYB.DAL.csproj">
+      <Project>{7d270bac-f1d9-4501-959e-b03ab4c46681}</Project>
+      <Name>WZYB.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WZYB.Model\WZYB.Model.csproj">
+      <Project>{8d97a5af-62a3-4997-8b86-ef5861230d3d}</Project>
+      <Name>WZYB.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

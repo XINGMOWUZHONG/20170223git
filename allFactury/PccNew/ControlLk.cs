@@ -13,38 +13,73 @@ namespace PccNew
     {
         public int sleepTime = int.Parse(System.Configuration.ConfigurationManager.AppSettings["car_interval"].ToString());
         public bool IsStart = false;
+
+        //数据库只记录变化数据
         #region 托盘处理逻辑
        
         private void PallertThreadFunc(object o)
         {
-            CGKpellert lastPallert = null;
-            int PallertId= Convert.ToInt16 (o);
-            int PallertXmlIndex = getPallertXmlIndex(PallertId);
+            int[] xmlIndex = getPallertXmlIndex();
             while (true)
             {
                 if(IsStart )
                 {
-                    CGKpellert thisPallert = CGKBll.GetCGKpellertModel(PallertId);
-                    if ((thisPallert != null) &&( lastPallert == null || lastPallert.CGKpellertstate != thisPallert.CGKpellertstate))
-                    {
-                        lastPallert = thisPallert;
-                        setPallertData(thisPallert, PallertXmlIndex);
-                    }
+                    List<CGKpellert> listPallert = CGKBll.GetCGKpellertModelAll();
+                    setPallertData(listPallert, xmlIndex);
                 }
                 Thread.Sleep(sleepTime);
             }
 
         }
 
-        private void setPallertData( CGKpellert o, int xmlIndex)
+        private void setPallertData( List<CGKpellert> o, int[] xmlIndex)
         {
-            ComTCPLib.SetOutputAsINT(1, xmlIndex, o.CGKpellertstate);
+            foreach (CGKpellert pallert in o)
+            {
+                ComTCPLib.SetOutputAsINT(1, xmlIndex[pallert.CGKpellertid], pallert.CGKpellertstate);
+            }
         }
 
-        private int getPallertXmlIndex(int i)
+        private int[] getPallertXmlIndex()
         {
-            //GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Pos");
-            return 0;
+            string str ="";
+            int [] arr = new int [50];
+            int m;
+            for (int i = 1; i < 51;i++ )
+            {
+                if(i<11)
+                {
+                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE"+i.ToString ();
+                }
+                else if (i < 17)
+                {
+                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE" + i.ToString()+"02";
+                }
+                else if (i < 23)
+                {
+                    str = "TCP_ATTRIBUTE01_IN_RK_INSTATE" + i.ToString() + "03";
+                }
+                else if (i < 33)
+                {
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString() ;
+                }
+                else if (i < 39)
+                {
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString()+"02";
+                }
+                else if (i < 45)
+                {
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString() + "03";
+                }
+                else if (i < 51)
+                {
+                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + i.ToString() + "04";
+                }
+                m = GetIdex.getDicOutputIndex(str);
+                arr[i - 1] = m;
+            }
+
+            return arr;
         }
         #endregion
 
@@ -204,15 +239,15 @@ namespace PccNew
             }
 
         }
-        //i (0 1)
+        //i (1 2)
         private int[] getCarXmlIndex(int i)
         {
             string str="";
-            if(i == 0)
+            if(i == 1)
             {
                 str ="RUKU";
             }
-            else if(i == 1)
+            else if(i == 2)
             {
                 str ="CHUKU";
             }

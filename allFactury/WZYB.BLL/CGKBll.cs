@@ -14,10 +14,11 @@ namespace WZYB.BLL
     /// </summary>
     public class CGKBll
     {
-        #region  成员方法
-        public static string CGK_pallert = System.Configuration.ConfigurationManager .AppSettings [ "LKtable_pallert"].ToString ();
-        public static string CGK_ddj =  System.Configuration.ConfigurationManager .AppSettings ["LKtable_car"].ToString ();
+        public static string CGK_pallert = System.Configuration.ConfigurationManager.AppSettings["LKtable_pallert"].ToString();
+        public static string CGK_ddj = System.Configuration.ConfigurationManager.AppSettings["LKtable_car"].ToString();
         public static string CGK_csc = System.Configuration.ConfigurationManager.AppSettings["LKtable_csc"].ToString();
+        #region  成员方法
+        
        
         public static CGKcar GetCGKcarModel(int id)
         {
@@ -43,6 +44,16 @@ namespace WZYB.BLL
             if (ds != null)
             {
                 return DataTableToCGKpellert(ds.Tables[0])[0];
+            }
+            return null;
+        }
+
+        public static List<CGKpellert> GetCGKpellertModelAll()
+        {
+            DataSet ds = CGKDAL.getDatasetByTable( CGK_csc);
+            if (ds != null)
+            {
+                return DataTableToCGKpellert(ds.Tables[0]);
             }
             return null;
         }
@@ -151,7 +162,7 @@ namespace WZYB.BLL
                     model = new CGKpellert();
                     if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.CGKpellertid = int.Parse(dt.Rows[n]["CGKpellertid"].ToString());
+                        model.CGKpellertid = int.Parse(dt.Rows[n]["id"].ToString());
                     }
                     if (dt.Rows[n]["state"].ToString() != "")
                     {

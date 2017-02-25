@@ -24,6 +24,13 @@ namespace WZYB.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
 
+        public static DataSet getDatasetByTable( string table)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * from " + table + "");
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
         
     }
 }
