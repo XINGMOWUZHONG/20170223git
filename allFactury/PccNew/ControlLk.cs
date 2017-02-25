@@ -16,8 +16,8 @@ namespace PccNew
 
         //数据库只记录变化数据
         #region 托盘处理逻辑
-       
-        private void PallertThreadFunc(object o)
+
+        public void PallertThreadFunc(object o)
         {
             int[] xmlIndex = getPallertXmlIndex();
             while (true)
@@ -87,7 +87,7 @@ namespace PccNew
 
         #region 堆垛机处理逻辑
 
-        private void DDJThreadFunc(object o)
+        public void DDJThreadFunc(object o)
         {
             CGKddj lastDdj = null;
             int DdjId = Convert.ToInt16(o);
@@ -178,7 +178,7 @@ namespace PccNew
 
         #region 穿梭车处理逻辑
 
-        private void CarThreadFunc(object o)
+        public void CarThreadFunc(object o)
         {
             CGKcar lastCar = null;
             int CarId = Convert.ToInt16(o);

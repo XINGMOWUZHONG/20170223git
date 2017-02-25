@@ -15,7 +15,7 @@ namespace PccNew
         public bool IsStart = false;
         #region 托盘处理逻辑
 
-        private void StorageThreadFunc(object o)
+        public void StorageThreadFunc(object o)
         {
             Storage.General g = o as Storage.General;
             while (true)

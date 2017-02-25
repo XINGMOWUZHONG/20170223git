@@ -316,7 +316,52 @@ namespace PccNew
 
 
 
-        //storage 货位处理
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #region 20170225 new jicheng----------------------------------------------------------
+        public ControlLk LKcontrol = new ControlLk();
+        public ControlStorage Storagecontrol = new ControlStorage();
+        public bool IsStart = false;
+
+        public void startThreadAll()
+        {
+            StartThreadNewLikuDDJ();
+            StartThreadNewLikuCsc();
+            StartThreadNewLikuPallert();
+            StartThreadStorage();
+        }
+
+        public void StopThreadAll()
+        {
+            //堆垛机结束线程
+            for (int i = 0; i < ThreadNewLikuDDJList.Length;i++ )
+            {
+                ThreadNewLikuDDJList[i].Abort();
+            }
+            //托盘结束线程
+            ThreadNewLikuPallert.Abort();
+            //穿梭车结束线程
+            for (int i = 0; i < ThreadNewLikuCscList.Length;i++ )
+            {
+                ThreadNewLikuCscList[i].Abort();
+            }
+            //货位结束线程
+            ThreaStoragePcc.Abort();
+            ThreaStorageNew.Abort();
+        }
+        //storage 货位的初始化和点击
         #region 
 
         public General Storage_PCC = null;
@@ -349,5 +394,60 @@ namespace PccNew
         }
         #endregion
 
+
+        //新立库堆垛机数据刷新处理
+        #region
+        private Thread[] ThreadNewLikuDDJList;
+        private void StartThreadNewLikuDDJ()
+        {
+            ThreadNewLikuDDJList = new Thread[3];
+            for (int i = 0; i < 3;i++ )
+            {
+                ThreadNewLikuDDJList[i] = new Thread(new ParameterizedThreadStart(LKcontrol.DDJThreadFunc));
+                ThreadNewLikuDDJList[i].Start(i+1);
+            }
+        }
+        #endregion
+
+
+        //托盘的线程操作
+        #region
+        private Thread ThreadNewLikuPallert;
+        private void StartThreadNewLikuPallert()
+        {
+            ThreadNewLikuPallert = new Thread(new ParameterizedThreadStart(LKcontrol.PallertThreadFunc));
+            ThreadNewLikuPallert.Start();
+        }
+        #endregion
+
+
+        //穿梭车位处理
+        #region
+        private Thread[] ThreadNewLikuCscList;
+        private void StartThreadNewLikuCsc()
+        {
+            ThreadNewLikuCscList = new Thread[3];
+            for (int i = 0; i < 3; i++)
+            {
+                ThreadNewLikuCscList[i] = new Thread(new ParameterizedThreadStart(LKcontrol.CarThreadFunc));
+                ThreadNewLikuCscList[i].Start(i + 1);
+            }
+        }
+        #endregion
+
+
+        //货位线程操作
+        #region
+        private Thread ThreaStoragePcc;
+        private Thread ThreaStorageNew;
+        private void StartThreadStorage()
+        {
+            ThreaStoragePcc = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
+            ThreaStorageNew = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
+            ThreaStoragePcc.Start(Storage_PCC);
+            ThreaStorageNew.Start(Storage_NEW);
+        }
+        #endregion
+        #endregion
     }
 }

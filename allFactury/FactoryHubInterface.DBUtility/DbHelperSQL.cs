@@ -8,7 +8,7 @@ namespace WZYB.DBUtility
 {
     public class DbHelperSQL
     {
-        private static readonly string ConnString = ConfigurationSettings.AppSettings["SqlConnString"];        
+        private static readonly string ConnString = System.Configuration.ConfigurationManager.AppSettings["conn"];        
        
         /// <summary>
         /// 取得某个字段的最大值
