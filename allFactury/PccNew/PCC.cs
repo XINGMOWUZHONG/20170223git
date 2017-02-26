@@ -163,6 +163,7 @@ namespace PccNew
             //20170225 add --------------
             LKcontrol.IsStart = true;
             Storagecontrol.IsStart = true;
+            OcsControl.IsStart = true;
             //InitializStorage();
             startThreadAll();
         }
@@ -178,6 +179,9 @@ namespace PccNew
             timer3.Enabled = false;
 
             //20170225 add ---------
+            LKcontrol.IsStart = false;
+            Storagecontrol.IsStart = false;
+            OcsControl.IsStart = false;
             StopThreadAll();
         }
 
@@ -190,6 +194,8 @@ namespace PccNew
             timer3.Enabled = false;
             //20170225 add ---------
             LKcontrol.IsStart = false;
+            OcsControl.IsStart = false;
+            Storagecontrol.IsStart = false;
         }
 
         //继续
@@ -348,6 +354,7 @@ namespace PccNew
             StartThreadNewLikuCsc();
             StartThreadNewLikuPallert();
             StartThreadStorage();
+            StartThreadOcs();
         }
 
         public void StopThreadAll()
@@ -367,6 +374,7 @@ namespace PccNew
             //货位结束线程
             ThreaStoragePcc.Abort();
             ThreaStorageNew.Abort();
+            StopThreadOcs();
         }
         //storage 货位的初始化和点击
         #region 
@@ -459,6 +467,31 @@ namespace PccNew
         private void button7_Click(object sender, EventArgs e)
         {
             InitializStorage();
+        }
+        #endregion
+
+        //----------------------------------------------------------
+        //20170226  OCS add ---------
+        //----------------------------------------------------------
+        #region 20170226 new jicheng
+        private ControlOcs OcsControl = new ControlOcs();
+        private Thread[] ocsThread;
+        private void StartThreadOcs()
+        {
+            ocsThread = new Thread[OcsControl.ocsCarCount];
+            for (int i = 0; i < OcsControl.ocsCarCount; i++)
+            {
+                ocsThread[i] = new Thread(new ParameterizedThreadStart(OcsControl.OcsThreadFunc));
+                ocsThread[i].Start(i + 1);
+            }
+        }
+
+        private void StopThreadOcs()
+        {
+            for (int i = 0; i < ocsThread.Length; i++)
+            {
+                ocsThread[i].Abort();
+            }
         }
         #endregion
     }
