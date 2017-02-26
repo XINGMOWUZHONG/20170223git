@@ -144,6 +144,8 @@ namespace PccNew
             Initialization();
             loadDemo();
             remote.setCustomView("V_PCC");
+            Thread.Sleep(2000);
+            //InitializStorage();
         }
 
         //启动运行 设置基础数据
@@ -161,7 +163,7 @@ namespace PccNew
             //20170225 add --------------
             LKcontrol.IsStart = true;
             Storagecontrol.IsStart = true;
-            InitializStorage();
+            //InitializStorage();
             startThreadAll();
         }
 
@@ -242,25 +244,25 @@ namespace PccNew
                 pcccontrol2.setModelData(this.handle);
                 #region
                 //货位的处理
-                if (pcccontrol2.storageAreaState != 0)
-                {
-                    switch (pcccontrol2.storageAreaState)
-                    {
-                        case 1:
-                            Storage_PCC.Change(0, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 1, 1);
-                            break;
-                        case 2:
-                            Storage_PCC.Change(1, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 1, 1);
-                            break;
-                        case 3:
-                            Storage_PCC.Change(0, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 0, 1);
-                            break;
-                        case 4:
-                            Storage_PCC.Change(1, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 0, 1);
-                            break;
-                    }
-                    pcccontrol2.storageAreaState = 0;
-                }
+                //if (pcccontrol2.storageAreaState != 0)
+                //{
+                //    switch (pcccontrol2.storageAreaState)
+                //    {
+                //        case 1:
+                //            Storage_PCC.Change(0, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 1, 1);
+                //            break;
+                //        case 2:
+                //            Storage_PCC.Change(1, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 1, 1);
+                //            break;
+                //        case 3:
+                //            Storage_PCC.Change(0, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 0, 1);
+                //            break;
+                //        case 4:
+                //            Storage_PCC.Change(1, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 0, 1);
+                //            break;
+                //    }
+                //    pcccontrol2.storageAreaState = 0;
+                //}
                 #endregion
                 pcccontrol2.flag = true;
             }
@@ -325,8 +327,18 @@ namespace PccNew
         }
 
 
+
+
+
+
+
+
+
+
+        //----------------------------------------------------------
         //20170225 add ---------
-        #region 20170225 new jicheng----------------------------------------------------------
+        //----------------------------------------------------------
+        #region 20170225 new jicheng
         public ControlLk LKcontrol = new ControlLk();
         public ControlStorage Storagecontrol = new ControlStorage();
 
@@ -379,13 +391,13 @@ namespace PccNew
             Storage_PCC = new General();
             Storage_PCC.Initialize("StorageArea_pcc");
             Storage_PCC.connection.PlaceSelected += PCC_placeSelected;
-            Storage_PCC.FullAll();
+            //Storage_PCC.FullAll();
 
             //初始化 新库 托盘
             Storage_NEW = new General();
             Storage_NEW.Initialize("StorageArea_new");
             Storage_NEW.connection.PlaceSelected += NEW_placeSelected;
-            Storage_NEW.FullAll();
+            //Storage_NEW.FullAll();
         }
         #endregion
 
@@ -443,6 +455,11 @@ namespace PccNew
             ThreaStorageNew.Start(Storage_NEW);
         }
         #endregion
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            InitializStorage();
+        }
         #endregion
     }
 }
