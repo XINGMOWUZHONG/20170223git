@@ -375,6 +375,8 @@ namespace PccNew
             ThreaStoragePcc.Abort();
             ThreaStorageNew.Abort();
             StopThreadOcs();
+
+            ThreadOcsLift.Abort();
         }
         //storage 货位的初始化和点击
         #region 
@@ -399,13 +401,13 @@ namespace PccNew
             Storage_PCC = new General();
             Storage_PCC.Initialize("StorageArea_pcc");
             Storage_PCC.connection.PlaceSelected += PCC_placeSelected;
-            //Storage_PCC.FullAll();
+            Storage_PCC.FullAll();
 
             //初始化 新库 托盘
             Storage_NEW = new General();
             Storage_NEW.Initialize("StorageArea_new");
             Storage_NEW.connection.PlaceSelected += NEW_placeSelected;
-            //Storage_NEW.FullAll();
+            Storage_NEW.FullAll();
         }
         #endregion
 
@@ -464,10 +466,7 @@ namespace PccNew
         }
         #endregion
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            InitializStorage();
-        }
+       
         #endregion
 
         //----------------------------------------------------------
@@ -494,5 +493,22 @@ namespace PccNew
             }
         }
         #endregion
+
+        //托盘的线程操作
+        #region
+        private Thread ThreadOcsLift;
+        public ControlOcsLift OcsLiftcontrol = new ControlOcsLift();
+        private void StartThreadOcsLift()
+        {
+            ThreadOcsLift = new Thread(new ParameterizedThreadStart(OcsLiftcontrol.OcsLiftThreadFunc));
+            ThreadOcsLift.Start();
+        }
+        #endregion
+
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            InitializStorage();
+        }
     }
 }

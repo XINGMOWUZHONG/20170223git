@@ -83,29 +83,29 @@ namespace WZYB.BLL
                     {
                         model.id = int.Parse(dt.Rows[n]["id"].ToString());
                     }
-                    if (dt.Rows[n]["racktype"].ToString() != "")
-                    {
-                        model.Rack_type = int.Parse(dt.Rows[n]["racktype"].ToString());
-                    }
-                    if (dt.Rows[n]["row"].ToString() != "")
-                    {
-                        model.Rack_row = int.Parse(dt.Rows[n]["row"].ToString());
-                    }
-                    if (dt.Rows[n]["colum"].ToString() != "")
-                    {
-                        model.Rack_colum = int.Parse(dt.Rows[n]["colum"].ToString());
-                    }
-                    if (dt.Rows[n]["rack_z"].ToString() != "")
-                    {
-                        model.Rack_z = int.Parse(dt.Rows[n]["rack_z"].ToString());
-                    }
                     if (dt.Rows[n]["rackid"].ToString() != "")
                     {
-                        model.Rack_id = int.Parse(dt.Rows[n]["rackid"].ToString());
+                        model.Rack_type = int.Parse(dt.Rows[n]["rackid"].ToString());
                     }
-                    if (dt.Rows[n]["state"].ToString() != "")
+                    if (dt.Rows[n]["location_y"].ToString() != "")
                     {
-                        model.Rack_state = int.Parse(dt.Rows[n]["state"].ToString());
+                        model.Rack_row = int.Parse(dt.Rows[n]["location_y"].ToString());
+                    }
+                    if (dt.Rows[n]["location_x"].ToString() != "")
+                    {
+                        model.Rack_colum = int.Parse(dt.Rows[n]["location_x"].ToString());
+                    }
+                    if (dt.Rows[n]["location_z"].ToString() != "")
+                    {
+                        model.Rack_z = int.Parse(dt.Rows[n]["location_z"].ToString());
+                    }
+                    if (dt.Rows[n]["pallet_num"].ToString() != "")
+                    {
+                        model.Rack_id = int.Parse(dt.Rows[n]["pallet_num"].ToString());
+                    }
+                    if (dt.Rows[n]["rack_state"].ToString() != "")
+                    {
+                        model.Rack_state = int.Parse(dt.Rows[n]["rack_state"].ToString());
                     }
 
                     modelList.Add(model);

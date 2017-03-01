@@ -15,10 +15,11 @@ namespace WZYB.Model
         #region Model
         private int _CGKcar_id;
         private int _CGKcar_state;
-        private float _CGKcar_tgt;
-        private float _CGKcar_source;
-        private float _CGKcar_current;
+        private string _CGKcar_tgt;
+        private string _CGKcar_source;
+        private int _CGKcar_current;
         private int _CGKcar_pallertstate;
+        private int _CGKcar_action;
         /// <summary>
         /// 穿梭车ID
         /// </summary>
@@ -38,7 +39,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车目标
         /// </summary>
-        public float CGKcar_tgt
+        public string CGKcar_tgt
         {
             set { _CGKcar_tgt = value; }
             get { return _CGKcar_tgt; }
@@ -46,7 +47,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车原位置
         /// </summary>
-        public float CGKcar_source
+        public string CGKcar_source
         {
             set { _CGKcar_source = value; }
             get { return _CGKcar_source; }
@@ -54,7 +55,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车当前位置
         /// </summary>
-        public float CGKcar_current
+        public int CGKcar_current
         {
             set { _CGKcar_current = value; }
             get { return _CGKcar_current; }
@@ -66,6 +67,15 @@ namespace WZYB.Model
         {
             set { _CGKcar_pallertstate = value; }
             get { return _CGKcar_pallertstate; }
+        }
+
+        /// <summary>
+        /// 穿梭车 取货还是放货 0 静止 1 取货 2放货
+        /// </summary>
+        public int CGKcar_action
+        {
+            set { _CGKcar_action = value; }
+            get { return _CGKcar_action; }
         }
         #endregion Model
     }

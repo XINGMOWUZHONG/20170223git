@@ -98,31 +98,34 @@ namespace WZYB.BLL
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = new CGKcar();
-                    if (dt.Rows[n]["id"].ToString() != "")
+                    if (dt.Rows[n]["RGV_id"].ToString() != "")
                     {
-                        model.CGKcar_id = int.Parse(dt.Rows[n]["id"].ToString());
+                        model.CGKcar_id = int.Parse(dt.Rows[n]["RGV_id"].ToString());
                     }
                     if (dt.Rows[n]["state"].ToString() != "")
                     {
                         model.CGKcar_state = int.Parse(dt.Rows[n]["state"].ToString());
                     }
-                    if (dt.Rows[n]["tgt"].ToString() != "")
+                    if (dt.Rows[n]["target"].ToString() != "")
                     {
-                        model.CGKcar_tgt = float.Parse(dt.Rows[n]["tgt"].ToString());
+                        model.CGKcar_tgt = dt.Rows[n]["target"].ToString();
                     }
                     if (dt.Rows[n]["source"].ToString() != "")
                     {
-                        model.CGKcar_source = float.Parse(dt.Rows[n]["source"].ToString());
+                        model.CGKcar_source = dt.Rows[n]["source"].ToString();
                     }
                     if (dt.Rows[n]["current"].ToString() != "")
                     {
-                        model.CGKcar_current = float.Parse(dt.Rows[n]["current"].ToString());
+                        model.CGKcar_current = int.Parse(dt.Rows[n]["current"].ToString());
                     }
                     if (dt.Rows[n]["pallertstate"].ToString() != "")
                     {
                         model.CGKcar_pallertstate = int.Parse(dt.Rows[n]["pallertstate"].ToString());
                     }
-
+                    if (dt.Rows[n]["action"].ToString() != "")
+                    {
+                        model.CGKcar_action = int.Parse(dt.Rows[n]["action"].ToString());
+                    }
                     modelList.Add(model);
                 }
             }
@@ -147,9 +150,9 @@ namespace WZYB.BLL
                     {
                         model.CGKddj_state = int.Parse(dt.Rows[n]["state"].ToString());
                     }
-                    if (dt.Rows[n]["tgt"].ToString() != "")
+                    if (dt.Rows[n]["target"].ToString() != "")
                     {
-                        model.CGKddj_tgt = float.Parse(dt.Rows[n]["tgt"].ToString());
+                        model.CGKddj_tgt = float.Parse(dt.Rows[n]["target"].ToString());
                     }
                     if (dt.Rows[n]["source"].ToString() != "")
                     {
@@ -163,13 +166,13 @@ namespace WZYB.BLL
                     {
                         model.CGKddj_pallertstate = int.Parse(dt.Rows[n]["pallertstate"].ToString());
                     }
-                    if (dt.Rows[n]["forktgt"].ToString() != "")
+                    if (dt.Rows[n]["fork_tgt"].ToString() != "")
                     {
-                        model.CGKddj_forktgt = float.Parse(dt.Rows[n]["forktgt"].ToString());
+                        model.CGKddj_forktgt = float.Parse(dt.Rows[n]["fork_tgt"].ToString());
                     }
-                    if (dt.Rows[n]["plattgt"].ToString() != "")
+                    if (dt.Rows[n]["platform_tgt"].ToString() != "")
                     {
-                        model.CGKddj_platformtgt = float.Parse(dt.Rows[n]["plattgt"].ToString());
+                        model.CGKddj_platformtgt = float.Parse(dt.Rows[n]["platform_tgt"].ToString());
                     }
 
                     modelList.Add(model);
