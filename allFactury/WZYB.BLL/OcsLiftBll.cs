@@ -45,9 +45,9 @@ namespace WZYB.BLL
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = new OCSLift();
-                    if (dt.Rows[n]["LiftId"].ToString() != "")
+                    if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.LiftId = int.Parse(dt.Rows[n]["LiftId"].ToString());
+                        model.LiftId = int.Parse(dt.Rows[n]["id"].ToString());
                     }
                     if (dt.Rows[n]["LiftTopstate"].ToString() != "")
                     {

@@ -98,9 +98,9 @@ namespace WZYB.BLL
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = new CGKcar();
-                    if (dt.Rows[n]["RGV_id"].ToString() != "")
+                    if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.CGKcar_id = int.Parse(dt.Rows[n]["RGV_id"].ToString());
+                        model.CGKcar_id = int.Parse(dt.Rows[n]["id"].ToString());
                     }
                     if (dt.Rows[n]["state"].ToString() != "")
                     {
@@ -118,9 +118,9 @@ namespace WZYB.BLL
                     {
                         model.CGKcar_current = int.Parse(dt.Rows[n]["current"].ToString());
                     }
-                    if (dt.Rows[n]["pallertstate"].ToString() != "")
+                    if (dt.Rows[n]["palletstate"].ToString() != "")
                     {
-                        model.CGKcar_pallertstate = int.Parse(dt.Rows[n]["pallertstate"].ToString());
+                        model.CGKcar_pallertstate = int.Parse(dt.Rows[n]["palletstate"].ToString());
                     }
                     if (dt.Rows[n]["action"].ToString() != "")
                     {
@@ -162,9 +162,9 @@ namespace WZYB.BLL
                     {
                         model.CGKddj_current = float.Parse(dt.Rows[n]["current"].ToString());
                     }
-                    if (dt.Rows[n]["pallertstate"].ToString() != "")
+                    if (dt.Rows[n]["palletstate"].ToString() != "")
                     {
-                        model.CGKddj_pallertstate = int.Parse(dt.Rows[n]["pallertstate"].ToString());
+                        model.CGKddj_pallertstate = int.Parse(dt.Rows[n]["palletstate"].ToString());
                     }
                     if (dt.Rows[n]["fork_tgt"].ToString() != "")
                     {

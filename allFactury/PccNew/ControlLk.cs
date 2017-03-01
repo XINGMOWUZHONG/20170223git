@@ -13,7 +13,8 @@ namespace PccNew
     {
         public int sleepTime = int.Parse(System.Configuration.ConfigurationManager.AppSettings["car_interval"].ToString());
         public bool IsStart = false;
-
+        //立库库前库后输送机坐标的单位长度
+        public float unitLength = 1.1f;
         //数据库只记录变化数据
         #region 托盘处理逻辑
 
@@ -229,40 +230,90 @@ namespace PccNew
             int CarXmlIndex_tgt = xmlIndex[1];
             int CarXmlIndex_source = xmlIndex[2];
             int CarXmlIndex_pallertstate = xmlIndex[3];
+            lastData = setOutModel(lastData);
+            thisData = setOutModel(thisData);
+
             if (lastData == null)
             {
-                if (thisData.CGKcar_current == thisData.CGKcar_tgt)
+                if (thisData.CGKcar_current_out == thisData.CGKcar_tgt_out_x)
                 {
-                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_tgt);
+                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_tgt_out_x);
                 }
                 else
                 {
-                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_source);
+                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_source_out);
                 }
                 ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, UInt16.Parse(thisData.CGKcar_state.ToString()));
-                ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt);
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_pallertstate.ToString()));
+                ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt_out_x);
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_state_out.ToString()));
             }
-            else if (!thisData.Equals(lastData))
+            if (!thisData.Equals(lastData))
             {
-                if (thisData.CGKcar_current == thisData.CGKcar_tgt)
+                if (thisData.CGKcar_current_out == thisData.CGKcar_tgt_out_x)
                 {
-                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_tgt);
+                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_tgt_out_x);
                 }
                 else
                 {
                     if (thisData.CGKcar_source != lastData.CGKcar_source)
-                        ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_source);
+                        ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_source_out);
                 }
                 if (thisData.CGKcar_state != lastData.CGKcar_state)
                     ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, UInt16.Parse(thisData.CGKcar_state.ToString()));
-                if (thisData.CGKcar_tgt != lastData.CGKcar_tgt)
-                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt);
+                if (thisData.CGKcar_tgt_out_x != lastData.CGKcar_tgt_out_x)
+                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt_out_x);
                 if (thisData.CGKcar_pallertstate != lastData.CGKcar_pallertstate)
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_pallertstate.ToString()));
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_state_out.ToString()));
 
             }
 
+        }
+
+        private CGKcar setOutModel(CGKcar model)
+        {
+            if(model == null)
+            {
+                return null;
+            }
+            model.CGKcar_tgt_out_x = int.Parse(model.CGKcar_tgt.Split(',')[0].ToString()) * unitLength;
+            model.CGKcar_tgt_out_z = int.Parse(model.CGKcar_tgt.Split(',')[1].ToString()) % 2;
+            model.CGKcar_source_out = int.Parse(model.CGKcar_source.Split(',')[0].ToString()) * unitLength;
+            model.CGKcar_current_out = model.CGKcar_current * 0.001f;
+
+            if (model.CGKcar_id == 2)
+            {
+                if (model.CGKcar_tgt_out_z == 1)
+                {
+                    if (model.CGKcar_pallertstate == 0)
+                    {
+                        model.CGKcar_state_out = 3;
+                    }
+                    else if (model.CGKcar_pallertstate == 1)
+                    {
+                        model.CGKcar_state_out = 2;
+                    }
+                }
+                else if (model.CGKcar_tgt_out_z == 0)
+                {
+                    if (model.CGKcar_pallertstate == 0)
+                    {
+                        model.CGKcar_state_out = 5;
+                    }
+                    else if (model.CGKcar_pallertstate == 1)
+                    {
+                        model.CGKcar_state_out = 4;
+                    }
+                }
+                else
+                {
+                    model.CGKcar_state_out = model.CGKcar_pallertstate;
+                }
+            }
+            else
+            {
+                model.CGKcar_state_out = model.CGKcar_pallertstate;
+            }
+            return model;
         }
         //i (1 2)
         private int[] getCarXmlIndex(int i)
