@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OCSLift.cs" />
     <Compile Include="Rack.cs" />
     <Compile Include="CGKddj.cs" />
     <Compile Include="CGKcar.cs" />

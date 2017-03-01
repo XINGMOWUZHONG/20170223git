@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComTCPLib.cs" />
+    <Compile Include="ControlOcsLift.cs" />
     <Compile Include="ControlOcs.cs" />
     <Compile Include="ControlStorage.cs" />
     <Compile Include="ControlLk.cs" />
