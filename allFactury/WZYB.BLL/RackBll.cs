@@ -69,6 +69,18 @@ namespace WZYB.BLL
             }
         }
 
+        public static bool deleteRack(int id)
+        {
+            try
+            {
+                return RackDAL.deleteRackByid(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static List<Rack> DataTableToRack(DataTable dt)
         {
             List<Rack> modelList = new List<Rack>();

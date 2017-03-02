@@ -30,6 +30,7 @@ namespace PccNew
                             foreach (Rack r in allRack)
                             {
                                 g.Change(r.Rack_z, r.Rack_colum, r.Rack_row, r.Rack_state, r.Rack_id);
+                                RackBll.deleteRack(r.id);
                             }
                         }
                     }
@@ -42,6 +43,8 @@ namespace PccNew
             }
 
         }
+
+
 
         #endregion
     }

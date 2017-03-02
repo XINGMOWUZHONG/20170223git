@@ -60,6 +60,25 @@ namespace WZYB.DAL
             }
         }
 
+        public static bool deleteRackByid(int id)
+        {
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("delete  from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + " where id =" + id.ToString());
+                int i= DbHelperSQL.ExecuteSql(strSql.ToString());
+                if(i>0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }
