@@ -80,5 +80,18 @@ namespace WZYB.DAL
         }
 
 
+        public static DataSet getRackDatasetAllStorage()
+        {
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable2"].ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

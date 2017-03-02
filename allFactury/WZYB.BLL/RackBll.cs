@@ -69,6 +69,24 @@ namespace WZYB.BLL
             }
         }
 
+
+        public static List<Rack> GetRackAllStorage()
+        {
+            try
+            {
+                DataSet ds = RackDAL.getRackDatasetAllStorage();
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    return DataTableToRack(ds.Tables[0]);
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static bool deleteRack(int id)
         {
             try

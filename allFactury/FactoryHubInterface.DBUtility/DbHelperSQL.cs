@@ -8,7 +8,8 @@ namespace WZYB.DBUtility
 {
     public class DbHelperSQL
     {
-        private static readonly string ConnString = System.Configuration.ConfigurationManager.AppSettings["conn"];        
+        private static readonly string ConnString = System.Configuration.ConfigurationManager.AppSettings["conn"];
+        private static readonly string StorageConnString = System.Configuration.ConfigurationManager.AppSettings["StorageConn"];        
        
         /// <summary>
         /// 取得某个字段的最大值
@@ -335,7 +336,26 @@ namespace WZYB.DBUtility
                 }
                 return ds;
             }
-        }        
+        }
+
+        public static DataSet QueryStorage(string SQLString)
+        {
+            using (SqlConnection connection = new SqlConnection(StorageConnString))
+            {
+                DataSet ds = new DataSet();
+                try
+                {
+                    connection.Open();
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, connection);
+                    command.Fill(ds, "ds");
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                return ds;
+            }
+        }    
     }
 
     public class DbHelperOle

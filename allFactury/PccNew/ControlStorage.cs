@@ -43,8 +43,35 @@ namespace PccNew
             }
 
         }
-
-
+        /// <summary>
+        /// 根据远程数据库初始化托盘
+        /// </summary>
+        /// <param name="list"></param>
+        public void InitializeStorage(List<Storage .General > list)
+        {
+            try
+            {
+                List<Rack> allRack = RackBll.GetRackAllStorage();
+                if (allRack.Count > 0)
+                {
+                    foreach (Rack r in allRack)
+                    {
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            if (r.Rack_id == list[i].StorageType)
+                            {
+                                list[i].Change(r.Rack_z, r.Rack_colum, r.Rack_row, r.Rack_state, r.Rack_id);
+                                Thread.Sleep(30);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         #endregion
     }
