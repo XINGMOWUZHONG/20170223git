@@ -46,12 +46,12 @@ namespace WZYB.DAL
             }
         }
 
-        public static DataSet getRackDatasetAll()
+        public static DataSet getRackDatasetAll(int type)
         {
             try
             {
                 StringBuilder strSql = new StringBuilder();
-                strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString());
+                strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + " where rackid = "+type .ToString ());
                 return DbHelperSQL.Query(strSql.ToString());
             }
             catch (Exception ex)

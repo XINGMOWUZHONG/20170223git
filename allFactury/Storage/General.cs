@@ -22,10 +22,20 @@ namespace Storage
         public int StorageAreaCount = 0;
         private string StorageAreaspacing = "";
 
+        //1 立库 2 配餐
+        public int StorageType = 0;
         public void Initialize(string config)
         {
             try
             {
+                if (config == "StorageArea_pcc")
+                {
+                    StorageType = 2;
+                }
+                else
+                {
+                    StorageType = 1;
+                }
                 getConfigData(config);
                 connection = new StorageArea.StorageAreaClient();
                 connection.DataChanged += dataChanged;

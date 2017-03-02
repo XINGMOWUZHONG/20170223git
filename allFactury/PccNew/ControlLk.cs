@@ -15,6 +15,10 @@ namespace PccNew
         public bool IsStart = false;
         //立库库前库后输送机坐标的单位长度
         public float unitLength = 1.1f;
+
+        public float unitLengthDDJ_x = 1.1f;
+        public float unitLengthDDJ_y = 0.8f;
+
         //数据库只记录变化数据
         #region 托盘处理逻辑
 
@@ -126,6 +130,43 @@ namespace PccNew
 
         }
 
+
+        private CGKddj setOutModelDdj(CGKddj model)
+        {
+            if (model ==null)
+            return null;
+            model.CGKddj_source = model.CGKddj_source * unitLengthDDJ_x;
+            model.CGKddj_tgt = model.CGKddj_tgt * unitLengthDDJ_x;
+            model.CGKddj_platformtgt = model.CGKddj_platformtgt * unitLengthDDJ_y;
+            if (model.CGKddj_forktgt ==0.0f)
+            {
+                model.CGKddj_forktgt = 0.0f;
+            }
+                //left
+            else if (model.CGKddj_forktgt == 2.0f)
+            {
+                model.CGKddj_forktgt =0- 0.8f;
+            }
+                //right
+            else if (model.CGKddj_forktgt == 1.0f)
+            {
+                model.CGKddj_forktgt = 0.8f;
+            }
+                //left 2
+            else if (model.CGKddj_forktgt == 4.0f)
+            {
+                model.CGKddj_forktgt = 0- 0.8f*2;
+            }
+                //right 2
+            else if (model.CGKddj_forktgt == 3.0f)
+            {
+                model.CGKddj_forktgt = 0.8f*2;
+            }
+            return model;
+
+        }
+
+
         private void setDdjData(CGKddj lastddj, CGKddj thisddj, int[] xmlIndex)
         {
             int DDJXmlIndex_state = xmlIndex[0];
@@ -135,7 +176,8 @@ namespace PccNew
             int DDJXmlIndex_platformtgt = xmlIndex[4];
             int DDJXmlIndex_pallertstate = xmlIndex[5];
 
-
+            lastddj = setOutModelDdj(lastddj);
+            thisddj = setOutModelDdj(thisddj);
 
             if (lastddj == null)
             {
@@ -262,7 +304,7 @@ namespace PccNew
                     ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, UInt16.Parse(thisData.CGKcar_state.ToString()));
                 if (thisData.CGKcar_tgt_out_x != lastData.CGKcar_tgt_out_x)
                     ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt_out_x);
-                if (thisData.CGKcar_pallertstate != lastData.CGKcar_pallertstate)
+                //if (thisData.CGKcar_pallertstate != lastData.CGKcar_pallertstate)
                     ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_state_out.ToString()));
 
             }
@@ -282,32 +324,40 @@ namespace PccNew
 
             if (model.CGKcar_id == 2)
             {
-                if (model.CGKcar_tgt_out_z == 1)
-                {
-                    if (model.CGKcar_pallertstate == 0)
-                    {
-                        model.CGKcar_state_out = 3;
-                    }
-                    else if (model.CGKcar_pallertstate == 1)
-                    {
-                        model.CGKcar_state_out = 2;
-                    }
-                }
-                else if (model.CGKcar_tgt_out_z == 0)
-                {
-                    if (model.CGKcar_pallertstate == 0)
-                    {
-                        model.CGKcar_state_out = 5;
-                    }
-                    else if (model.CGKcar_pallertstate == 1)
-                    {
-                        model.CGKcar_state_out = 4;
-                    }
-                }
-                else
+                if (model.CGKcar_action < 1)
                 {
                     model.CGKcar_state_out = model.CGKcar_pallertstate;
                 }
+                else
+                {
+                    if (model.CGKcar_tgt_out_z == 1)
+                    {
+                        if (model.CGKcar_pallertstate == 0)
+                        {
+                            model.CGKcar_state_out = 3;
+                        }
+                        else if (model.CGKcar_pallertstate == 1)
+                        {
+                            model.CGKcar_state_out = 2;
+                        }
+                    }
+                    else if (model.CGKcar_tgt_out_z == 0)
+                    {
+                        if (model.CGKcar_pallertstate == 0)
+                        {
+                            model.CGKcar_state_out = 5;
+                        }
+                        else if (model.CGKcar_pallertstate == 1)
+                        {
+                            model.CGKcar_state_out = 4;
+                        }
+                    }
+                    else
+                    {
+                        model.CGKcar_state_out = model.CGKcar_pallertstate;
+                    }
+                }
+               
             }
             else
             {

@@ -20,11 +20,11 @@ namespace PccNew
             try
             {
                 Storage.General g = o as Storage.General;
-                while (true)
+                while (true && g!=null)
                 {
                     if (IsStart)
                     {
-                        List<Rack> allRack = RackBll.GetRackAll();
+                        List<Rack> allRack = RackBll.GetRackAll(g.StorageType);
                         if (allRack != null)
                         {
                             foreach (Rack r in allRack)

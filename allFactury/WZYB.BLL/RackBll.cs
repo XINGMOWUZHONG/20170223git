@@ -52,11 +52,11 @@ namespace WZYB.BLL
         }
 
 
-        public static List<Rack> GetRackAll()
+        public static List<Rack> GetRackAll(int type)
         {
             try
             {
-                DataSet ds = RackDAL.getRackDatasetAll();
+                DataSet ds = RackDAL.getRackDatasetAll(type);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     return DataTableToRack(ds.Tables[0]);
