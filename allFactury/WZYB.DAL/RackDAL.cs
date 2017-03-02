@@ -86,6 +86,7 @@ namespace WZYB.DAL
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable2"].ToString());
+                return DbHelperSQL.QueryStorage(strSql.ToString());
             }
             catch (Exception ex)
             {
