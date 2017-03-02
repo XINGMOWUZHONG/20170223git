@@ -51,11 +51,11 @@ namespace WZYB.BLL
                     }
                     if (dt.Rows[n]["LiftTopstate"].ToString() != "")
                     {
-                        model.LiftTopstate = int.Parse(dt.Rows[n]["LiftTopstate"].ToString());
+                        model.LiftTopstate = dt.Rows[n]["LiftTopstate"].ToString() == "True" ? 1 : 0 ;
                     }
                     if (dt.Rows[n]["LiftDownstate"].ToString() != "")
                     {
-                        model.LiftDownstate = int.Parse(dt.Rows[n]["LiftDownstate"].ToString());
+                        model.LiftDownstate = dt.Rows[n]["LiftDownstate"].ToString() == "True" ? 1 : 0;
                     }
                    
                     modelList.Add(model);

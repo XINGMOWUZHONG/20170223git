@@ -80,19 +80,19 @@ namespace PccNew
                 {
                     if(Lift.LiftDownstate == last [Lift .LiftId-1 ].LiftDownstate  && Lift.LiftTopstate  == last [Lift .LiftId-1 ].LiftTopstate)
                     {
-                        break ; 
+                        continue ; 
                     }
                     else if(Lift.LiftDownstate == 1 )
                     {
-                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId], uint.Parse("0"));
+                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId-1], uint.Parse("0"));
                     }
                     else if (Lift.LiftTopstate == 1)
                     {
-                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId], uint.Parse("1"));
+                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId-1], uint.Parse("1"));
                     }
                     else
                     {
-                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId], uint.Parse("2"));
+                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId-1], uint.Parse("2"));
                     }
                     
                 }

@@ -16,7 +16,7 @@ namespace WZYB.DAL
             try
             {
                 StringBuilder strSql = new StringBuilder();
-                strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["OcsLift"].ToString() + " order by LiftId asc");
+                strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["OcsLift"].ToString() + " order by id asc");
                 return DbHelperSQL.Query(strSql.ToString());
             }
             catch (Exception ex)

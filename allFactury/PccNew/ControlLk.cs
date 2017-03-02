@@ -247,7 +247,7 @@ namespace PccNew
                 ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt_out_x);
                 ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_state_out.ToString()));
             }
-            if (!thisData.Equals(lastData))
+            else if (!thisData.Equals(lastData))
             {
                 if (thisData.CGKcar_current_out == thisData.CGKcar_tgt_out_x)
                 {

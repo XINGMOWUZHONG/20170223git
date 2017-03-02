@@ -164,6 +164,7 @@ namespace PccNew
             LKcontrol.IsStart = true;
             Storagecontrol.IsStart = true;
             OcsControl.IsStart = true;
+            OcsLiftcontrol.IsStart = true;
             //InitializStorage();
             startThreadAll();
         }
@@ -182,6 +183,7 @@ namespace PccNew
             LKcontrol.IsStart = false;
             Storagecontrol.IsStart = false;
             OcsControl.IsStart = false;
+            OcsLiftcontrol .IsStart = false;
             StopThreadAll();
         }
 
@@ -355,6 +357,7 @@ namespace PccNew
             StartThreadNewLikuPallert();
             StartThreadStorage();
             StartThreadOcs();
+            StartThreadOcsLift();
         }
 
         public void StopThreadAll()
@@ -401,13 +404,13 @@ namespace PccNew
             Storage_PCC = new General();
             Storage_PCC.Initialize("StorageArea_pcc");
             Storage_PCC.connection.PlaceSelected += PCC_placeSelected;
-            Storage_PCC.FullAll();
+            //Storage_PCC.FullAll();
 
             //初始化 新库 托盘
             Storage_NEW = new General();
             Storage_NEW.Initialize("StorageArea_new");
             Storage_NEW.connection.PlaceSelected += NEW_placeSelected;
-            Storage_NEW.FullAll();
+            //Storage_NEW.FullAll();
         }
         #endregion
 
@@ -494,7 +497,7 @@ namespace PccNew
         }
         #endregion
 
-        //托盘的线程操作
+        //悬挂升降机的线程操作
         #region
         private Thread ThreadOcsLift;
         public ControlOcsLift OcsLiftcontrol = new ControlOcsLift();
