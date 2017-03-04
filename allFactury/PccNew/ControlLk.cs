@@ -18,7 +18,7 @@ namespace PccNew
 
         public float unitLengthDDJ_x = 1.1f;
         public float unitLengthDDJ_y = 0.8f;
-
+        public int DdjId;
         //数据库只记录变化数据
         #region 托盘处理逻辑
 
@@ -107,7 +107,7 @@ namespace PccNew
             try
             {
                 CGKddj lastDdj = null;
-                int DdjId = Convert.ToInt16(o);
+                DdjId = Convert.ToInt16(o);
                 int[] DDJXmlIndex = getDdjXmlIndex(DdjId);
                 while (true)
                 {
@@ -176,8 +176,16 @@ namespace PccNew
             int DDJXmlIndex_platformtgt = xmlIndex[4];
             int DDJXmlIndex_pallertstate = xmlIndex[5];
 
+            //堆垛机去取托盘的时候高亮显示目标托盘
+            Rack r =  getRackIdByModel(lastddj,thisddj);
+            if(r != null)
+            {
+                RackBll rb = new RackBll();
+                rb.InsertRack(r);
+            }
             lastddj = setOutModelDdj(lastddj);
             thisddj = setOutModelDdj(thisddj);
+            
 
             if (lastddj == null)
             {
@@ -217,6 +225,68 @@ namespace PccNew
                 if (thisddj.CGKddj_pallertstate != lastddj.CGKddj_pallertstate)
                     ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_pallertstate, UInt16.Parse(thisddj.CGKddj_pallertstate.ToString()));
             }
+
+        }
+
+
+        private Rack getRackIdByModel(CGKddj lastddj, CGKddj thisddj)
+        {
+            if ((lastddj == null || (thisddj.CGKddj_tgt != lastddj.CGKddj_tgt || thisddj.CGKddj_forktgt != lastddj.CGKddj_forktgt || thisddj.CGKddj_platformtgt != lastddj.CGKddj_platformtgt)) && (int)thisddj.CGKddj_forktgt != 0 && thisddj.CGKddj_pallertstate == 0)
+            {
+
+            }
+            else
+            {
+                return null;
+            }
+            WZYB.Model.Rack r = new Rack();
+            r.Rack_colum = (int)thisddj.CGKddj_tgt;
+            r.Rack_row = (int)thisddj.CGKddj_platformtgt;
+            if (this.DdjId == 1)
+            {
+                if ((int)thisddj.CGKddj_forktgt == 1)
+                {
+                    r.Rack_z = 1;
+                }
+                else if ((int)thisddj.CGKddj_forktgt == 2)
+                {
+                    r.Rack_z = 0;
+                }
+            }
+            else if (this.DdjId == 2)
+            {
+                if ((int)thisddj.CGKddj_forktgt == 1)
+                {
+                    r.Rack_z = 3;
+                }
+                else if ((int)thisddj.CGKddj_forktgt == 2)
+                {
+                    r.Rack_z = 2;
+                }
+            }
+            else if (this.DdjId == 3)
+            {
+                if ((int)thisddj.CGKddj_forktgt == 1)
+                {
+                    r.Rack_z = 6;
+                }
+                else if ((int)thisddj.CGKddj_forktgt == 2)
+                {
+                    r.Rack_z = 5;
+                }
+                else if ((int)thisddj.CGKddj_forktgt == 3)
+                {
+                    r.Rack_z = 7;
+                }
+                else if ((int)thisddj.CGKddj_forktgt == 4)
+                {
+                    r.Rack_z = 2;
+                }
+            }
+            r.Rack_type = 1;
+            r.Rack_id = 1;
+            r.Rack_state = 2;
+            return r;
 
         }
         // i (1 - 3)

@@ -94,5 +94,35 @@ namespace WZYB.DAL
             }
         }
 
+        public static int InsertRack(WZYB.Model.Rack model)
+        {
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("insert into  " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + "([rackid],[location_x] ,[location_y]  ,[location_z] ,[pallet_num] ,[rack_state]) values(" + model.Rack_type + "," + model.Rack_colum + "," + model.Rack_row + "," + model.Rack_z + "," + model.Rack_id + "," + model.Rack_state + ");select @@identity; ");
+                int x = int.Parse(DbHelperSQL.GetSingle(strSql.ToString()).ToString());
+                return x;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int deleteRack(int rackid)
+        {
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("delete from "+ System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + " where id = "+rackid .ToString ());
+                int x = DbHelperSQL.ExecuteSql(strSql.ToString());
+                return x;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

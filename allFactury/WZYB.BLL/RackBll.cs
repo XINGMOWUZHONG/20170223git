@@ -145,6 +145,30 @@ namespace WZYB.BLL
         }
 
 
+        public int InsertRack(Rack model)
+        {
+            try
+            {
+                return RackDAL.InsertRack(model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void DeleteRack(int rackid)
+        {
+            try
+            {
+                 RackDAL.deleteRackByid(rackid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
 
     }
