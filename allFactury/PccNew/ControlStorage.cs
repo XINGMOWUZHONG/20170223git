@@ -53,7 +53,7 @@ namespace PccNew
             {
                 List<Storage.General> list = o as List<Storage.General>;
                 List<Rack> allRack = RackBll.GetRackAllStorage();
-                if (allRack.Count > 0)
+                if ( allRack!=null && allRack.Count > 0)
                 {
                     foreach (Rack r in allRack)
                     {
