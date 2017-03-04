@@ -424,8 +424,8 @@ namespace PccNew
         private Thread[] ThreadNewLikuCscList;
         private void StartThreadNewLikuCsc()
         {
-            ThreadNewLikuCscList = new Thread[3];
-            for (int i = 0; i < 3; i++)
+            ThreadNewLikuCscList = new Thread[2];
+            for (int i = 0; i < 2; i++)
             {
                 ThreadNewLikuCscList[i] = new Thread(new ParameterizedThreadStart(LKcontrol.CarThreadFunc));
                 ThreadNewLikuCscList[i].Start(i + 1);
