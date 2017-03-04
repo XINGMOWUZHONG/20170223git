@@ -18,7 +18,7 @@ namespace PccNew
 
         public float unitLengthDDJ_x = 1.1f;
         public float unitLengthDDJ_y = 0.8f;
-        public int DdjId;
+        //public int DdjId;
         //数据库只记录变化数据
         #region 托盘处理逻辑
 
@@ -107,7 +107,7 @@ namespace PccNew
             try
             {
                 CGKddj lastDdj = null;
-                DdjId = Convert.ToInt16(o);
+                int DdjId = Convert.ToInt16(o);
                 int[] DDJXmlIndex = getDdjXmlIndex(DdjId);
                 while (true)
                 {
@@ -116,7 +116,7 @@ namespace PccNew
                         CGKddj thisDdj = CGKBll.GetCGKddjModel(DdjId);
                         if (thisDdj != null)
                         {
-                            setDdjData(lastDdj, thisDdj, DDJXmlIndex);
+                            setDdjData(lastDdj, thisDdj, DDJXmlIndex,DdjId);
                             lastDdj = thisDdj;
                         }
                     }
@@ -167,7 +167,7 @@ namespace PccNew
         }
 
 
-        private void setDdjData(CGKddj lastddj, CGKddj thisddj, int[] xmlIndex)
+        private void setDdjData(CGKddj lastddj, CGKddj thisddj, int[] xmlIndex, int DdjId)
         {
             int DDJXmlIndex_state = xmlIndex[0];
             int DDJXmlIndex_tgt = xmlIndex[1];
@@ -177,7 +177,7 @@ namespace PccNew
             int DDJXmlIndex_pallertstate = xmlIndex[5];
 
             //堆垛机去取托盘的时候高亮显示目标托盘
-            Rack r =  getRackIdByModel(lastddj,thisddj);
+            Rack r = getRackIdByModel(lastddj, thisddj, DdjId);
             if(r != null)
             {
                 RackBll rb = new RackBll();
@@ -229,7 +229,7 @@ namespace PccNew
         }
 
 
-        private Rack getRackIdByModel(CGKddj lastddj, CGKddj thisddj)
+        private Rack getRackIdByModel(CGKddj lastddj, CGKddj thisddj, int DdjId)
         {
             if ((lastddj == null || (thisddj.CGKddj_tgt != lastddj.CGKddj_tgt || thisddj.CGKddj_forktgt != lastddj.CGKddj_forktgt || thisddj.CGKddj_platformtgt != lastddj.CGKddj_platformtgt)) && (int)thisddj.CGKddj_forktgt != 0 && thisddj.CGKddj_pallertstate == 0)
             {
@@ -242,7 +242,7 @@ namespace PccNew
             WZYB.Model.Rack r = new Rack();
             r.Rack_colum = (int)thisddj.CGKddj_tgt;
             r.Rack_row = (int)thisddj.CGKddj_platformtgt;
-            if (this.DdjId == 1)
+            if (DdjId == 1)
             {
                 if ((int)thisddj.CGKddj_forktgt == 1)
                 {
@@ -253,7 +253,7 @@ namespace PccNew
                     r.Rack_z = 0;
                 }
             }
-            else if (this.DdjId == 2)
+            else if (DdjId == 2)
             {
                 if ((int)thisddj.CGKddj_forktgt == 1)
                 {
@@ -264,7 +264,7 @@ namespace PccNew
                     r.Rack_z = 2;
                 }
             }
-            else if (this.DdjId == 3)
+            else if (DdjId == 3)
             {
                 if ((int)thisddj.CGKddj_forktgt == 1)
                 {
