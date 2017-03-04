@@ -47,10 +47,11 @@ namespace PccNew
         /// 根据远程数据库初始化托盘
         /// </summary>
         /// <param name="list"></param>
-        public void InitializeStorage(List<Storage .General > list)
+        public void InitializeStoragePallet(object o)
         {
             try
             {
+                List<Storage.General> list = o as List<Storage.General>;
                 List<Rack> allRack = RackBll.GetRackAllStorage();
                 if (allRack.Count > 0)
                 {

@@ -165,8 +165,9 @@ namespace PccNew
             Storagecontrol.IsStart = true;
             OcsControl.IsStart = true;
             OcsLiftcontrol.IsStart = true;
-            //InitializStorage();
+            InitializStorage();
             startThreadAll();
+            InitializStorageShowPallet();
         }
 
         //停止运行
@@ -412,6 +413,22 @@ namespace PccNew
             Storage_NEW.connection.PlaceSelected += NEW_placeSelected;
             //Storage_NEW.FullAll();
         }
+
+        public void InitializStorageShowPallet()
+        {
+            List<General> lg = new List<General>();
+            if (Storage_PCC!=null)
+            {
+                lg.Add(Storage_PCC);
+            }
+            if(Storage_NEW !=null )
+            {
+                lg.Add(Storage_NEW);
+            }
+            Thread s = new Thread(new ParameterizedThreadStart(Storagecontrol.InitializeStoragePallet));
+            s.Start(lg);
+
+        }
         #endregion
 
 
@@ -509,9 +526,6 @@ namespace PccNew
         #endregion
 
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            InitializStorage();
-        }
+       
     }
 }
