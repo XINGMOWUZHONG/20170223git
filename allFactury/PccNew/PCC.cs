@@ -160,16 +160,7 @@ namespace PccNew
             timer2.Enabled = true;
             timer3.Enabled = true;
 
-            //20170225 add --------------
-            LKcontrol.IsStart = true;
-            Storagecontrol.IsStart = true;
-            OcsControl.IsStart = true;
-            OcsLiftcontrol.IsStart = true;
-            InitializStorage();
-            startThreadAll();
-            InitializStorageShowPallet();
-            TimerScreen.Enabled = true;
-            clight.LightThreadFunc();
+            startAll();
         }
 
         //停止运行
@@ -183,12 +174,7 @@ namespace PccNew
             timer3.Enabled = false;
 
             //20170225 add ---------
-            LKcontrol.IsStart = false;
-            Storagecontrol.IsStart = false;
-            OcsControl.IsStart = false;
-            OcsLiftcontrol .IsStart = false;
-            StopThreadAll();
-            TimerScreen.Enabled = false;
+            stopAll();
         }
 
         //暂停
@@ -199,10 +185,7 @@ namespace PccNew
             timer2.Enabled = false;
             timer3.Enabled = false;
             //20170225 add ---------
-            LKcontrol.IsStart = false;
-            OcsControl.IsStart = false;
-            Storagecontrol.IsStart = false;
-            TimerScreen.Enabled = true;
+            pauseAll();
         }
 
         //继续
@@ -212,6 +195,8 @@ namespace PccNew
             timer1.Enabled = true;
             timer2.Enabled = true;
             timer3.Enabled = true;
+
+            goonAll();
         }
 
         //timer 不停的刷新数据
@@ -329,13 +314,13 @@ namespace PccNew
             }
             else if(index == 1)
             {
-            //小车点击
-                MessageBox.Show("小车");
+                //小车点击
+                //MessageBox.Show("小车");
             }
             else if(index == 2)
             {
-            //托盘点击
-                MessageBox.Show("托盘");
+                //托盘点击
+                //MessageBox.Show("托盘");
             }
         }
 
@@ -355,37 +340,7 @@ namespace PccNew
         public ControlLk LKcontrol = new ControlLk();
         public ControlStorage Storagecontrol = new ControlStorage();
 
-        public void startThreadAll()
-        {
-            StartThreadNewLikuDDJ();
-            StartThreadNewLikuCsc();
-            StartThreadNewLikuPallert();
-            StartThreadStorage();
-            StartThreadOcs();
-            StartThreadOcsLift();
-        }
-
-        public void StopThreadAll()
-        {
-            //堆垛机结束线程
-            for (int i = 0; i < ThreadNewLikuDDJList.Length;i++ )
-            {
-                ThreadNewLikuDDJList[i].Abort();
-            }
-            //托盘结束线程
-            ThreadNewLikuPallert.Abort();
-            //穿梭车结束线程
-            for (int i = 0; i < ThreadNewLikuCscList.Length;i++ )
-            {
-                ThreadNewLikuCscList[i].Abort();
-            }
-            //货位结束线程
-            ThreaStoragePcc.Abort();
-            ThreaStorageNew.Abort();
-            StopThreadOcs();
-
-            ThreadOcsLift.Abort();
-        }
+       
         //storage 货位的初始化和点击
         #region 
 
@@ -418,6 +373,8 @@ namespace PccNew
             //Storage_NEW.FullAll();
         }
 
+        //第一次默认加载数据库的货位信息
+        private Thread ThreadStorageShowPallet;
         public void InitializStorageShowPallet()
         {
             List<General> lg = new List<General>();
@@ -429,8 +386,8 @@ namespace PccNew
             {
                 lg.Add(Storage_NEW);
             }
-            Thread s = new Thread(new ParameterizedThreadStart(Storagecontrol.InitializeStoragePallet));
-            s.Start(lg);
+            ThreadStorageShowPallet = new Thread(new ParameterizedThreadStart(Storagecontrol.InitializeStoragePallet));
+            ThreadStorageShowPallet.Start(lg);
 
         }
         #endregion
@@ -563,6 +520,90 @@ namespace PccNew
         }
         public ControlLightAndScreen clight = new ControlLightAndScreen();
 
-       
+        //立库 悬挂 悬挂升降机 货位方法初始化 货位第一次生成 货位监控变化  监控主灯 监控点击屏幕
+        //开始
+        public void startAll()
+        {
+            //20170225 add --------------
+            LKcontrol.IsStart = true;
+            Storagecontrol.IsStart = true;
+            OcsControl.IsStart = true;
+            OcsLiftcontrol.IsStart = true;
+
+            InitializStorage();
+            startThreadAll();
+            
+            TimerScreen.Enabled = true;
+            clight.LightThreadFunc();
+        }
+        //停止
+        public void stopAll()
+        {
+            
+            StopThreadAll();
+            TimerScreen.Enabled = false;
+        }
+        //暂停
+        public void pauseAll()
+        {
+            LKcontrol.IsStart = false;
+            Storagecontrol.IsStart = false;
+            OcsControl.IsStart = false;
+            OcsLiftcontrol.IsStart = false;
+            TimerScreen.Enabled = false;
+        }
+        //继续
+        public void goonAll()
+        {
+            LKcontrol.IsStart = true;
+            Storagecontrol.IsStart = true;
+            OcsControl.IsStart = true;
+            OcsLiftcontrol.IsStart = true;
+            TimerScreen.Enabled = true;
+        }
+
+
+        public void startThreadAll()
+        {
+            //立库
+            StartThreadNewLikuDDJ();
+            //穿梭车
+            StartThreadNewLikuCsc();
+            //立库货位
+            StartThreadNewLikuPallert();
+            //货架
+            StartThreadStorage();
+            //悬挂
+            StartThreadOcs();
+            //悬挂升降机
+            StartThreadOcsLift();
+            //第一次加载所有托盘信息
+            InitializStorageShowPallet();
+        }
+
+        public void StopThreadAll()
+        {
+            //堆垛机结束线程
+            for (int i = 0; i < ThreadNewLikuDDJList.Length; i++)
+            {
+                ThreadNewLikuDDJList[i].Abort();
+            }
+            //托盘结束线程
+            ThreadNewLikuPallert.Abort();
+            //穿梭车结束线程
+            for (int i = 0; i < ThreadNewLikuCscList.Length; i++)
+            {
+                ThreadNewLikuCscList[i].Abort();
+            }
+            //货位结束线程
+            ThreaStoragePcc.Abort();
+            ThreaStorageNew.Abort();
+            //悬挂线程结束
+            StopThreadOcs();
+            //悬挂升降机线程结束
+            ThreadOcsLift.Abort();
+            //默认托盘货位的结束
+            ThreadStorageShowPallet.Abort();
+        }
     }
 }
