@@ -169,5 +169,53 @@ namespace PccNew
 
             SetCache("OCSPathLength", pl);
         }
+
+
+        //type 1 uint,2 float,3 flag
+        //设置数据
+        public void updateValue(string name, string value, int type, int handle)
+        {
+            double time, timeStep;
+            ComTCPLib.UpdateData(handle, out time, out timeStep);
+            int index = getDicOutputIndex(name);
+            if (type == 1)
+            {
+                ComTCPLib.SetOutputAsUINT(handle, index, uint.Parse(value));
+            }
+            else if (type == 2)
+            {
+                ComTCPLib.SetOutputAsREAL32(handle, index, float.Parse(value));
+            }
+            else if (type == 3)
+            {
+                ComTCPLib.SetOutputAsBOOL(handle, index, bool.Parse(value));
+            }
+        }
+
+        public object readValue(string name, int type, int handle)
+        {
+            double time, timeStep;
+            ComTCPLib.UpdateData(handle, out time, out timeStep);
+            int index = getDicInputIndex(name);
+            if (type == 1)
+            {
+                int result;
+                ComTCPLib.GetInputAsINT(handle, index, out result);
+                return result;
+            }
+            else if (type == 2)
+            {
+                float result;
+                ComTCPLib.GetInputAsREAL32(handle, index, out result);
+                return result;
+            }
+            else if (type == 3)
+            {
+                bool result;
+                ComTCPLib.GetInputAsBOOL(handle, index, out result);
+                return result;
+            }
+            return null;
+        }
     }
 }

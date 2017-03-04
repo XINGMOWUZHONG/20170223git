@@ -41,7 +41,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.button7 = new System.Windows.Forms.Button();
+            this.TimerScreen = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +75,6 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.button7);
             this.panel2.Controls.Add(this.button5);
             this.panel2.Controls.Add(this.button4);
             this.panel2.Controls.Add(this.button3);
@@ -141,15 +140,9 @@
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
-            // button7
+            // TimerScreen
             // 
-            this.button7.Location = new System.Drawing.Point(25, 583);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 15;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.TimerScreen.Tick += new System.EventHandler(this.TimerScreen_Tick);
             // 
             // PCC
             // 
@@ -181,7 +174,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Timer timer3;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Timer TimerScreen;
     }
 }
 

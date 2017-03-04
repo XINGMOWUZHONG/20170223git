@@ -168,6 +168,8 @@ namespace PccNew
             InitializStorage();
             startThreadAll();
             InitializStorageShowPallet();
+            TimerScreen.Enabled = true;
+            clight.LightThreadFunc();
         }
 
         //停止运行
@@ -186,6 +188,7 @@ namespace PccNew
             OcsControl.IsStart = false;
             OcsLiftcontrol .IsStart = false;
             StopThreadAll();
+            TimerScreen.Enabled = false;
         }
 
         //暂停
@@ -199,6 +202,7 @@ namespace PccNew
             LKcontrol.IsStart = false;
             OcsControl.IsStart = false;
             Storagecontrol.IsStart = false;
+            TimerScreen.Enabled = true;
         }
 
         //继续
@@ -525,6 +529,39 @@ namespace PccNew
         }
         #endregion
 
+
+        /// <summary>
+        /// 20170304 wge   屏幕点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public GetIdex gi = new GetIdex();
+        bool flag = false;
+        private void TimerScreen_Tick(object sender, EventArgs e)
+        {
+            if(!flag)
+            {
+                flag = true;
+                int i = -1;
+                for (int m = 0; m < 3; m++)
+                {
+                    if (bool.Parse(gi.readValue("SCREEN" + (m + 1).ToString() + "01_ButtonPress", 3, 1).ToString()))
+                    {
+                        Browser bb = new Browser();
+                        string mesLink = "http://10.1.50.93:8080/mes/main.shtml";
+                        bb.url = mesLink;
+                        bb.ShowDialog();
+                        if (bb.DialogResult == DialogResult.OK)
+                        {
+                            bb.Close();
+                        }
+                    }
+                }
+                flag = false;
+            }
+            
+        }
+        public ControlLightAndScreen clight = new ControlLightAndScreen();
 
        
     }
