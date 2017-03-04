@@ -194,26 +194,21 @@ namespace PccNew
                                 ocsCarPos[index] = float.Parse(model.position.ToString());
                             }
                         }
-
-                        //设定位置
                         int index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Pos");
-                        ComTCPLib.SetOutputAsREAL32(handle, index1, float.Parse(ocsCarPos[index].ToString()));
+                        //设定区域  001
+                        int tmpArea = getOcsArea(model.line);
+                        if (tmpArea!=-1)
+                        {
+                             index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Area");
+                             ComTCPLib.SetOutputAsINT(handle, index1, tmpArea);
+                        }
 
-                        //设定驱动段
+                        //设定驱动段 002
                         index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Path");
                         ComTCPLib.SetOutputAsINT(handle, index1, int.Parse(model.line.Substring(1)));
 
-                        //设定区域
-                        int tmpArea = 0;
-                        if (model.line.Substring(0, 1).ToLower() == "a")
-                            tmpArea = 1;
-                        else if (model.line.Substring(0, 1).ToLower() == "b")
-                            tmpArea = 2;
-                        else if (model.line.Substring(0, 1).ToLower() == "c")
-                            tmpArea = 3;
-
-                        index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Area");
-                        ComTCPLib.SetOutputAsINT(handle, index1, tmpArea);
+                        //设定位置 003
+                        ComTCPLib.SetOutputAsREAL32(handle, index1, float.Parse(ocsCarPos[index].ToString()));
 
                         //设定是否显示阀体
                         index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Ftv");
@@ -229,7 +224,35 @@ namespace PccNew
             }
         }
 
-        
+        public int getOcsArea(string line)
+        {
+            int tmpArea =-1;
+            if (line.Substring(0, 1).ToLower() == "a")
+            {
+                tmpArea = 1;
+                if (line.IndexOf("1150") > -1 || line.IndexOf("1070") > -1)
+                {
+                     tmpArea=11;
+                }
+            }
+            else if (line.Substring(0, 1).ToLower() == "b")
+            {
+                tmpArea = 2;
+                if (line.IndexOf("1130") > -1 || line.IndexOf("1170") > -1 || line.IndexOf("1090") > -1)
+                {
+                    tmpArea=21;
+                }
+            }
+            else if (line.Substring(0, 1).ToLower() == "c")
+            {
+                tmpArea = 3;
+                if (line.IndexOf("1210") > -1 || line.IndexOf("1080") > -1 || line.IndexOf("2820") > -1 || line.IndexOf("1160") > -1)
+                {
+                    tmpArea=31;
+                }
+            }
+            return tmpArea ;
+        }
 
 
     }
