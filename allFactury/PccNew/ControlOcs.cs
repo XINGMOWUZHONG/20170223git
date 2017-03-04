@@ -194,7 +194,7 @@ namespace PccNew
                                 ocsCarPos[index] = float.Parse(model.position.ToString());
                             }
                         }
-                        int index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Pos");
+                        int index1 = 0;
                         //设定区域  001
                         int tmpArea = getOcsArea(model.line);
                         if (tmpArea!=-1)
@@ -208,6 +208,7 @@ namespace PccNew
                         ComTCPLib.SetOutputAsINT(handle, index1, int.Parse(model.line.Substring(1)));
 
                         //设定位置 003
+                        index1 = GetIdex.getDicOutputIndex("vehicle" + index.ToString("000") + "01_input_Pos");
                         ComTCPLib.SetOutputAsREAL32(handle, index1, float.Parse(ocsCarPos[index].ToString()));
 
                         //设定是否显示阀体
