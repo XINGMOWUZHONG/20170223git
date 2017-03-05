@@ -135,8 +135,24 @@ namespace PccNew
         {
             if (model ==null)
             return null;
-            model.CGKddj_source = model.CGKddj_source * unitLengthDDJ_x+0.25f;
-            model.CGKddj_tgt = model.CGKddj_tgt * unitLengthDDJ_x + 0.25f;
+            if (model.CGKddj_source <0.1f)
+            {
+                model.CGKddj_source = 0.0f;
+            }
+            else
+            {
+                model.CGKddj_source = model.CGKddj_source * unitLengthDDJ_x + 0.25f;
+            }
+            if (model.CGKddj_tgt < 0.1f)
+            {
+                model.CGKddj_tgt = 0.0f;
+            }
+            else
+            {
+                model.CGKddj_tgt = model.CGKddj_tgt * unitLengthDDJ_x + 0.25f;
+            }
+            
+            
             if (model.CGKddj_platformtgt <0.01f)
             {
                 model.CGKddj_platformtgt = 0.01f;
