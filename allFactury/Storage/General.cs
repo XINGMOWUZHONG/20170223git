@@ -57,7 +57,13 @@ namespace Storage
 
         public void Change(int StorageArea, int columns, int rows, int type, int id)
         {
-            repl(connection, builder, "Change (" + columns.ToString() + "," + rows.ToString() + "," + StorageArea.ToString() + ") " + type.ToString() + " " + id.ToString() + "");
+            try
+            {
+                repl(connection, builder, "Change (" + columns.ToString() + "," + rows.ToString() + "," + StorageArea.ToString() + ") " + type.ToString() + " " + id.ToString() + "");
+            }catch(Exception ex)
+            {
+            
+            }
         }
 
         public void FullAll()

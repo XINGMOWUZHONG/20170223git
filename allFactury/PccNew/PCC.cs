@@ -499,7 +499,6 @@ namespace PccNew
             if(!flag)
             {
                 flag = true;
-                int i = -1;
                 for (int m = 0; m < 3; m++)
                 {
                     if (bool.Parse(gi.readValue("SCREEN" + (m + 1).ToString() + "01_ButtonPress", 3, 1).ToString()))
