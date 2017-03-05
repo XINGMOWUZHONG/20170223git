@@ -14,10 +14,10 @@ namespace PccNew
         public int sleepTime = int.Parse(System.Configuration.ConfigurationManager.AppSettings["car_interval"].ToString());
         public bool IsStart = false;
         //立库库前库后输送机坐标的单位长度
-        public float unitLength = 1.1f;
+        public float unitLength = 1.44f;
 
-        public float unitLengthDDJ_x = 1.1f;
-        public float unitLengthDDJ_y = 0.8f;
+        public float unitLengthDDJ_x = 1.198f;
+        public float unitLengthDDJ_y = 0.677f;
         //public int DdjId;
         //数据库只记录变化数据
         #region 托盘处理逻辑
@@ -135,9 +135,17 @@ namespace PccNew
         {
             if (model ==null)
             return null;
-            model.CGKddj_source = model.CGKddj_source * unitLengthDDJ_x;
-            model.CGKddj_tgt = model.CGKddj_tgt * unitLengthDDJ_x;
-            model.CGKddj_platformtgt = model.CGKddj_platformtgt * unitLengthDDJ_y;
+            model.CGKddj_source = model.CGKddj_source * unitLengthDDJ_x+0.25f;
+            model.CGKddj_tgt = model.CGKddj_tgt * unitLengthDDJ_x + 0.25f;
+            if (model.CGKddj_platformtgt <0.01f)
+            {
+                model.CGKddj_platformtgt = 0.01f;
+            }
+            else
+            {
+                model.CGKddj_platformtgt = (model.CGKddj_platformtgt - 1) * unitLengthDDJ_y + 0.005f;
+            }
+            
             if (model.CGKddj_forktgt ==0.0f)
             {
                 model.CGKddj_forktgt = 0.0f;
@@ -145,12 +153,12 @@ namespace PccNew
                 //left
             else if (model.CGKddj_forktgt == 2.0f)
             {
-                model.CGKddj_forktgt =0- 0.8f;
+                model.CGKddj_forktgt =0- 0.68f;
             }
                 //right
             else if (model.CGKddj_forktgt == 1.0f)
             {
-                model.CGKddj_forktgt = 0.8f;
+                model.CGKddj_forktgt = 0.68f;
             }
                 //left 2
             else if (model.CGKddj_forktgt == 4.0f)
@@ -240,8 +248,9 @@ namespace PccNew
                 return null;
             }
             WZYB.Model.Rack r = new Rack();
-            r.Rack_colum = (int)thisddj.CGKddj_tgt;
-            r.Rack_row = (int)thisddj.CGKddj_platformtgt;
+            //堆垛机的坐标和货位生成的坐标是反的
+            r.Rack_colum =38- (int)thisddj.CGKddj_tgt;
+            r.Rack_row = 13-(int)thisddj.CGKddj_platformtgt;
             if (DdjId == 1)
             {
                 if ((int)thisddj.CGKddj_forktgt == 1)
@@ -387,9 +396,9 @@ namespace PccNew
             {
                 return null;
             }
-            model.CGKcar_tgt_out_x = int.Parse(model.CGKcar_tgt.Split(',')[0].ToString()) * unitLength;
+            model.CGKcar_tgt_out_x = (int.Parse(model.CGKcar_tgt.Split(',')[0].ToString()) -1)* unitLength;
             model.CGKcar_tgt_out_z = int.Parse(model.CGKcar_tgt.Split(',')[1].ToString()) % 2;
-            model.CGKcar_source_out = int.Parse(model.CGKcar_source.Split(',')[0].ToString()) * unitLength;
+            model.CGKcar_source_out = (int.Parse(model.CGKcar_source.Split(',')[0].ToString()) -1) * unitLength;
             model.CGKcar_current_out = model.CGKcar_current * 0.001f;
 
             if (model.CGKcar_id == 2)
