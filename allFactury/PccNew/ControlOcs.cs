@@ -15,7 +15,7 @@ namespace PccNew
         /// <summary>
         /// 悬挂小车数量
         /// </summary>
-        public int ocsCarCount = 1;
+        public int ocsCarCount = 20;
         /// <summary>
         /// 悬挂小车速度
         /// </summary>

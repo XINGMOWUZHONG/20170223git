@@ -364,7 +364,7 @@ namespace PccNew
             Storage_PCC = new General();
             Storage_PCC.Initialize("StorageArea_pcc");
             Storage_PCC.connection.PlaceSelected += PCC_placeSelected;
-            //Storage_PCC.FullAll();
+            Storage_PCC.FullAll();
 
             //初始化 新库 托盘
             Storage_NEW = new General();
