@@ -208,7 +208,7 @@ namespace PccNew
         //调试
         private void button5_Click(object sender, EventArgs e)
         {
-            
+
             setBaseData();
         }
 
@@ -225,12 +225,12 @@ namespace PccNew
             pcccontrol2.setBaseData(this.handle);
         }
 
-       
+
         //设置模型数据
         public void setModelData()
         {
             try
-            { 
+            {
                 if (pcccontrol2.flag == false)
                 {
                     return;
@@ -308,16 +308,16 @@ namespace PccNew
         private void timer3_Tick(object sender, EventArgs e)
         {
             int index = pcccontrol2.getBtnClickIndex(this.handle);
-            if(index == 0)
+            if (index == 0)
             {
-            
+
             }
-            else if(index == 1)
+            else if (index == 1)
             {
                 //小车点击
                 //MessageBox.Show("小车");
             }
-            else if(index == 2)
+            else if (index == 2)
             {
                 //托盘点击
                 //MessageBox.Show("托盘");
@@ -340,9 +340,9 @@ namespace PccNew
         public ControlLk LKcontrol = new ControlLk();
         public ControlStorage Storagecontrol = new ControlStorage();
 
-       
+
         //storage 货位的初始化和点击
-        #region 
+        #region
 
         public General Storage_PCC = null;
         public General Storage_NEW = null;
@@ -360,7 +360,7 @@ namespace PccNew
         //初始化 托盘
         public void InitializStorage()
         {
-          //初始化 配餐 托盘
+            //初始化 配餐 托盘
             Storage_PCC = new General();
             Storage_PCC.Initialize("StorageArea_pcc");
             Storage_PCC.connection.PlaceSelected += PCC_placeSelected;
@@ -378,11 +378,11 @@ namespace PccNew
         public void InitializStorageShowPallet()
         {
             List<General> lg = new List<General>();
-            if (Storage_PCC!=null)
+            if (Storage_PCC != null)
             {
                 lg.Add(Storage_PCC);
             }
-            if(Storage_NEW !=null )
+            if (Storage_NEW != null)
             {
                 lg.Add(Storage_NEW);
             }
@@ -399,10 +399,10 @@ namespace PccNew
         private void StartThreadNewLikuDDJ()
         {
             ThreadNewLikuDDJList = new Thread[3];
-            for (int i = 0; i < 3;i++ )
+            for (int i = 0; i < 3; i++)
             {
                 ThreadNewLikuDDJList[i] = new Thread(new ParameterizedThreadStart(LKcontrol.DDJThreadFunc));
-                ThreadNewLikuDDJList[i].Start(i+1);
+                ThreadNewLikuDDJList[i].Start(i + 1);
             }
         }
         #endregion
@@ -447,7 +447,7 @@ namespace PccNew
         }
         #endregion
 
-       
+
         #endregion
 
         //----------------------------------------------------------
@@ -486,6 +486,18 @@ namespace PccNew
         }
         #endregion
 
+        //AGV的线程操作
+        #region
+        private Thread ThreadAGVLift;
+        public ControlAgv AgvLiftcontrol = new ControlAgv();
+        private void StartThreadAGV()
+        {
+            AgvLiftcontrol.start();
+            ThreadAGVLift = new Thread(new ParameterizedThreadStart(AgvLiftcontrol.AGVThreadFunc));
+            ThreadAGVLift.Start(1);
+        }
+        #endregion
+
 
         /// <summary>
         /// 20170304 wge   屏幕点击
@@ -496,7 +508,7 @@ namespace PccNew
         bool flag = false;
         private void TimerScreen_Tick(object sender, EventArgs e)
         {
-            if(!flag)
+            if (!flag)
             {
                 flag = true;
                 for (int m = 0; m < 3; m++)
@@ -515,7 +527,7 @@ namespace PccNew
                 }
                 flag = false;
             }
-            
+
         }
         public ControlLightAndScreen clight = new ControlLightAndScreen();
 
@@ -531,14 +543,14 @@ namespace PccNew
 
             InitializStorage();
             startThreadAll();
-            
+
             TimerScreen.Enabled = true;
             clight.LightThreadFunc();
         }
         //停止
         public void stopAll()
         {
-            
+
             StopThreadAll();
             TimerScreen.Enabled = false;
         }
@@ -564,6 +576,7 @@ namespace PccNew
 
         public void startThreadAll()
         {
+            StartThreadAGV();
             //立库
             StartThreadNewLikuDDJ();
             //穿梭车

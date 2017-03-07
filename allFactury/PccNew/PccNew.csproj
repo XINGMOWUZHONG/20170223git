@@ -73,6 +73,9 @@
       <DependentUpon>Browser.cs</DependentUpon>
     </Compile>
     <Compile Include="ComTCPLib.cs" />
+    <Compile Include="ControlAgv.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ControlLightAndScreen.cs" />
     <Compile Include="ControlOcsLift.cs" />
     <Compile Include="ControlOcs.cs" />
