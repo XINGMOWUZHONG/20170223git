@@ -22,19 +22,23 @@ namespace Storage
         public int StorageAreaCount = 0;
         private string StorageAreaspacing = "";
 
-        //1 立库 2 配餐
+        //1 新立库 2 双身为 3 配餐
         public int StorageType = 0;
         public void Initialize(string config)
         {
             try
             {
-                if (config == "StorageArea_pcc")
+                if (config == "StorageArea_new")
+                {
+                    StorageType = 1;
+                }
+                else if (config == "StorageArea_new_double")
                 {
                     StorageType = 2;
                 }
-                else
+                else if (config == "StorageArea_pcc")
                 {
-                    StorageType = 1;
+                    StorageType = 3;
                 }
                 getConfigData(config);
                 connection = new StorageArea.StorageAreaClient();
@@ -76,7 +80,8 @@ namespace Storage
                     for (int y = 0; y < int.Parse(rows); y++)
                     {
                         xx++;
-                        Change(i, x, y, 1, xx);
+                        Change(i, x, y, StorageType*10+1, xx);
+                        System.Threading.Thread.Sleep(100);
                     }
                 }
             }

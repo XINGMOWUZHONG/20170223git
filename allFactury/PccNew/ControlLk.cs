@@ -255,6 +255,7 @@ namespace PccNew
 
         private Rack getRackIdByModel(CGKddj lastddj, CGKddj thisddj, int DdjId)
         {
+            //当托盘无货 且 当前叉子和载货台目标不和上次相同时
             if ((lastddj == null || (thisddj.CGKddj_tgt != lastddj.CGKddj_tgt || thisddj.CGKddj_forktgt != lastddj.CGKddj_forktgt || thisddj.CGKddj_platformtgt != lastddj.CGKddj_platformtgt)) && (int)thisddj.CGKddj_forktgt != 0 && thisddj.CGKddj_pallertstate == 0)
             {
 
@@ -277,6 +278,7 @@ namespace PccNew
                 {
                     r.Rack_z = 0;
                 }
+                r.Rack_type = 1;
             }
             else if (DdjId == 2)
             {
@@ -288,29 +290,30 @@ namespace PccNew
                 {
                     r.Rack_z = 2;
                 }
+                r.Rack_type = 1;
             }
             else if (DdjId == 3)
             {
                 if ((int)thisddj.CGKddj_forktgt == 1)
                 {
-                    r.Rack_z = 6;
+                    r.Rack_z = 0;
                 }
                 else if ((int)thisddj.CGKddj_forktgt == 2)
                 {
-                    r.Rack_z = 5;
+                    r.Rack_z = 1;
                 }
                 else if ((int)thisddj.CGKddj_forktgt == 3)
                 {
-                    r.Rack_z = 7;
+                    r.Rack_z = 2;
                 }
                 else if ((int)thisddj.CGKddj_forktgt == 4)
                 {
-                    r.Rack_z = 2;
+                    r.Rack_z = 3;
                 }
+                r.Rack_type = 2;
             }
-            r.Rack_type = 1;
             r.Rack_id = 1;
-            r.Rack_state = 2;
+            r.Rack_state = r.Rack_type*10+ 2;
             return r;
 
         }

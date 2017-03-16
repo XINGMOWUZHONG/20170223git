@@ -141,11 +141,7 @@ namespace PccNew
         public PCC()
         {
             InitializeComponent();
-            Initialization();
-            loadDemo();
-            remote.setCustomView("V_PCC");
-            Thread.Sleep(2000);
-            //InitializStorage();
+
         }
 
         //启动运行 设置基础数据
@@ -346,6 +342,7 @@ namespace PccNew
 
         public General Storage_PCC = null;
         public General Storage_NEW = null;
+        public General Storage_NEW2 = null;
 
         //配餐车 货位的点击 触发事件
         private static void PCC_placeSelected(StorageArea.Model.Place selectedPlace)
@@ -364,13 +361,18 @@ namespace PccNew
             Storage_PCC = new General();
             Storage_PCC.Initialize("StorageArea_pcc");
             Storage_PCC.connection.PlaceSelected += PCC_placeSelected;
-            Storage_PCC.FullAll();
+            //Storage_PCC.FullAll();
 
             //初始化 新库 托盘
             Storage_NEW = new General();
             Storage_NEW.Initialize("StorageArea_new");
             Storage_NEW.connection.PlaceSelected += NEW_placeSelected;
             //Storage_NEW.FullAll();
+
+            Storage_NEW2 = new General();
+            Storage_NEW2.Initialize("StorageArea_new_double");
+            Storage_NEW2.connection.PlaceSelected += NEW_placeSelected;
+            //Storage_NEW2.FullAll();
         }
 
         //第一次默认加载数据库的货位信息
@@ -438,12 +440,15 @@ namespace PccNew
         #region
         private Thread ThreaStoragePcc;
         private Thread ThreaStorageNew;
+        private Thread ThreaStorageNewDouble;
         private void StartThreadStorage()
         {
             ThreaStoragePcc = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
             ThreaStorageNew = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
+            ThreaStorageNewDouble = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
             ThreaStoragePcc.Start(Storage_PCC);
             ThreaStorageNew.Start(Storage_NEW);
+            ThreaStorageNewDouble.Start(Storage_NEW2);
         }
         #endregion
 
@@ -616,6 +621,36 @@ namespace PccNew
             ThreadOcsLift.Abort();
             //默认托盘货位的结束
             ThreadStorageShowPallet.Abort();
+        }
+
+        private void PCC_Shown(object sender, EventArgs e)
+        {
+            Initialization();
+            Thread.Sleep(2000);
+            loadDemo();
+            remote.setCustomView("V_PCC");
+            Thread.Sleep(2000);
+            //InitializStorage();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //Storage_PCC.FullAll();
+            //Storage_NEW.FullAll();
+            Storage_NEW2.FullAll();
+
+            //Storage_PCC.Change(0, 0, 0, 2, 1);
+            //Storage_PCC.Change(1, 0, 0, 2, 1);
+            //Storage_NEW.Change(0, 0, 0, 2, 1);
+            //Storage_NEW.Change(1, 0, 0, 2, 1);
+            //Storage_NEW2.Change(0, 0, 0, 2, 1);
+            //Storage_NEW2.Change(1, 0, 0, 2, 1);
+            //Storage_NEW2.Change(1, 1, 0, 2, 1);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Storage_NEW2.Change(int.Parse(this.textBox1.Text.Trim().Split(',')[0].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[1].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[2].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[3].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[4].ToString()));
         }
     }
 }
