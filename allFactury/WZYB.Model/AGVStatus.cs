@@ -10,22 +10,28 @@ namespace WZYB.Model
 	/// 实体类AGVStatus
 	/// </summary>
     [Serializable]
-    public class AGVStatus
+    public partial class AGVStatus
     {
+        public AGVStatus()
+        { }
         #region Model
-        private int _carid;
+        private int _id;
         private string _line;
-        private int _direction;
-        private int _sequence;
-        private string _backline;
-        private decimal? _position;
+        private int? _carstate;
+        private int? _palletstate;
+        private string _source;
+        private string _target;
+        private int? _taskstate;
+        private int? _complatestate;
+        private DateTime? _nowtime;
+        private string _additional;
         /// <summary>
         /// 车辆ID
         /// </summary>
-        public int carId
+        public int id
         {
-            set { _carid = value; }
-            get { return _carid; }
+            set { _id = value; }
+            get { return _id; }
         }
         /// <summary>
         /// 所在驱动段
@@ -36,37 +42,70 @@ namespace WZYB.Model
             get { return _line; }
         }
         /// <summary>
-        /// 方向0停止　1向前　2向后
+        /// 
         /// </summary>
-        public int direction
+        public int? carstate
         {
-            set { _direction = value; }
-            get { return _direction; }
+            set { _carstate = value; }
+            get { return _carstate; }
         }
         /// <summary>
-        /// 所在驱动段顺序
+        /// 
         /// </summary>
-        public int sequence
+        public int? palletstate
         {
-            set { _sequence = value; }
-            get { return _sequence; }
+            set { _palletstate = value; }
+            get { return _palletstate; }
         }
         /// <summary>
-        /// 上一条驱动段
+        /// 
         /// </summary>
-        public string backLine
+        public string source
         {
-            set { _backline = value; }
-            get { return _backline; }
+            set { _source = value; }
+            get { return _source; }
         }
         /// <summary>
-        /// 具体位置
+        /// 
         /// </summary>
-        public decimal? position
+        public string target
         {
-            set { _position = value; }
-            get { return _position; }
+            set { _target = value; }
+            get { return _target; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? taskstate
+        {
+            set { _taskstate = value; }
+            get { return _taskstate; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? complatestate
+        {
+            set { _complatestate = value; }
+            get { return _complatestate; }
+        }
+        /// <summary>
+        /// 当前时间
+        /// </summary>
+        public DateTime? nowtime
+        {
+            set { _nowtime = value; }
+            get { return _nowtime; }
+        }
+        /// <summary>
+        /// 预留字段
+        /// </summary>
+        public string additional
+        {
+            set { _additional = value; }
+            get { return _additional; }
         }
         #endregion Model
+
     }
 }

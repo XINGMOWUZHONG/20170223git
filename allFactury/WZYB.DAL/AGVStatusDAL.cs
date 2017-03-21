@@ -14,169 +14,61 @@ namespace WZYB.DAL
     /// </summary>
     public class AGVStatusDAL
     {
-        #region  成员方法
-        /// <summary>
-        /// 是否存在该记录
-        /// </summary>
-        public static bool Exists(int carId)
+        public AGVStatusDAL()
+        { }
+        public static DataSet getDatasetByIdAndTable(int id, string table)
         {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(1) from T_AGVStatus");
-            strSql.Append(" where carId=@carId ");
-            SqlParameter[] parameters = {
-					new SqlParameter("@carId", SqlDbType.Int,4)};
-            parameters[0].Value = carId;
-
-            return DbHelperSQL.Exists(strSql.ToString(), parameters);
-        }
-        public static bool ExistsBy(string strWhere)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(1) from T_AGVStatus");
-            if (strWhere.Trim() != "")
+            try
             {
-                strSql.Append(" where " + strWhere);
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("select * from " + table + " where id =" + id.ToString());
+                return DbHelperSQL.Query(strSql.ToString());
             }
-            return DbHelperSQL.Exists(strSql.ToString());
-        }
-
-
-        /// <summary>
-        /// 增加一条数据
-        /// </summary>
-        public static bool Add(WZYB.Model.AGVStatus model)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into T_AGVStatus(");
-            strSql.Append("carId,line,direction,sequence,backLine,position)");
-            strSql.Append(" values (");
-            strSql.Append("@carId,@line,@direction,@sequence,@backLine,@position)");
-            SqlParameter[] parameters = {
-					new SqlParameter("@carId", SqlDbType.Int,4),
-					new SqlParameter("@line", SqlDbType.NVarChar,10),
-					new SqlParameter("@direction", SqlDbType.Int,4),
-					new SqlParameter("@sequence", SqlDbType.Int,4),
-					new SqlParameter("@backLine", SqlDbType.NVarChar,10),
-					new SqlParameter("@position", SqlDbType.Float,8)};
-            parameters[0].Value = model.carId;
-            parameters[1].Value = model.line;
-            parameters[2].Value = model.direction;
-            parameters[3].Value = model.sequence;
-            parameters[4].Value = model.backLine;
-            parameters[5].Value = model.position;
-
-            int i = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
-            if (i > 0)
-                return true;
-            else
-                return false;
-        }
-        /// <summary>
-        /// 更新一条数据
-        /// </summary>
-        public static bool Update(WZYB.Model.AGVStatus model)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("update T_AGVStatus set ");
-            strSql.Append("line=@line,");
-            strSql.Append("direction=@direction,");
-            strSql.Append("sequence=@sequence,");
-            strSql.Append("backLine=@backLine,");
-            strSql.Append("position=@position");
-            strSql.Append(" where carId=@carId ");
-            SqlParameter[] parameters = {
-					new SqlParameter("@carId", SqlDbType.Int,4),
-					new SqlParameter("@line", SqlDbType.NVarChar,10),
-					new SqlParameter("@direction", SqlDbType.Int,4),
-					new SqlParameter("@sequence", SqlDbType.Int,4),
-					new SqlParameter("@backLine", SqlDbType.NVarChar,10),
-					new SqlParameter("@position", SqlDbType.Float,8)};
-            parameters[0].Value = model.carId;
-            parameters[1].Value = model.line;
-            parameters[2].Value = model.direction;
-            parameters[3].Value = model.sequence;
-            parameters[4].Value = model.backLine;
-            parameters[5].Value = model.position;
-
-            int i = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
-            if (i > 0)
-                return true;
-            else
-                return false;
-        }
-
-        /// <summary>
-        /// 删除一条数据
-        /// </summary>
-        public static bool Delete(int carId)
-        {
-
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("delete from T_AGVStatus ");
-            strSql.Append(" where carId=@carId ");
-            SqlParameter[] parameters = {
-					new SqlParameter("@carId", SqlDbType.Int,4)};
-            parameters[0].Value = carId;
-
-            int i = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
-            if (i > 0)
-                return true;
-            else
-                return false;
-        }
-        /// <summary>
-        /// 删除数据
-        /// </summary>
-        public static int DeleteBy(string strWhere)
-        {
-
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("delete from T_AGVStatus ");
-            if (strWhere.Trim() != "")
+            catch (Exception ex)
             {
-                strSql.Append(" where " + strWhere);
+                throw ex;
             }
-            return DbHelperSQL.ExecuteSql(strSql.ToString());
         }
 
-
-        /// <summary>
-        /// 获得前几行数据
-        /// </summary>
-        public static DataSet GetList(int Top, string strWhere, string filedOrder)
+        public static DataSet getDatasetByTable(string table)
         {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select ");
-            if (Top > 0)
+            try
             {
-                strSql.Append(" top " + Top.ToString());
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("select * from " + table + "");
+                return DbHelperSQL.Query(strSql.ToString());
             }
-            strSql.Append(" carId,line,direction,sequence,backLine,position ");
-            strSql.Append(" FROM T_AGVStatus ");
-            if (strWhere.Trim() != "")
+            catch (Exception ex)
             {
-                strSql.Append(" where " + strWhere);
+                throw ex;
             }
-            if (filedOrder.Trim() != "")
-            {
-                strSql.Append(" order by " + filedOrder);
-            }
-            return DbHelperSQL.Query(strSql.ToString());
         }
 
-        #endregion  成员方法
-
-        #region 自定义方法
-
-        public static int getCountByLine(string line)
+        public static DataSet getDatasetByWhere(string table,string str)
         {
-            string strSql = "select count(*) from T_AGVStatus where line = " + line;
-            object obj = DbHelperSQL.GetSingle(strSql);
-            return Convert.ToInt32(obj);
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("select * from " + table + " where " + str);
+                return DbHelperSQL.Query(strSql.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        #endregion
-
-        
+        public static DataSet getDatasetByWhere(string sql)
+        {
+            try
+            {
+                StringBuilder strSql = new StringBuilder(sql);
+                return DbHelperSQL.Query(strSql.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

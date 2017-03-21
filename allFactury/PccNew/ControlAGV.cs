@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using WZYB.Model;
 using WZYB.BLL;
+using System.Threading;
 
 namespace PccNew
 {
@@ -70,234 +71,123 @@ namespace PccNew
         private int[] agvStopTime;
 
         #endregion
-        private int ocsThreadTime = 300;
+        private int ThreadTime = 300;
         public int handle = 1;
-
-        public ControlAgv()
+        public int AgvCount = 5;
+        public bool IsStart = false;
+        public string[] PostiveLineArr = null;
+        public Dictionary<string, string> platFormDic = null;
+       
+        public void AGVThreadFunc(object obj)
         {
-            //agv数据初始化
-            agvCarPos = new float[agvCarCount + 1];
-            agvThread = new Thread[agvCarCount];
-            agvTempLine = new int[agvCarCount + 1];
-            agvdirection = new int[agvCarCount + 1];
-            agvStopTime = new int[agvCarCount + 1];
-
-            int[] agvTmpSequence = new int[10000];
-
-            for (int i = 1; i <= agvCarCount; i++)
+            try
             {
-                agvTempLine[i] = 0;
-                agvdirection[i] = 0;
-                agvStopTime[i] = 0;
-                AGVStatus model = AGVStatusBLL.GetModel(i);
-
-                if (model != null)
+                AGVStatus lastModel = null;
+                int ID = Convert.ToInt16(obj);
+                int[] XmlIndex = getXmlIndex(ID);
+                PostiveLineArr = AGVStatusBLL.getPostiveLine();
+                platFormDic = AGVStatusBLL.getPlatFormLine();
+                while (true)
                 {
-                    model.line = agvPath[i].Split(',')[0];
-                    model.direction = 1;
-                    model.sequence = agvTmpSequence[int.Parse(model.line)] + 1;
-                    agvTmpSequence[int.Parse(model.line)]++;
-                    AGVStatusBLL.Update(model);
+                    if (IsStart)
+                    {
+                        AGVStatus thisModel = AGVStatusBLL.GetAgvModel(ID);
+                        if (thisModel != null)
+                        {
+                            setCarData(lastModel, thisModel, XmlIndex);
+                            lastModel = thisModel;
+                        }
+                    }
+                    Thread.Sleep(ThreadTime);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private int[] getXmlIndex(int i)
+        {
+            int[] index = new int[6];
+            index[0] = GetIdex.getDicOutputIndex("ATTRIBUTE01_DIR" + i.ToString());
+            index[1] = GetIdex.getDicOutputIndex("ATTRIBUTE01_CAR_STATE" + i.ToString());
+            index[2] = GetIdex.getDicOutputIndex("ATTRIBUTE01_ISLASTLINE" + i.ToString() );
+            index[3] = GetIdex.getDicOutputIndex("ATTRIBUTE01_IN_Path" + i.ToString() );
+            index[4] = GetIdex.getDicOutputIndex("ATTRIBUTE01_TASK_STATE" + i.ToString() );
+            index[5] = GetIdex.getDicOutputIndex("ATTRIBUTE01_PALLERT_STATE" + i.ToString());
+            return index;
+        }
+
+        private void setCarData(AGVStatus lastData, AGVStatus thisData, int[] xmlIndex)
+        {
+            int CarXmlIndex_line = xmlIndex[3];
+            int CarXmlIndex_carstate = xmlIndex[1];
+            int CarXmlIndex_palletstate = xmlIndex[5];
+            int CarXmlIndex_taskstate = xmlIndex[4];
+            int CarXmlIndex_dir = xmlIndex[0];
+            int CarXmlIndex_islastline = xmlIndex[2];
+
+            if (lastData == null)
+            {
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_line, UInt32.Parse(thisData.line));
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, UInt32.Parse(thisData.carstate.ToString ()));
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, UInt16.Parse(thisData.palletstate.ToString()));
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, UInt16.Parse(thisData.taskstate.ToString()));
+                if (PostiveLineArr.Contains(thisData.line.ToString()))
+                {
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, UInt16.Parse("1"));
                 }
                 else
                 {
-                    model = new AGVStatus();
-                    model.carId = i;
-                    model.line = agvPath[i].Split(',')[0];
-                    model.direction = 1;
-                    model.sequence = agvTmpSequence[int.Parse(model.line)] + 1;
-                    model.backLine = "1";
-                    model.position = -1;
-                    agvTmpSequence[int.Parse(model.line)]++;
-                    AGVStatusBLL.Add(model);
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, UInt16.Parse("0"));
                 }
-            }
-        }
-
-        public void start()
-        {
-            Thread ThreadAGVLift = new Thread(new ParameterizedThreadStart(CheckStatus));
-            ThreadAGVLift.Start(1);
-        }
-
-        public void CheckStatus(Object stateInfo)  // 被调用的，被TimerCallback委托的函数，必须是具有object 形参且必须为void的返回值的
-        {
-            while (true)
-            {
-                //agv数据模拟
-                for (int i = 1; i < agvCarPos.Length; i++)
+                string Platlines = platFormDic[thisData.target];
+                if (Platlines != null && Platlines.Split(',').Contains(thisData.line))
                 {
-                    AGVStatus model = AGVStatusBLL.GetModel(i);
-
-                    if (agvCarPos[i] > 0)
-                    {
-                        if (agvCarPos[i] >= agvLineLength[int.Parse(agvPath[i].Split(',')[agvTempLine[i]])] || agvCarPos[i] == agvEndPos)
-                        {
-                            if (agvdirection[i] == 0)
-                            {
-                                if (agvTempLine[i] + 1 < agvPath[i].Split(',').Length)
-                                {
-                                    agvTempLine[i]++;
-                                }
-                                else
-                                {
-                                    if (agvStopTime[i] > 3000)
-                                    {
-                                        if (agvdirection[i] == 0)
-                                            agvdirection[i] = 1;
-                                        else
-                                            agvdirection[i] = 0;
-
-                                        agvStopTime[i] += 0;
-                                    }
-                                    else
-                                    {
-                                        agvStopTime[i] += 500;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (agvTempLine[i] - 1 > 0)
-                                {
-                                    agvTempLine[i]--;
-                                }
-                                else
-                                {
-                                    if (agvStopTime[i] > 3000)
-                                    {
-                                        if (agvdirection[i] == 0)
-                                            agvdirection[i] = 1;
-                                        else
-                                            agvdirection[i] = 0;
-
-                                        agvStopTime[i] += 0;
-                                    }
-                                    else
-                                    {
-                                        agvStopTime[i] += 500;
-                                    }
-                                }
-                            }
-
-                            model.line = agvPath[i].Split(',')[agvTempLine[i]];
-                            int count = AGVStatusBLL.getCountByLine(model.line);
-
-                            if (model.line == "6" || model.line == "8" || model.line == "10" || model.line == "14")
-                            {
-                                if (agvdirection[i] == 0)
-                                    model.direction = 2;
-                                else
-                                    model.direction = 1;
-                            }
-                            else
-                            {
-                                if (agvdirection[i] == 0)
-                                    model.direction = 1;
-                                else
-                                    model.direction = 2;
-                            }
-
-                            model.sequence = count + 1;
-                            AGVStatusBLL.Update(model);
-                        }
-                    }
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("1"));
                 }
-
-                Thread.Sleep(500);
-            }
-        }
-
-        public void AGVThreadFunc(object obj)
-        {
-            int index = Convert.ToInt32(obj);
-            bool tmp = true;
-
-            while (true)
-            {
-                //#region 临时使用，正式使用时去掉
-
-                //if (tmp == false)
-                //{
-                //    if (index == 2)
-                //    {
-                //        if (agvTempLine[3] > 0)
-                //            tmp = true;
-                //    }
-                //    else if (index == 1)
-                //    {
-                //        if (agvTempLine[2] > 0)
-                //            tmp = true;
-                //    }
-                //    else
-                //        tmp = true;
-                //}
-
-                //#endregion
-
-                if (tmp)
+                else
                 {
-                    //数据库最新数据
-                    AGVStatus model = AGVStatusBLL.GetModel(index);
-
-                    if (model.position == -1)
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("0"));
+                }
+                
+            }
+            else if (!thisData.Equals(lastData))
+            {
+                if (thisData.line != lastData.line)
+                {
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_line, UInt32.Parse(thisData.line));
+                    if (PostiveLineArr.Contains(thisData.line.ToString()))
                     {
-                        //内存数据
-                        //OCSStatus oldModel = ocsModelList.Find(s => s.carId == index);
-                        int i = agvModelList.FindIndex(s => s.carId == index);
-
-                        //初始
-                        if (i == -1)
-                        {
-                            int count = AGVStatusBLL.getCountByLine(model.line);
-
-                            agvCarPos[index] = (count - model.sequence) * agvCarWidth + agvStartPos;
-                            agvModelList.Add(model);
-                        }
-                        else
-                        {
-                            //驱动段改变
-                            if (agvModelList[i].line != model.line)
-                            {
-                                if (model.direction == 1)
-                                    agvCarPos[index] = agvStartPos;
-                                else
-                                    agvCarPos[index] = agvLineLength[int.Parse(model.line)] - agvStartPos;
-                            }
-                            else
-                            {
-                                if (model.direction == 1)
-                                {
-                                    if (agvCarPos[index] < agvLineLength[int.Parse(model.line)])
-                                        agvCarPos[index] += agvSpeed;
-                                }
-                                else if (model.direction == 2)
-                                {
-                                    if (agvCarPos[index] - agvSpeed < agvEndPos)
-                                        agvCarPos[index] = agvEndPos;
-                                    else
-                                        agvCarPos[index] -= agvSpeed;
-                                }
-                            }
-
-                            agvModelList[i] = model;
-                        }
+                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, UInt16.Parse("1"));
                     }
                     else
                     {
-                        agvCarPos[index] = float.Parse(model.position.ToString());
+                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, UInt16.Parse("0"));
                     }
-
-                    int index1 = GetIdex.getDicOutputIndex("agvCar" + index + "01_input_pos");
-                    ComTCPLib.SetOutputAsREAL32(handle, index1, float.Parse(agvCarPos[index].ToString()));
-                    index1 = GetIdex.getDicOutputIndex("agvCar" + index + "01_input_Path");
-                    ComTCPLib.SetOutputAsINT(handle, index1, int.Parse(model.line.ToString()));
+                }
+                if (thisData.carstate != lastData.carstate)
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, UInt32.Parse(thisData.carstate.ToString()));
+                if (thisData.palletstate != lastData.palletstate)
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, UInt16.Parse(thisData.palletstate.ToString()));
+                if (thisData.taskstate != lastData.taskstate)
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, UInt16.Parse(thisData.taskstate.ToString()));
+                if (thisData.target != lastData.target)
+                {
+                    string Platlines = platFormDic[thisData.target];
+                    if (Platlines != null && Platlines.Split(',').Contains(thisData.line))
+                    {
+                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("1"));
+                    }
+                    else
+                    {
+                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("0"));
+                    }
                 }
 
-                Thread.Sleep(ocsThreadTime);
             }
-        }
 
+        }
 
     }
 }

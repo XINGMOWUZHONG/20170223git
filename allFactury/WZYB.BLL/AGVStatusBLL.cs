@@ -14,131 +14,26 @@ namespace WZYB.BLL
     /// </summary>
     public class AGVStatusBLL
     {
-        #region  成员方法
-        /// <summary>
-        /// 是否存在该记录
-        /// </summary>
-        public static bool Exists(int carId)
+        public static string AGVtable = System.Configuration.ConfigurationManager.AppSettings["AGV"].ToString();
+        public static string PlatForm = System.Configuration.ConfigurationManager.AppSettings["PlatForm"].ToString();
+        public static WZYB.Model.AGVStatus GetAgvModel(int id)
         {
-            return AGVStatusDAL.Exists(carId);
-        }
-
-        /// <summary>
-        /// 是否存在该记录
-        /// </summary>
-        public static bool ExistsBy(string strWhere)
-        {
-            return AGVStatusDAL.ExistsBy(strWhere);
-        }
-
-        /// <summary>
-        /// 增加一条数据
-        /// </summary>
-        public static bool Add(AGVStatus model)
-        {
-            return AGVStatusDAL.Add(model);
-        }
-
-        /// <summary>
-        /// 更新一条数据
-        /// </summary>
-        public static bool Update(AGVStatus model)
-        {
-            return AGVStatusDAL.Update(model);
-        }
-
-        /// <summary>
-        /// 删除一条数据
-        /// </summary>
-        public static bool Delete(int carId)
-        {
-            return AGVStatusDAL.Delete(carId);
-        }
-
-        public static int DeleteBy(string strWhere)
-        {
-            return AGVStatusDAL.DeleteBy(strWhere);
-        }
-
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public static AGVStatus GetModel(int carId)
-        {
-            return GetModelBy("carId=" + carId + " ");
-        }
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public static AGVStatus GetModelBy(string strWhere)
-        {
-            DataSet ds = GetList(1, strWhere, "");
-            if (ds.Tables[0].Rows.Count > 0)
-                return DataTableToList(ds.Tables[0])[0];
-            else
+            try
+            {
+                DataSet ds = AGVStatusDAL.getDatasetByIdAndTable(id, AGVtable);
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    return DataTableToAgvList(ds.Tables[0])[0];
+                }
                 return null;
-        }
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public static AGVStatus GetModelBy(string strWhere, string filedOrder)
-        {
-            DataSet ds = GetList(1, strWhere, filedOrder);
-            if (ds.Tables[0].Rows.Count > 0)
-                return DataTableToList(ds.Tables[0])[0];
-            else
-                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public static DataSet GetList(string strWhere)
-        {
-            return GetList(0, strWhere, "");
-        }
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public static DataSet GetList(int Top, string strWhere, string filedOrder)
-        {
-            return AGVStatusDAL.GetList(Top, strWhere, filedOrder);
-        }
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public static DataSet GetList(string strWhere, string filedOrder)
-        {
-            return GetList(0, strWhere, filedOrder);
-        }
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public static List<AGVStatus> GetModelList(string strWhere)
-        {
-            DataSet ds = GetList(strWhere);
-            return DataTableToList(ds.Tables[0]);
-        }
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public static List<AGVStatus> GetModelList(int Top, string strWhere, string filedOrder)
-        {
-            DataSet ds = GetList(Top, strWhere, filedOrder);
-            return DataTableToList(ds.Tables[0]);
-        }
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public static List<AGVStatus> GetModelList(string strWhere, string filedOrder)
-        {
-            DataSet ds = GetList(strWhere, filedOrder);
-            return DataTableToList(ds.Tables[0]);
-        }
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public static List<AGVStatus> DataTableToList(DataTable dt)
+        public static List<AGVStatus> DataTableToAgvList(DataTable dt)
         {
             List<AGVStatus> modelList = new List<AGVStatus>();
             int rowsCount = dt.Rows.Count;
@@ -148,23 +43,37 @@ namespace WZYB.BLL
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = new AGVStatus();
-                    if (dt.Rows[n]["carId"].ToString() != "")
+                    if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.carId = int.Parse(dt.Rows[n]["carId"].ToString());
+                        model.id = int.Parse(dt.Rows[n]["id"].ToString());
                     }
-                    model.line = dt.Rows[n]["line"].ToString();
-                    if (dt.Rows[n]["direction"].ToString() != "")
+                    if (dt.Rows[n]["line"].ToString() != "")
                     {
-                        model.direction = int.Parse(dt.Rows[n]["direction"].ToString());
+                        model.line = dt.Rows[n]["line"].ToString() ;
                     }
-                    if (dt.Rows[n]["sequence"].ToString() != "")
+                    if (dt.Rows[n]["carstate"].ToString() != "")
                     {
-                        model.sequence = int.Parse(dt.Rows[n]["sequence"].ToString());
+                        model.carstate = int.Parse(dt.Rows[n]["carstate"].ToString());
                     }
-                    model.backLine = dt.Rows[n]["backLine"].ToString();
-                    if (dt.Rows[n]["position"].ToString() != "")
+                    if (dt.Rows[n]["palletstate"].ToString() != "")
                     {
-                        model.position = decimal.Parse(dt.Rows[n]["position"].ToString());
+                        model.palletstate = int.Parse(dt.Rows[n]["palletstate"].ToString());
+                    }
+                    if (dt.Rows[n]["source"].ToString() != "")
+                    {
+                        model.source = dt.Rows[n]["source"].ToString() ;
+                    }
+                    if (dt.Rows[n]["target"].ToString() != "")
+                    {
+                        model.target = dt.Rows[n]["target"].ToString();
+                    }
+                    if (dt.Rows[n]["taskstate"].ToString() != "")
+                    {
+                        model.taskstate = int.Parse(dt.Rows[n]["taskstate"].ToString());
+                    }
+                    if (dt.Rows[n]["complatestate"].ToString() != "")
+                    {
+                        model.complatestate = int.Parse(dt.Rows[n]["complatestate"].ToString());
                     }
                     modelList.Add(model);
                 }
@@ -172,24 +81,44 @@ namespace WZYB.BLL
             return modelList;
         }
 
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public static DataSet GetAllList()
+        public static string[] getPostiveLine()
         {
-            return GetList("");
+            DataSet ds = AGVStatusDAL.getDatasetByWhere(PlatForm, " direction = 1");
+            if(ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                string[] str = new string[ds.Tables[0].Rows.Count];
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    str[i] = ds.Tables[0].Rows[i]["line"].ToString();
+                }
+                return str;
+            }
+            return null;
         }
 
-        #endregion  成员方法
-
-        #region 自定义方法
-
-        public static int getCountByLine(string line)
+        public static Dictionary<string, string> getPlatFormLine()
         {
-            return AGVStatusDAL.getCountByLine(line);
+            DataSet ds = AGVStatusDAL.getDatasetByWhere(PlatForm, " Platformid <> 0 order by Platformid asc ");
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                Dictionary<string, string> Platline = new Dictionary<string, string>();
+                for (int i = 0; i < dt.Rows.Count;i++ )
+                {
+                    string row = dt.Rows[i]["Platformid"].ToString();
+                    if (Platline[row] != null)
+                    {
+                        Platline[row] = Platline[row].ToString() + "," + dt.Rows[i]["line"].ToString();
+                    }
+                    else
+                    {
+                        Platline.Add(row, dt.Rows[i]["line"].ToString());
+                    }
+                }
+                return Platline;
+            }
+            return null;
         }
-
-        #endregion
 
     }
 }

@@ -493,13 +493,16 @@ namespace PccNew
 
         //AGV的线程操作
         #region
-        private Thread ThreadAGVLift;
-        public ControlAgv AgvLiftcontrol = new ControlAgv();
+        private ControlAgv agvControl = new ControlAgv();
+        private Thread[] agvThread;
         private void StartThreadAGV()
         {
-            AgvLiftcontrol.start();
-            ThreadAGVLift = new Thread(new ParameterizedThreadStart(AgvLiftcontrol.AGVThreadFunc));
-            ThreadAGVLift.Start(1);
+            agvThread = new Thread[agvControl.AgvCount];
+            for (int i = 0; i < agvControl.AgvCount; i++)
+            {
+                agvThread[i] = new Thread(new ParameterizedThreadStart(agvControl.AGVThreadFunc));
+                agvThread[i].Start(i + 1);
+            }
         }
         #endregion
 

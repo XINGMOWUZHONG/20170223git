@@ -59,7 +59,7 @@ namespace PccNew
                     {
                         for (int i = 0; i < list.Count; i++)
                         {
-                            if (r.Rack_id == list[i].StorageType)
+                            if (r.Rack_type == list[i].StorageType)
                             {
                                 list[i].Change(r.Rack_z, r.Rack_colum, r.Rack_row, r.Rack_state, r.Rack_id);
                                 Thread.Sleep(30);
