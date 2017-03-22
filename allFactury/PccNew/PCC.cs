@@ -150,12 +150,6 @@ namespace PccNew
             remote.sendReset();
             remote.sendPlay();
             Connect();
-
-            setBaseData();
-            timer1.Enabled = true;
-            timer2.Enabled = true;
-            timer3.Enabled = true;
-
             startAll();
         }
 
@@ -165,9 +159,7 @@ namespace PccNew
             remote.sendReset();
             remote.sendReset();
             Disconnect();
-            timer1.Enabled = false;
-            timer2.Enabled = false;
-            timer3.Enabled = false;
+            timerButton.Enabled = false;
 
             //20170225 add ---------
             stopAll();
@@ -177,9 +169,7 @@ namespace PccNew
         private void button3_Click(object sender, EventArgs e)
         {
             remote.sendPause();
-            timer1.Enabled = false;
-            timer2.Enabled = false;
-            timer3.Enabled = false;
+            timerButton.Enabled = false;
             //20170225 add ---------
             pauseAll();
         }
@@ -188,89 +178,17 @@ namespace PccNew
         private void button4_Click(object sender, EventArgs e)
         {
             remote.sendPlay();
-            timer1.Enabled = true;
-            timer2.Enabled = true;
-            timer3.Enabled = true;
+            timerButton.Enabled = true;
 
             goonAll();
-        }
-
-        //timer 不停的刷新数据
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            setModelData();
         }
 
         //调试
         private void button5_Click(object sender, EventArgs e)
         {
-
-            setBaseData();
         }
 
 
-        //-------------------------------------------------------------------------------
-        //从新设置基础数据
-        //public DBtest dd = new DBtest();
-        public ControlPcc pcccontrol2 = new ControlPcc();
-        public void setBaseData()
-        {
-            dd = new DBtest();
-            this.timer1.Interval = int.Parse(System.Configuration.ConfigurationManager.AppSettings["car_interval"].ToString());
-
-            pcccontrol2.setBaseData(this.handle);
-        }
-
-
-        //设置模型数据
-        public void setModelData()
-        {
-            try
-            {
-                if (pcccontrol2.flag == false)
-                {
-                    return;
-                }
-                if (pcccontrol2.flag == true)
-                {
-                    pcccontrol2.flag = false;
-                }
-                pcccontrol2.setModelData(this.handle);
-                #region
-                //货位的处理
-                //if (pcccontrol2.storageAreaState != 0)
-                //{
-                //    switch (pcccontrol2.storageAreaState)
-                //    {
-                //        case 1:
-                //            Storage_PCC.Change(0, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 1, 1);
-                //            break;
-                //        case 2:
-                //            Storage_PCC.Change(1, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 1, 1);
-                //            break;
-                //        case 3:
-                //            Storage_PCC.Change(0, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 0, 1);
-                //            break;
-                //        case 4:
-                //            Storage_PCC.Change(1, int.Parse(pcccontrol2.lastDr["DestLocationCode"].ToString()), 0, 0, 1);
-                //            break;
-                //    }
-                //    pcccontrol2.storageAreaState = 0;
-                //}
-                #endregion
-                pcccontrol2.flag = true;
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
-        }
-
-        DBtest dd = new DBtest();
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            dd.testdata2();
-        }
 
         private void button6_Click(object sender, EventArgs e)
         {
@@ -303,21 +221,21 @@ namespace PccNew
         //点击button事件
         private void timer3_Tick(object sender, EventArgs e)
         {
-            int index = pcccontrol2.getBtnClickIndex(this.handle);
-            if (index == 0)
-            {
+            ////int index = pcccontrol2.getBtnClickIndex(this.handle);
+            //if (index == 0)
+            //{
 
-            }
-            else if (index == 1)
-            {
-                //小车点击
-                //MessageBox.Show("小车");
-            }
-            else if (index == 2)
-            {
-                //托盘点击
-                //MessageBox.Show("托盘");
-            }
+            //}
+            //else if (index == 1)
+            //{
+            //    //小车点击
+            //    //MessageBox.Show("小车");
+            //}
+            //else if (index == 2)
+            //{
+            //    //托盘点击
+            //    //MessageBox.Show("托盘");
+            //}
         }
 
 

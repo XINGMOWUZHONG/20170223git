@@ -80,7 +80,6 @@
     <Compile Include="ControlOcs.cs" />
     <Compile Include="ControlStorage.cs" />
     <Compile Include="ControlLk.cs" />
-    <Compile Include="ControlPcc.cs" />
     <Compile Include="DBtest.cs" />
     <Compile Include="GetIdex.cs" />
     <Compile Include="PCC.cs">
