@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OcsLiftBll.cs" />
+    <Compile Include="PccBll.cs" />
     <Compile Include="RackBll.cs" />
     <Compile Include="CGKBll.cs" />
     <Compile Include="AGVStatusBLL.cs" />
