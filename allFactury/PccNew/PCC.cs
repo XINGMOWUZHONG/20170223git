@@ -253,6 +253,21 @@ namespace PccNew
         #region 20170225 new jicheng
         public ControlLk LKcontrol = new ControlLk();
         public ControlStorage Storagecontrol = new ControlStorage();
+        
+
+
+          #endregion
+
+        //配餐车的线程处理
+        #region
+        private Thread ThreadPcc;
+        public ControlPeiCan PccControl = new ControlPeiCan();
+        private void StartThreadPcc()
+        {
+            ThreadPcc = new Thread(new ParameterizedThreadStart(PccControl.PCCThreadFunc));
+            ThreadPcc.Start();
+        }
+        #endregion
 
 
         //storage 货位的初始化和点击
@@ -370,8 +385,7 @@ namespace PccNew
         }
         #endregion
 
-
-        #endregion
+         
 
         //----------------------------------------------------------
         //20170226  OCS add ---------
@@ -466,6 +480,7 @@ namespace PccNew
             Storagecontrol.IsStart = true;
             OcsControl.IsStart = true;
             OcsLiftcontrol.IsStart = true;
+            PccControl.IsStart = true;
 
             InitializStorage();
             startThreadAll();
@@ -487,7 +502,9 @@ namespace PccNew
             Storagecontrol.IsStart = false;
             OcsControl.IsStart = false;
             OcsLiftcontrol.IsStart = false;
+            PccControl .IsStart = false;
             TimerScreen.Enabled = false;
+
         }
         //继续
         public void goonAll()
@@ -515,6 +532,8 @@ namespace PccNew
             StartThreadOcs();
             //悬挂升降机
             StartThreadOcsLift();
+            //配餐车
+            StartThreadPcc();
             //第一次加载所有托盘信息
             InitializStorageShowPallet();
         }
@@ -542,6 +561,8 @@ namespace PccNew
             ThreadOcsLift.Abort();
             //默认托盘货位的结束
             ThreadStorageShowPallet.Abort();
+            //pcc
+            ThreadPcc.Abort ();
         }
 
         private void PCC_Shown(object sender, EventArgs e)
