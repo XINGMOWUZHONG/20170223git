@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 
 
-class ComTCPLib
+public class ComTCPLib
 {
     private static int MAX_NAME_LENGTH = 256;
     

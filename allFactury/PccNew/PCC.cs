@@ -137,11 +137,20 @@ namespace PccNew
             return 0;
         }
 
-
+        public ControlThread CT;
         public PCC()
         {
             InitializeComponent();
-
+            CT = new ControlThread();
+        }
+        private void PCC_Shown(object sender, EventArgs e)
+        {
+            Initialization();
+            Thread.Sleep(2000);
+            loadDemo();
+            remote.setCustomView("V_PCC");
+            Thread.Sleep(2000);
+            //InitializStorage();
         }
 
         //启动运行 设置基础数据
@@ -150,7 +159,7 @@ namespace PccNew
             remote.sendReset();
             remote.sendPlay();
             Connect();
-            startAll();
+            CT.threadStartAll();
         }
 
         //停止运行
@@ -159,34 +168,24 @@ namespace PccNew
             remote.sendReset();
             remote.sendReset();
             Disconnect();
-            timerButton.Enabled = false;
-
-            //20170225 add ---------
-            stopAll();
+            CT.threadStopAll();
         }
 
         //暂停
         private void button3_Click(object sender, EventArgs e)
         {
             remote.sendPause();
-            timerButton.Enabled = false;
-            //20170225 add ---------
-            pauseAll();
+            CT.threadPauseAll();
         }
 
         //继续
         private void button4_Click(object sender, EventArgs e)
         {
-            remote.sendPlay();
-            timerButton.Enabled = true;
-
-            goonAll();
+            remote.sendPlay(); 
+            CT.threadContinueAll();
         }
 
-        //调试
-        private void button5_Click(object sender, EventArgs e)
-        {
-        }
+      
 
 
 
@@ -218,61 +217,17 @@ namespace PccNew
             }
         }
 
-        //点击button事件
-        private void timer3_Tick(object sender, EventArgs e)
-        {
-            ////int index = pcccontrol2.getBtnClickIndex(this.handle);
-            //if (index == 0)
-            //{
-
-            //}
-            //else if (index == 1)
-            //{
-            //    //小车点击
-            //    //MessageBox.Show("小车");
-            //}
-            //else if (index == 2)
-            //{
-            //    //托盘点击
-            //    //MessageBox.Show("托盘");
-            //}
-        }
+      
 
 
 
 
 
-
-
-
-
-
-        //----------------------------------------------------------
-        //20170225 add ---------
-        //----------------------------------------------------------
-        #region 20170225 new jicheng
-        public ControlLk LKcontrol = new ControlLk();
-        public ControlStorage Storagecontrol = new ControlStorage();
         
-
-
-          #endregion
-
-        //配餐车的线程处理
         #region
-        private Thread ThreadPcc;
-        public ControlPeiCan PccControl = new ControlPeiCan();
-        private void StartThreadPcc()
-        {
-            ThreadPcc = new Thread(new ParameterizedThreadStart(PccControl.PCCThreadFunc));
-            ThreadPcc.Start();
-        }
-        #endregion
-
-
+        //
         //storage 货位的初始化和点击
-        #region
-
+        //
         public General Storage_PCC = null;
         public General Storage_NEW = null;
         public General Storage_NEW2 = null;
@@ -283,6 +238,11 @@ namespace PccNew
             var placeData = selectedPlace.GetData();
         }
         private static void NEW_placeSelected(StorageArea.Model.Place selectedPlace)
+        {
+            var placeData = selectedPlace.GetData();
+        }
+
+        private static void NEW2_placeSelected(StorageArea.Model.Place selectedPlace)
         {
             var placeData = selectedPlace.GetData();
         }
@@ -304,7 +264,7 @@ namespace PccNew
 
             Storage_NEW2 = new General();
             Storage_NEW2.Initialize("StorageArea_new_double");
-            Storage_NEW2.connection.PlaceSelected += NEW_placeSelected;
+            Storage_NEW2.connection.PlaceSelected += NEW2_placeSelected;
             //Storage_NEW2.FullAll();
         }
 
@@ -321,55 +281,19 @@ namespace PccNew
             {
                 lg.Add(Storage_NEW);
             }
+            if (Storage_NEW2 != null)
+            {
+                lg.Add(Storage_NEW2);
+            }
             ThreadStorageShowPallet = new Thread(new ParameterizedThreadStart(Storagecontrol.InitializeStoragePallet));
             ThreadStorageShowPallet.Start(lg);
 
         }
         #endregion
 
-
-        //新立库堆垛机数据刷新处理
-        #region
-        private Thread[] ThreadNewLikuDDJList;
-        private void StartThreadNewLikuDDJ()
-        {
-            ThreadNewLikuDDJList = new Thread[3];
-            for (int i = 0; i < 3; i++)
-            {
-                ThreadNewLikuDDJList[i] = new Thread(new ParameterizedThreadStart(LKcontrol.DDJThreadFunc));
-                ThreadNewLikuDDJList[i].Start(i + 1);
-            }
-        }
-        #endregion
-
-
-        //托盘的线程操作
-        #region
-        private Thread ThreadNewLikuPallert;
-        private void StartThreadNewLikuPallert()
-        {
-            ThreadNewLikuPallert = new Thread(new ParameterizedThreadStart(LKcontrol.PallertThreadFunc));
-            ThreadNewLikuPallert.Start();
-        }
-        #endregion
-
-
-        //穿梭车位处理
-        #region
-        private Thread[] ThreadNewLikuCscList;
-        private void StartThreadNewLikuCsc()
-        {
-            ThreadNewLikuCscList = new Thread[2];
-            for (int i = 0; i < 2; i++)
-            {
-                ThreadNewLikuCscList[i] = new Thread(new ParameterizedThreadStart(LKcontrol.CarThreadFunc));
-                ThreadNewLikuCscList[i].Start(i + 1);
-            }
-        }
-        #endregion
-
-
         //货位线程操作
+        ControlStorage Storagecontrol = new ControlStorage();
+
         #region
         private Thread ThreaStoragePcc;
         private Thread ThreaStorageNew;
@@ -385,196 +309,19 @@ namespace PccNew
         }
         #endregion
 
-         
-
-        //----------------------------------------------------------
-        //20170226  OCS add ---------
-        //----------------------------------------------------------
-        #region 20170226 new jicheng
-        private ControlOcs OcsControl = new ControlOcs();
-        private Thread[] ocsThread;
-        private void StartThreadOcs()
-        {
-            ocsThread = new Thread[OcsControl.ocsCarCount];
-            for (int i = 0; i < OcsControl.ocsCarCount; i++)
-            {
-                ocsThread[i] = new Thread(new ParameterizedThreadStart(OcsControl.OcsThreadFunc));
-                ocsThread[i].Start(i + 1);
-            }
-        }
-
-        private void StopThreadOcs()
-        {
-            for (int i = 0; i < ocsThread.Length; i++)
-            {
-                ocsThread[i].Abort();
-            }
-        }
-        #endregion
-
-        //悬挂升降机的线程操作
+        
         #region
-        private Thread ThreadOcsLift;
-        public ControlOcsLift OcsLiftcontrol = new ControlOcsLift();
-        private void StartThreadOcsLift()
-        {
-            ThreadOcsLift = new Thread(new ParameterizedThreadStart(OcsLiftcontrol.OcsLiftThreadFunc));
-            ThreadOcsLift.Start();
-        }
+        //screen and light and machine and pallet
         #endregion
 
-        //AGV的线程操作
-        #region
-        private ControlAgv agvControl = new ControlAgv();
-        private Thread[] agvThread;
-        private void StartThreadAGV()
-        {
-            agvThread = new Thread[agvControl.AgvCount];
-            for (int i = 0; i < agvControl.AgvCount; i++)
-            {
-                agvThread[i] = new Thread(new ParameterizedThreadStart(agvControl.AGVThreadFunc));
-                agvThread[i].Start(i + 1);
-            }
-        }
-        #endregion
+
 
 
         /// <summary>
-        /// 20170304 wge   屏幕点击
+        /// test-------------------------------------------------
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public GetIdex gi = new GetIdex();
-        bool flag = false;
-        private void TimerScreen_Tick(object sender, EventArgs e)
-        {
-            if (!flag)
-            {
-                flag = true;
-                for (int m = 0; m < 3; m++)
-                {
-                    if (bool.Parse(gi.readValue("SCREEN" + (m + 1).ToString() + "01_ButtonPress", 3, 1).ToString()))
-                    {
-                        Browser bb = new Browser();
-                        string mesLink = "http://10.1.50.93:8080/mes/main.shtml";
-                        bb.url = mesLink;
-                        bb.ShowDialog();
-                        if (bb.DialogResult == DialogResult.OK)
-                        {
-                            bb.Close();
-                        }
-                    }
-                }
-                flag = false;
-            }
-
-        }
-        public ControlLightAndScreen clight = new ControlLightAndScreen();
-
-        //立库 悬挂 悬挂升降机 货位方法初始化 货位第一次生成 货位监控变化  监控主灯 监控点击屏幕
-        //开始
-        public void startAll()
-        {
-            //20170225 add --------------
-            LKcontrol.IsStart = true;
-            Storagecontrol.IsStart = true;
-            OcsControl.IsStart = true;
-            OcsLiftcontrol.IsStart = true;
-            PccControl.IsStart = true;
-
-            InitializStorage();
-            startThreadAll();
-
-            TimerScreen.Enabled = true;
-            clight.LightThreadFunc();
-        }
-        //停止
-        public void stopAll()
-        {
-
-            StopThreadAll();
-            TimerScreen.Enabled = false;
-        }
-        //暂停
-        public void pauseAll()
-        {
-            LKcontrol.IsStart = false;
-            Storagecontrol.IsStart = false;
-            OcsControl.IsStart = false;
-            OcsLiftcontrol.IsStart = false;
-            PccControl .IsStart = false;
-            TimerScreen.Enabled = false;
-
-        }
-        //继续
-        public void goonAll()
-        {
-            LKcontrol.IsStart = true;
-            Storagecontrol.IsStart = true;
-            OcsControl.IsStart = true;
-            OcsLiftcontrol.IsStart = true;
-            TimerScreen.Enabled = true;
-        }
-
-
-        public void startThreadAll()
-        {
-            StartThreadAGV();
-            //立库
-            StartThreadNewLikuDDJ();
-            //穿梭车
-            StartThreadNewLikuCsc();
-            //立库货位
-            StartThreadNewLikuPallert();
-            //货架
-            StartThreadStorage();
-            //悬挂
-            StartThreadOcs();
-            //悬挂升降机
-            StartThreadOcsLift();
-            //配餐车
-            StartThreadPcc();
-            //第一次加载所有托盘信息
-            InitializStorageShowPallet();
-        }
-
-        public void StopThreadAll()
-        {
-            //堆垛机结束线程
-            for (int i = 0; i < ThreadNewLikuDDJList.Length; i++)
-            {
-                ThreadNewLikuDDJList[i].Abort();
-            }
-            //托盘结束线程
-            ThreadNewLikuPallert.Abort();
-            //穿梭车结束线程
-            for (int i = 0; i < ThreadNewLikuCscList.Length; i++)
-            {
-                ThreadNewLikuCscList[i].Abort();
-            }
-            //货位结束线程
-            ThreaStoragePcc.Abort();
-            ThreaStorageNew.Abort();
-            //悬挂线程结束
-            StopThreadOcs();
-            //悬挂升降机线程结束
-            ThreadOcsLift.Abort();
-            //默认托盘货位的结束
-            ThreadStorageShowPallet.Abort();
-            //pcc
-            ThreadPcc.Abort ();
-        }
-
-        private void PCC_Shown(object sender, EventArgs e)
-        {
-            Initialization();
-            Thread.Sleep(2000);
-            loadDemo();
-            remote.setCustomView("V_PCC");
-            Thread.Sleep(2000);
-            //InitializStorage();
-        }
-
         private void button7_Click(object sender, EventArgs e)
         {
             //Storage_PCC.FullAll();

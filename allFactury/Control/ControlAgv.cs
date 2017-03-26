@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Threading;
 using WZYB.Model;
 using WZYB.BLL;
-using System.Threading;
 
 namespace WZYB.Control
 {

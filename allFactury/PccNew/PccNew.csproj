@@ -72,15 +72,9 @@
     <Compile Include="Browser.Designer.cs">
       <DependentUpon>Browser.cs</DependentUpon>
     </Compile>
-    <Compile Include="ComTCPLib.cs" />
-    <Compile Include="ControlPeiCan.cs" />
-    <Compile Include="ControlAgv.cs" />
     <Compile Include="ControlLightAndScreen.cs" />
-    <Compile Include="ControlOcsLift.cs" />
-    <Compile Include="ControlOcs.cs" />
     <Compile Include="ControlStorage.cs" />
-    <Compile Include="ControlLk.cs" />
-    <Compile Include="GetIdex.cs" />
+    <Compile Include="ControlThread.cs" />
     <Compile Include="PCC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +111,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Control\WZYB.Control.csproj">
+      <Project>{2bc12b03-7bed-43d5-b793-7d21b3eff87f}</Project>
+      <Name>WZYB.Control</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FactoryHubInterface.DBUtility\WZYB.DBUtility.csproj">
       <Project>{7e139430-6b5a-4bf9-a7a1-b3e672654ffe}</Project>
       <Name>WZYB.DBUtility</Name>
