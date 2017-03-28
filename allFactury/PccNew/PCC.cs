@@ -146,8 +146,9 @@ namespace PccNew
         private void PCC_Shown(object sender, EventArgs e)
         {
             Initialization();
-            Thread.Sleep(2000);
+            Thread.Sleep(10000);
             loadDemo();
+            Thread.Sleep(10000);
             remote.setCustomView("V_PCC");
             Thread.Sleep(2000);
             //InitializStorage();

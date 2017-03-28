@@ -72,8 +72,8 @@
     <Compile Include="Browser.Designer.cs">
       <DependentUpon>Browser.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlLightAndScreen.cs" />
     <Compile Include="ControlStorage.cs" />
+    <Compile Include="ControlThreadClickandLight.cs" />
     <Compile Include="ControlThread.cs" />
     <Compile Include="PCC.cs">
       <SubType>Form</SubType>

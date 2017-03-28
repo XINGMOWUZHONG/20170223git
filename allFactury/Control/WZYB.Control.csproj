@@ -44,7 +44,8 @@
   <ItemGroup>
     <Compile Include="ComTCPLib.cs" />
     <Compile Include="ControlAgv.cs" />
-    <Compile Include="ControlLightAndScreen.cs" />
+    <Compile Include="ControlClickAndLightThread.cs" />
+    <Compile Include="ControlInterfaceMethod.cs" />
     <Compile Include="ControlLk.cs" />
     <Compile Include="ControlOcs.cs" />
     <Compile Include="ControlOcsLift.cs" />
