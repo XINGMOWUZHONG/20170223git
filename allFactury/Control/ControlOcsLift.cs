@@ -15,6 +15,11 @@ namespace WZYB.Control
         public bool IsStart = false;
         public int handle = 1;
 
+        public ControlOcsLift()
+        {
+            IsStart = true;
+        }
+
         public void OcsLiftThreadFunc(object obj)
         {
             try

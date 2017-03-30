@@ -19,7 +19,7 @@ namespace WZYB.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select count(1) from T_OCSStatus");
-            strSql.Append(" where carId=@carId ");
+            strSql.Append(" where id=@carId ");
             SqlParameter[] parameters = {
 					new SqlParameter("@carId", SqlDbType.Int,4)};
             parameters[0].Value = carId;
@@ -47,7 +47,7 @@ namespace WZYB.DAL
 
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from T_OCSStatus ");
-            strSql.Append(" where carId=@carId ");
+            strSql.Append(" where id=@carId ");
             SqlParameter[] parameters = {
 					new SqlParameter("@carId", SqlDbType.Int,4)};
             parameters[0].Value = carId;
@@ -85,7 +85,7 @@ namespace WZYB.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" carId,line,position,displaystate ");
+            strSql.Append(" id,line,position,displaystate ");
             strSql.Append(" FROM T_OCSStatus ");
             if (strWhere.Trim() != "")
             {

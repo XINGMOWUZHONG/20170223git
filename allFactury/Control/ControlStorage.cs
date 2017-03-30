@@ -13,6 +13,13 @@ namespace WZYB.Control
     {
         public int sleepTime = int.Parse(System.Configuration.ConfigurationManager.AppSettings["car_interval"].ToString());
         public bool IsStart = false;
+
+        public ControlStorage()
+        {
+            IsStart = true;
+        }
+
+
         #region 托盘处理逻辑
 
         public void StorageThreadFunc(object o)

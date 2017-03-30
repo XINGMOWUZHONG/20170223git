@@ -25,7 +25,7 @@ namespace WZYB.Control
         public int CscCount = 2;
         public int DdjCount = 3;
 
-        public int AllCount = 20;
+        public int AllCount = 21;
 
         public string AgvCountStr = "ATTRIBUTE01_light**_LIGHT_STATE1";
         public string MachineCountStr = "ATTRIBUTE01_light**_LIGHT_STATE1";
@@ -35,6 +35,10 @@ namespace WZYB.Control
         public string DdjCountStr = "ATTRIBUTE01_light**_LIGHT_STATE1";
 
         GetIdex gi = new GetIdex();
+        public ControlClickAndLightThread()
+        {
+            IsStart = true;
+        }
         public void ClickThreadFunc(object obj)
         {
             try

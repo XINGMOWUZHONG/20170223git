@@ -76,7 +76,12 @@ namespace WZYB.Control
         public bool IsStart = false;
         public string[] PostiveLineArr = null;
         public Dictionary<string, string> platFormDic = null;
-       
+
+        public ControlAgv()
+        {
+            IsStart = true;
+        }
+
         public void AGVThreadFunc(object obj)
         {
             try

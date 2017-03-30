@@ -18,6 +18,13 @@ namespace WZYB.Control
 
         public float unitLengthDDJ_x = 1.198f;
         public float unitLengthDDJ_y = 0.677f;
+
+        public ControlLk()
+        {
+            IsStart = true;
+        }
+
+
         //public int DdjId;
         //数据库只记录变化数据
         #region 托盘处理逻辑

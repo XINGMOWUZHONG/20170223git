@@ -74,7 +74,12 @@ namespace WZYB.Control
         private int ThreadTime = 300;
         public int handle = 1;
         public bool IsStart = false;
-       
+
+        public ControlPeiCan()
+        {
+            IsStart = true;
+        }
+
         public void PCCThreadFunc(object obj)
         {
             try

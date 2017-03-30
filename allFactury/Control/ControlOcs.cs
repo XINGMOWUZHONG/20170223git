@@ -19,14 +19,15 @@ namespace WZYB.Control
 
         public ControlOcs()
         {
-             
+            IsStart = true;
         }
+
         public void OcsThreadFunc(object o)
         {
             try
             {
                 OCSStatus lastModel = null;
-                int ID = Convert.ToInt16(0);
+                int ID = Convert.ToInt16(o);
                 int[] XmlIndex = getXmlIndex(ID);
                 while (true)
                 {
@@ -74,11 +75,11 @@ namespace WZYB.Control
                     ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsArea, tmpArea);
                 }
                 //设定驱动段 002
-                ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsPath, int.Parse(lastData.line.Substring(1)));
+                ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsPath, int.Parse(thisData.line.Substring(1)));
                 //设定位置 003
-                ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos, float.Parse(lastData.position.ToString()));
+                ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos, float.Parse(thisData.position.ToString()));
                 //设定是否显示阀体
-                ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsFtv, lastData.displayState);
+                ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsFtv, thisData.displayState);
 
             }
             else if (!thisData.Equals(lastData))
@@ -90,17 +91,17 @@ namespace WZYB.Control
                    {
                        ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsArea, tmpArea);
                    }
-                   ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsPath, int.Parse(lastData.line.Substring(1)));
+                   ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsPath, int.Parse(thisData.line.Substring(1)));
                }
 
                 if (thisData.position !=lastData.position)
-                { 
-                    ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos, float.Parse(lastData.position.ToString()));
+                {
+                    ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos, float.Parse(thisData.position.ToString()));
                 }
 
                 if (thisData.displayState != lastData.displayState)
                 {
-                    ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsFtv, lastData.displayState);
+                    ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsFtv, thisData.displayState);
                 }
 
             }

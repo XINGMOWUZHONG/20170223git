@@ -46,7 +46,7 @@ namespace WZYB.BLL
         /// </summary>
         public static OCSStatus GetModel(int carId)
         {
-            return GetModelBy("carId=" + carId + " ");
+            return GetModelBy("id=" + carId + " ");
         }
         /// <summary>
         /// 得到一个对象实体
@@ -129,9 +129,9 @@ namespace WZYB.BLL
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = new OCSStatus();
-                    if (dt.Rows[n]["carId"].ToString() != "")
+                    if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.carId = int.Parse(dt.Rows[n]["carId"].ToString());
+                        model.carId = int.Parse(dt.Rows[n]["id"].ToString());
                     }
                     model.line = dt.Rows[n]["line"].ToString();
                     if (dt.Rows[n]["displaystate"].ToString() != "")
