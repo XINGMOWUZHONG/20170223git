@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WZYB.Model;
 
 namespace WZYB.Control
 {
@@ -98,6 +99,12 @@ namespace WZYB.Control
         private static string getPlatformPalletClick(string Num)
         {
             return "http://10.1.50.93:8080/mes/main.shtml";
+        }
+
+        //搜索托盘
+        public static Rack searchRack(string rackNum)
+        {
+            return null;
         }
 
 
