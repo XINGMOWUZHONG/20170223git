@@ -38,69 +38,6 @@ namespace WZYB.DAL
         }
 
 
-        /// <summary>
-        /// 增加一条数据
-        /// </summary>
-        public static bool Add(WZYB.Model.OCSStatus model)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into T_OCSStatus(");
-            strSql.Append("carId,line,direction,sequence,backLine,position)");
-            strSql.Append(" values (");
-            strSql.Append("@carId,@line,@direction,@sequence,@backLine,@position)");
-            SqlParameter[] parameters = {
-					new SqlParameter("@carId", SqlDbType.Int,4),
-					new SqlParameter("@line", SqlDbType.NVarChar,10),
-					new SqlParameter("@direction", SqlDbType.Int,4),
-					new SqlParameter("@sequence", SqlDbType.Int,4),
-					new SqlParameter("@backLine", SqlDbType.NVarChar,10),
-					new SqlParameter("@position", SqlDbType.Float,8)};
-            parameters[0].Value = model.carId;
-            parameters[1].Value = model.line;
-            parameters[2].Value = model.direction;
-            parameters[3].Value = model.sequence;
-            parameters[4].Value = model.backLine;
-            parameters[5].Value = model.position;
-
-            int i = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
-            if (i > 0)
-                return true;
-            else
-                return false;
-        }
-        /// <summary>
-        /// 更新一条数据
-        /// </summary>
-        public static bool Update(WZYB.Model.OCSStatus model)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("update T_OCSStatus set ");
-            strSql.Append("line=@line,");
-            strSql.Append("direction=@direction,");
-            strSql.Append("sequence=@sequence,");
-            strSql.Append("backLine=@backLine,");
-            strSql.Append("position=@position");
-            strSql.Append(" where carId=@carId ");
-            SqlParameter[] parameters = {
-					new SqlParameter("@carId", SqlDbType.Int,4),
-					new SqlParameter("@line", SqlDbType.NVarChar,10),
-					new SqlParameter("@direction", SqlDbType.Int,4),
-					new SqlParameter("@sequence", SqlDbType.Int,4),
-					new SqlParameter("@backLine", SqlDbType.NVarChar,10),
-					new SqlParameter("@position", SqlDbType.Float,8)};
-            parameters[0].Value = model.carId;
-            parameters[1].Value = model.line;
-            parameters[2].Value = model.direction;
-            parameters[3].Value = model.sequence;
-            parameters[4].Value = model.backLine;
-            parameters[5].Value = model.position;
-
-            int i = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
-            if (i > 0)
-                return true;
-            else
-                return false;
-        }
 
         /// <summary>
         /// 删除一条数据
@@ -148,7 +85,7 @@ namespace WZYB.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" carId,line,direction,sequence,backLine,position ");
+            strSql.Append(" carId,line,position,displaystate ");
             strSql.Append(" FROM T_OCSStatus ");
             if (strWhere.Trim() != "")
             {

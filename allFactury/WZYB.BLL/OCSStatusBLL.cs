@@ -27,22 +27,7 @@ namespace WZYB.BLL
             return OCSStatusDAL.ExistsBy(strWhere);
         }
 
-        /// <summary>
-        /// 增加一条数据
-        /// </summary>
-        public static bool Add(OCSStatus model)
-        {
-            return OCSStatusDAL.Add(model);
-        }
-
-        /// <summary>
-        /// 更新一条数据
-        /// </summary>
-        public static bool Update(OCSStatus model)
-        {
-            return OCSStatusDAL.Update(model);
-        }
-
+       
         /// <summary>
         /// 删除一条数据
         /// </summary>
@@ -149,15 +134,10 @@ namespace WZYB.BLL
                         model.carId = int.Parse(dt.Rows[n]["carId"].ToString());
                     }
                     model.line = dt.Rows[n]["line"].ToString();
-                    if (dt.Rows[n]["direction"].ToString() != "")
+                    if (dt.Rows[n]["displaystate"].ToString() != "")
                     {
-                        model.direction = int.Parse(dt.Rows[n]["direction"].ToString());
+                        model.displayState = int.Parse(dt.Rows[n]["displaystate"].ToString());
                     }
-                    if (dt.Rows[n]["sequence"].ToString() != "")
-                    {
-                        model.sequence = int.Parse(dt.Rows[n]["sequence"].ToString());
-                    }
-                    model.backLine = dt.Rows[n]["backLine"].ToString();
                     if (dt.Rows[n]["position"].ToString() != "")
                     {
                         model.position = decimal.Parse(dt.Rows[n]["position"].ToString());
