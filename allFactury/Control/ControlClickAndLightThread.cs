@@ -11,7 +11,10 @@ namespace WZYB.Control
      public  class ControlClickAndLightThread
     {
         public bool IsStart = false;
-        private int ThreadTime = 300;
+        public string LinkStr = "";
+        public int TypeStr = 0;
+        private int ThreadTimeClick = 300;
+        private int ThreadTimeLight = 300;
         public int handle = 1;
 
 
@@ -45,10 +48,12 @@ namespace WZYB.Control
                     {
                         if(getisClick(num,int.Parse(type )))
                         {
-                            string link = ControlInterfaceMethod.getLinkByTypeAndNum( int.Parse(type),num);
+                            LinkStr  = ControlInterfaceMethod.getLinkByTypeAndNum(int.Parse(type), num);
+                            TypeStr = int.Parse(type);
+                            IsStart = false;
                         }
                     }
-                    Thread.Sleep(ThreadTime);
+                    Thread.Sleep(ThreadTimeClick);
                 }
             }
             catch (Exception ex)
@@ -68,7 +73,7 @@ namespace WZYB.Control
                     {
                         setLightState(num.ToString ());
                     }
-                    Thread.Sleep(ThreadTime);
+                    Thread.Sleep(ThreadTimeLight);
                 }
             }
             catch (Exception ex)
@@ -116,24 +121,5 @@ namespace WZYB.Control
             gi.updateValue(indexstr,state.ToString (),3,handle);
         }
 
-
-
-        //public string showNewWindow(string num, int type)
-        //{
-            
-        //    Browser bb = new Browser();
-        //    string mesLink = "http://10.1.50.93:8080/mes/main.shtml";
-        //    bb.url = mesLink;
-        //    bb.ShowDialog();
-        //    if (bb.DialogResult == System.Windows.Forms.DialogResult.OK)
-        //    {
-        //        bb.Close();
-        //    }
-        //}
-       
-       
-       
-
-          
     }
 }

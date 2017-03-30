@@ -138,10 +138,12 @@ namespace PccNew
         }
 
         public ControlThread CT;
+        public ControlThreadClickandLight CT2;
         public PCC()
         {
             InitializeComponent();
             CT = new ControlThread();
+            CT2 = new ControlThreadClickandLight();
         }
         private void PCC_Shown(object sender, EventArgs e)
         {
@@ -161,6 +163,8 @@ namespace PccNew
             remote.sendPlay();
             Connect();
             CT.threadStartAll();
+            CT2.threadStartAll();
+            this.timerClick.Enabled = true;
         }
 
         //停止运行
@@ -170,6 +174,8 @@ namespace PccNew
             remote.sendReset();
             Disconnect();
             CT.threadStopAll();
+            CT2.threadStopAll();
+            this.timerClick.Enabled = false;
         }
 
         //暂停
@@ -177,6 +183,8 @@ namespace PccNew
         {
             remote.sendPause();
             CT.threadPauseAll();
+            CT2.threadPauseAll();
+            this.timerClick.Enabled = false;
         }
 
         //继续
@@ -184,6 +192,8 @@ namespace PccNew
         {
             remote.sendPlay(); 
             CT.threadContinueAll();
+            CT2.threadContinueAll();
+            this.timerClick.Enabled = true;
         }
 
       
@@ -312,7 +322,28 @@ namespace PccNew
 
         
         #region
-        //screen and light and machine and pallet
+        //timer 监控点击事件 然后打开窗体
+        private void timerClick_Tick(object sender, EventArgs e)
+        {
+            string[] arr = CT2.getLinkAndType();
+            if (arr != null)
+            {
+                showNewWindow(arr[1], int.Parse(arr[0]));
+            }
+        }
+        public void showNewWindow(string linkStr, int type)
+        {
+            this.timerClick.Enabled = false;
+            Browser bb = new Browser();
+            bb.url = linkStr;
+            bb.ShowDialog();
+            if (bb.DialogResult == System.Windows.Forms.DialogResult.OK)
+            {
+                bb.Close();
+                this.timerClick.Enabled = true;
+                CT2.threadContinueAll();
+            }
+        }
         #endregion
 
 
@@ -342,5 +373,10 @@ namespace PccNew
         {
             Storage_NEW2.Change(int.Parse(this.textBox1.Text.Trim().Split(',')[0].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[1].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[2].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[3].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[4].ToString()));
         }
+
+      
+       
+
+      
     }
 }

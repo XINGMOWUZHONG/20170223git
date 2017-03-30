@@ -13,6 +13,8 @@ namespace PccNew
     {
         private ControlClickAndLightThread clickControl = new ControlClickAndLightThread();
         private Thread[] clickThread;
+
+
         //type 1agv 2ddj  3pcc 4csc 5ocs 6 screen
         private void StartClickThread()
         {
@@ -107,6 +109,26 @@ namespace PccNew
         public void threadContinueAll()
         {
             clickControl.IsStart = true;
+        }
+
+        public string[] getLinkAndType()
+        {
+            if (clickControl !=null && clickControl.IsStart == false &&  clickControl.TypeStr != 0 && clickControl.LinkStr .Length >0 )
+            {
+                string[] arrayA = {clickControl.TypeStr.ToString (),clickControl.LinkStr };
+                setLinkAndType();
+                return  arrayA;
+            }
+            return null;
+        }
+
+        public void setLinkAndType()
+        {
+            if (clickControl != null )
+            {
+                clickControl.TypeStr = 0;
+                clickControl.LinkStr = "";
+            }
         }
     }
 }
