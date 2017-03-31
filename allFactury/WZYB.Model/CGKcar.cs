@@ -20,12 +20,21 @@ namespace WZYB.Model
         private int _CGKcar_current;
         private int _CGKcar_pallertstate;
         private int _CGKcar_action;
+        private int _target_z;
 
         private int _CGKcar_tgt_out_z;
         private float _CGKcar_tgt_out_x;
         private float _CGKcar_source_out;
         private float _CGKcar_current_out;
         private int _CGKcar_state_out;
+
+        public int target_z
+        {
+            set { _target_z = value; }
+            get { return _target_z; }
+        }
+
+
         /// <summary>
         /// 穿梭车ID
         /// </summary>

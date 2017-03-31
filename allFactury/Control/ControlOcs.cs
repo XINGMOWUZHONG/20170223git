@@ -72,14 +72,14 @@ namespace WZYB.Control
                 int tmpArea = getOcsArea(thisData.line);
                 if (tmpArea != -1)
                 {
-                    ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsArea, tmpArea);
+                    ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsArea, (UInt32)tmpArea);
                 }
                 //设定驱动段 002
-                ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsPath, int.Parse(thisData.line.Substring(1)));
+                ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsPath, UInt32.Parse(thisData.line.Substring(1)));
                 //设定位置 003
                 ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos, float.Parse(thisData.position.ToString()));
                 //设定是否显示阀体
-                ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsFtv, thisData.displayState);
+                ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsFtv, (UInt32)thisData.displayState);
 
             }
             else if (!thisData.Equals(lastData))
@@ -89,9 +89,9 @@ namespace WZYB.Control
                    int tmpArea = getOcsArea(thisData.line);
                    if (tmpArea != -1)
                    {
-                       ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsArea, tmpArea);
+                       ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsArea, (UInt32)tmpArea);
                    }
-                   ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsPath, int.Parse(thisData.line.Substring(1)));
+                   ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsPath, UInt32.Parse(thisData.line.Substring(1)));
                }
 
                 if (thisData.position !=lastData.position)
@@ -101,7 +101,7 @@ namespace WZYB.Control
 
                 if (thisData.displayState != lastData.displayState)
                 {
-                    ComTCPLib.SetOutputAsINT(handle, CarXmlIndex_OcsFtv, thisData.displayState);
+                    ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsFtv, (UInt32)thisData.displayState);
                 }
 
             }
