@@ -66,9 +66,9 @@ namespace WZYB.Control
         private int[] getPallertXmlIndex()
         {
             string str = "";
-            int[] arr = new int[50];
+            int[] arr = new int[44];
             int m;
-            for (int i = 1; i < 51; i++)
+            for (int i = 1; i < 45; i++)
             {
                 if (i < 11)
                 {
@@ -94,10 +94,10 @@ namespace WZYB.Control
                 {
                     str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + (i - 38).ToString() + "03";
                 }
-                else if (i < 51)
-                {
-                    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + (i - 44).ToString() + "04";
-                }
+                //else if (i < 51)
+                //{
+                //    str = "TCP_ATTRIBUTE01_IN_CK_INSTATE" + (i - 44).ToString() + "04";
+                //}
                 m = GetIdex.getDicOutputIndex(str);
                 arr[i - 1] = m;
             }

@@ -106,7 +106,7 @@ namespace WZYB.BLL
                 for (int i = 0; i < dt.Rows.Count;i++ )
                 {
                     string row = dt.Rows[i]["Platformid"].ToString();
-                    if (Platline[row] != null)
+                    if (Platline.ContainsKey (row))
                     {
                         Platline[row] = Platline[row].ToString() + "," + dt.Rows[i]["line"].ToString();
                     }
