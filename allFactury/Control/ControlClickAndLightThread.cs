@@ -122,7 +122,7 @@ namespace WZYB.Control
         {
             string indexstr = MachineCountStr.Replace("**", num);
             int  state = ControlInterfaceMethod.getMachineLightState( num);
-            gi.updateValue(indexstr,state.ToString (),3,handle);
+            gi.updateValue(indexstr,state.ToString (),1,handle);
         }
 
     }

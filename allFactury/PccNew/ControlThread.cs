@@ -95,11 +95,12 @@ namespace PccNew
        
         public void threadStartAll()
         {
-            StartThreadPcc();
+            //StartThreadPcc();
             StartThreadNewLikuDDJ();
             StartThreadNewLikuCsc();
             StartThreadOcs();
             StartThreadOcsLift();
+            StartThreadNewLikuPallert();
             StartThreadAGV();
         }
 
