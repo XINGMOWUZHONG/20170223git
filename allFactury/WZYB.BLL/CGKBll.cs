@@ -108,11 +108,11 @@ namespace WZYB.BLL
                     }
                     if (dt.Rows[n]["target"].ToString() != "")
                     {
-                        model.CGKcar_tgt = dt.Rows[n]["target"].ToString();
+                        model.CGKcar_tgt =int.Parse( dt.Rows[n]["target"].ToString());
                     }
                     if (dt.Rows[n]["source"].ToString() != "")
                     {
-                        model.CGKcar_source = dt.Rows[n]["source"].ToString();
+                        model.CGKcar_source = int.Parse(dt.Rows[n]["source"].ToString());
                     }
                     if (dt.Rows[n]["currentlocation"].ToString() != "")
                     {

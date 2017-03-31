@@ -15,18 +15,18 @@ namespace WZYB.Model
         #region Model
         private int _CGKcar_id;
         private int _CGKcar_state;
-        private string _CGKcar_tgt;
-        private string _CGKcar_source;
+        private int _CGKcar_tgt;
+        private int _CGKcar_source;
         private int _CGKcar_current;
         private int _CGKcar_pallertstate;
         private int _CGKcar_action;
         private int _target_z;
 
-        private int _CGKcar_tgt_out_z;
-        private float _CGKcar_tgt_out_x;
-        private float _CGKcar_source_out;
-        private float _CGKcar_current_out;
-        private int _CGKcar_state_out;
+        //private int _CGKcar_tgt_out_z;
+        //private float _CGKcar_tgt_out_x;
+        //private float _CGKcar_source_out;
+        //private float _CGKcar_current_out;
+        //private int _CGKcar_state_out;
 
         public int target_z
         {
@@ -54,7 +54,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车目标
         /// </summary>
-        public string CGKcar_tgt
+        public int CGKcar_tgt
         {
             set { _CGKcar_tgt = value; }
             get { return _CGKcar_tgt; }
@@ -62,7 +62,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车原位置
         /// </summary>
-        public string CGKcar_source
+        public int CGKcar_source
         {
             set { _CGKcar_source = value; }
             get { return _CGKcar_source; }
@@ -94,31 +94,31 @@ namespace WZYB.Model
         }
 
 
-        public float CGKcar_tgt_out_x
-        {
-            set { _CGKcar_tgt_out_x = value; }
-            get { return _CGKcar_tgt_out_x; }
-        }
-        public int CGKcar_tgt_out_z
-        {
-            set { _CGKcar_tgt_out_z = value; }
-            get { return _CGKcar_tgt_out_z; }
-        }
-        public float CGKcar_source_out
-        {
-            set { _CGKcar_source_out = value; }
-            get { return _CGKcar_source_out; }
-        }
-        public float CGKcar_current_out
-        {
-            set { _CGKcar_current_out = value; }
-            get { return _CGKcar_current_out; }
-        }
-        public int CGKcar_state_out
-        {
-            set { _CGKcar_state_out = value; }
-            get { return _CGKcar_state_out; }
-        }
+        //public float CGKcar_tgt_out_x
+        //{
+        //    set { _CGKcar_tgt_out_x = value; }
+        //    get { return _CGKcar_tgt_out_x; }
+        //}
+        //public int CGKcar_tgt_out_z
+        //{
+        //    set { _CGKcar_tgt_out_z = value; }
+        //    get { return _CGKcar_tgt_out_z; }
+        //}
+        //public float CGKcar_source_out
+        //{
+        //    set { _CGKcar_source_out = value; }
+        //    get { return _CGKcar_source_out; }
+        //}
+        //public float CGKcar_current_out
+        //{
+        //    set { _CGKcar_current_out = value; }
+        //    get { return _CGKcar_current_out; }
+        //}
+        //public int CGKcar_state_out
+        //{
+        //    set { _CGKcar_state_out = value; }
+        //    get { return _CGKcar_state_out; }
+        //}
 
 
 

@@ -377,98 +377,70 @@ namespace WZYB.Control
             int CarXmlIndex_tgt = xmlIndex[1];
             int CarXmlIndex_source = xmlIndex[2];
             int CarXmlIndex_pallertstate = xmlIndex[3];
-            lastData = setOutModel(lastData);
-            thisData = setOutModel(thisData);
-
+            //0 HIDE 1 SHOW 左出 2左入 3右出 4右入 5
+            //0空 1 取货 2 放货
             if (lastData == null)
             {
-                if (thisData.CGKcar_current_out == thisData.CGKcar_tgt_out_x)
-                {
-                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_tgt_out_x);
-                }
-                else
-                {
-                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_source_out);
-                }
+                
+                ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, ( thisData.CGKcar_source -1)* unitLength);
                 ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, UInt16.Parse(thisData.CGKcar_state.ToString()));
-                ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt_out_x);
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_state_out.ToString()));
+                ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, (thisData.CGKcar_tgt - 1) * unitLength);
+                UInt16 outPalletState = getOutPalletState(thisData);
+               
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, outPalletState);
             }
             else if (!thisData.Equals(lastData))
             {
-                if (thisData.CGKcar_current_out == thisData.CGKcar_tgt_out_x)
-                {
-                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_tgt_out_x);
-                }
-                else
-                {
-                    if (thisData.CGKcar_source != lastData.CGKcar_source)
-                        ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, thisData.CGKcar_source_out);
-                }
+               
+                if (thisData.CGKcar_source != lastData.CGKcar_source)
+                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, (thisData.CGKcar_source - 1) * unitLength);
                 if (thisData.CGKcar_state != lastData.CGKcar_state)
                     ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, UInt16.Parse(thisData.CGKcar_state.ToString()));
-                if (thisData.CGKcar_tgt_out_x != lastData.CGKcar_tgt_out_x)
-                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, thisData.CGKcar_tgt_out_x);
-                //if (thisData.CGKcar_pallertstate != lastData.CGKcar_pallertstate)
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, UInt16.Parse(thisData.CGKcar_state_out.ToString()));
-
+                if (thisData.CGKcar_tgt != lastData.CGKcar_tgt)
+                    ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, (thisData.CGKcar_tgt - 1) * unitLength);
+                
+                if (thisData.CGKcar_action != lastData.CGKcar_action)
+                {
+                    UInt16 outPalletState = getOutPalletState(thisData);
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_pallertstate, outPalletState);
+                }
             }
-
         }
 
-        private CGKcar setOutModel(CGKcar model)
+        private UInt16 getOutPalletState(CGKcar thisData)
         {
-            if(model == null)
+            UInt16 outPalletState = 0;
+            if (thisData.CGKcar_id == 1 )
             {
-                return null;
+                return (UInt16)thisData.CGKcar_pallertstate;
             }
-            model.CGKcar_tgt_out_x = (int.Parse(model.CGKcar_tgt.Split(',')[0].ToString()) -1)* unitLength;
-            model.CGKcar_tgt_out_z = int.Parse(model.CGKcar_tgt.Split(',')[1].ToString()) % 2;
-            model.CGKcar_source_out = (int.Parse(model.CGKcar_source.Split(',')[0].ToString()) -1) * unitLength;
-            model.CGKcar_current_out = model.CGKcar_current * 0.001f;
-
-            if (model.CGKcar_id == 2)
+            if (thisData.CGKcar_action == 0)
             {
-                if (model.CGKcar_action < 1)
+                outPalletState = UInt16.Parse(thisData.CGKcar_pallertstate.ToString());
+            }
+            else if (thisData.CGKcar_action == 1)
+            {
+                if (thisData.target_z == 1)
                 {
-                    model.CGKcar_state_out = model.CGKcar_pallertstate;
+                    outPalletState = 3;
                 }
-                else
+                else if (thisData.target_z == 2)
                 {
-                    if (model.CGKcar_tgt_out_z == 1)
-                    {
-                        if (model.CGKcar_pallertstate == 0)
-                        {
-                            model.CGKcar_state_out = 3;
-                        }
-                        else if (model.CGKcar_pallertstate == 1)
-                        {
-                            model.CGKcar_state_out = 2;
-                        }
-                    }
-                    else if (model.CGKcar_tgt_out_z == 0)
-                    {
-                        if (model.CGKcar_pallertstate == 0)
-                        {
-                            model.CGKcar_state_out = 5;
-                        }
-                        else if (model.CGKcar_pallertstate == 1)
-                        {
-                            model.CGKcar_state_out = 4;
-                        }
-                    }
-                    else
-                    {
-                        model.CGKcar_state_out = model.CGKcar_pallertstate;
-                    }
+                    outPalletState = 5;
                 }
-               
             }
-            else
+            else if (thisData.CGKcar_action == 2)
             {
-                model.CGKcar_state_out = model.CGKcar_pallertstate;
+                if (thisData.target_z == 1)
+                {
+                    outPalletState = 2;
+                }
+                else if (thisData.target_z == 2)
+                {
+                    outPalletState = 4;
+                }
             }
-            return model;
+            return outPalletState;
         }
         //i (1 2)
         private int[] getCarXmlIndex(int i)
