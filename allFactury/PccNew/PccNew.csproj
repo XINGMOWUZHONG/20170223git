@@ -72,7 +72,7 @@
     <Compile Include="Browser.Designer.cs">
       <DependentUpon>Browser.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlStorage.cs" />
+    <Compile Include="ControlStorageThread.cs" />
     <Compile Include="ControlThreadClickandLight.cs" />
     <Compile Include="ControlThread.cs" />
     <Compile Include="PCC.cs">

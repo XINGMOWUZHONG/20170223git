@@ -20,7 +20,7 @@ namespace WZYB.Control
         }
 
 
-        #region 托盘处理逻辑
+        #region 实时监控货位托盘
 
         public void StorageThreadFunc(object o)
         {
@@ -69,7 +69,7 @@ namespace WZYB.Control
                             if (r.Rack_type == list[i].StorageType)
                             {
                                 list[i].Change(r.Rack_z, r.Rack_colum, r.Rack_row, r.Rack_state, r.Rack_id);
-                                Thread.Sleep(30);
+                                Thread.Sleep(10);
                             }
                         }
                     }

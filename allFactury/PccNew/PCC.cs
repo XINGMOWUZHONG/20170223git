@@ -25,6 +25,7 @@ namespace PccNew
         ExternalAppDock iPhysicsDoc;
         bool loading_done;
 
+        #region
         //初始化
         public void Initialization()
         {
@@ -139,11 +140,13 @@ namespace PccNew
 
         public ControlThread CT;
         public ControlThreadClickandLight CT2;
+        public ControlStorageThread CST;
         public PCC()
         {
             InitializeComponent();
             CT = new ControlThread();
             CT2 = new ControlThreadClickandLight();
+            CST = new ControlStorageThread();
         }
         private void PCC_Shown(object sender, EventArgs e)
         {
@@ -153,9 +156,16 @@ namespace PccNew
             Thread.Sleep(10000);
             remote.setCustomView("V_PCC");
             Thread.Sleep(2000);
-            //InitializStorage();
+            //初始化 货位
+            CST.InitializStorage();
+            Thread.Sleep(2000);
+            //初始化托盘
+            CST.InitializStorageShowPallet();
         }
+        #endregion
 
+        #region
+        //按钮点击
         //启动运行 设置基础数据
         private void button1_Click(object sender, EventArgs e)
         {
@@ -164,6 +174,7 @@ namespace PccNew
             Connect();
             CT.threadStartAll();
             CT2.threadStartAll();
+            CST.StartThreadStorage();
             this.timerClick.Enabled = true;
         }
 
@@ -175,6 +186,7 @@ namespace PccNew
             Disconnect();
             CT.threadStopAll();
             CT2.threadStopAll();
+            CST.StopThreadStorage();
             this.timerClick.Enabled = false;
         }
 
@@ -184,6 +196,7 @@ namespace PccNew
             remote.sendPause();
             CT.threadPauseAll();
             CT2.threadPauseAll();
+            CST.PauseThreadStorage();
             this.timerClick.Enabled = false;
         }
 
@@ -193,13 +206,9 @@ namespace PccNew
             remote.sendPlay(); 
             CT.threadContinueAll();
             CT2.threadContinueAll();
+            CST.ContinueThreadStorage();
             this.timerClick.Enabled = true;
         }
-
-      
-
-
-
         private void button6_Click(object sender, EventArgs e)
         {
             if (button6.Text == "<")
@@ -228,99 +237,8 @@ namespace PccNew
             }
         }
 
-      
-
-
-
-
-
-        
-        #region
-        //
-        //storage 货位的初始化和点击
-        //
-        public General Storage_PCC = null;
-        public General Storage_NEW = null;
-        public General Storage_NEW2 = null;
-
-        //配餐车 货位的点击 触发事件
-        private static void PCC_placeSelected(StorageArea.Model.Place selectedPlace)
-        {
-            var placeData = selectedPlace.GetData();
-        }
-        private static void NEW_placeSelected(StorageArea.Model.Place selectedPlace)
-        {
-            var placeData = selectedPlace.GetData();
-        }
-
-        private static void NEW2_placeSelected(StorageArea.Model.Place selectedPlace)
-        {
-            var placeData = selectedPlace.GetData();
-        }
-
-        //初始化 托盘
-        public void InitializStorage()
-        {
-            //初始化 配餐 托盘
-            Storage_PCC = new General();
-            Storage_PCC.Initialize("StorageArea_pcc");
-            Storage_PCC.connection.PlaceSelected += PCC_placeSelected;
-            //Storage_PCC.FullAll();
-
-            //初始化 新库 托盘
-            Storage_NEW = new General();
-            Storage_NEW.Initialize("StorageArea_new");
-            Storage_NEW.connection.PlaceSelected += NEW_placeSelected;
-            //Storage_NEW.FullAll();
-
-            Storage_NEW2 = new General();
-            Storage_NEW2.Initialize("StorageArea_new_double");
-            Storage_NEW2.connection.PlaceSelected += NEW2_placeSelected;
-            //Storage_NEW2.FullAll();
-        }
-
-        //第一次默认加载数据库的货位信息
-        private Thread ThreadStorageShowPallet;
-        public void InitializStorageShowPallet()
-        {
-            List<General> lg = new List<General>();
-            if (Storage_PCC != null)
-            {
-                lg.Add(Storage_PCC);
-            }
-            if (Storage_NEW != null)
-            {
-                lg.Add(Storage_NEW);
-            }
-            if (Storage_NEW2 != null)
-            {
-                lg.Add(Storage_NEW2);
-            }
-            ThreadStorageShowPallet = new Thread(new ParameterizedThreadStart(Storagecontrol.InitializeStoragePallet));
-            ThreadStorageShowPallet.Start(lg);
-
-        }
         #endregion
 
-        //货位线程操作
-        ControlStorage Storagecontrol = new ControlStorage();
-
-        #region
-        private Thread ThreaStoragePcc;
-        private Thread ThreaStorageNew;
-        private Thread ThreaStorageNewDouble;
-        private void StartThreadStorage()
-        {
-            ThreaStoragePcc = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
-            ThreaStorageNew = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
-            ThreaStorageNewDouble = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
-            ThreaStoragePcc.Start(Storage_PCC);
-            ThreaStorageNew.Start(Storage_NEW);
-            ThreaStorageNewDouble.Start(Storage_NEW2);
-        }
-        #endregion
-
-        
         #region
         //timer 监控点击事件 然后打开窗体
         private void timerClick_Tick(object sender, EventArgs e)
@@ -346,7 +264,12 @@ namespace PccNew
         }
         #endregion
 
+        #region
+        //货位操作
+        
 
+
+        #endregion
 
 
         /// <summary>
@@ -358,7 +281,7 @@ namespace PccNew
         {
             //Storage_PCC.FullAll();
             //Storage_NEW.FullAll();
-            Storage_NEW2.FullAll();
+            //Storage_NEW2.FullAll();
 
             //Storage_PCC.Change(0, 0, 0, 2, 1);
             //Storage_PCC.Change(1, 0, 0, 2, 1);
@@ -371,7 +294,7 @@ namespace PccNew
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Storage_NEW2.Change(int.Parse(this.textBox1.Text.Trim().Split(',')[0].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[1].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[2].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[3].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[4].ToString()));
+        //    Storage_NEW2.Change(int.Parse(this.textBox1.Text.Trim().Split(',')[0].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[1].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[2].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[3].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[4].ToString()));
         }
 
       
