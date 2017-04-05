@@ -338,6 +338,28 @@ namespace WZYB.DBUtility
             }
         }
 
+        public static DataSet Query(string SQLString,SqlConnection conn)
+        {
+            //using (SqlConnection connection = new SqlConnection(ConnString))
+            //{
+                DataSet ds = new DataSet();
+                try
+                {
+                    if(conn.State != ConnectionState.Open)
+                    {
+                        conn.Open();
+                    }
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, conn);
+                    command.Fill(ds, "ds");
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                return ds;
+            //}
+        }
+
         public static DataSet QueryStorage(string SQLString)
         {
             using (SqlConnection connection = new SqlConnection(StorageConnString))

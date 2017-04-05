@@ -23,7 +23,7 @@ namespace WZYB.DAL
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select * from " + table + " where id =" + id.ToString());
-                return DbHelperSQL.Query(strSql.ToString());
+                return getdataset(strSql.ToString(), id, table);
             }
             catch (Exception ex)
             {
@@ -37,7 +37,7 @@ namespace WZYB.DAL
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select * from " + table + "");
-                return DbHelperSQL.Query(strSql.ToString());
+                return getdataset(strSql.ToString(),0,table);
             }
             catch (Exception ex)
             {
@@ -45,6 +45,32 @@ namespace WZYB.DAL
             }
         }
 
+
+        public static DataSet getdataset(string sql, int id,string table)
+        {
+            System.Web.Caching.Cache objCache = System.Web.HttpRuntime.Cache;
+            SqlConnection conn = null;
+            string name = table.Trim ();
+            if (id !=0)
+            {
+                name += id.ToString();
+            }
+            name += "_conn";
+            if (objCache[name] == null)
+            {
+                conn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["conn"]);
+                conn.Open();
+                objCache.Insert(name, conn);
+            }
+            else
+            {
+                conn = (SqlConnection)objCache[name];
+            }
+            return DbHelperSQL.Query(sql.ToString(), conn);
+        }
+
+
+      
 
     }
 }

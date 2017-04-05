@@ -22,7 +22,7 @@ namespace WZYB.DAL
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select * from " + table + " where id =" + id.ToString());
-                return DbHelperSQL.Query(strSql.ToString());
+                return getdataset(strSql.ToString(),id);
             }
             catch (Exception ex)
             {
@@ -69,6 +69,23 @@ namespace WZYB.DAL
             {
                 throw ex;
             }
+        }
+
+        public static DataSet getdataset(string sql,int id)
+        {
+            System.Web.Caching.Cache objCache = System.Web.HttpRuntime.Cache;
+            SqlConnection conn = null;
+            if (objCache["agv_conn"+id.ToString ()] == null)
+            {
+                conn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["conn"]);
+                conn.Open();
+                objCache.Insert("agv_conn"+id.ToString (), conn);
+            }
+            else
+            {
+                conn = (SqlConnection)objCache["agv_conn" + id.ToString()];
+            }
+            return DbHelperSQL.Query(sql.ToString(), conn);
         }
     }
 }

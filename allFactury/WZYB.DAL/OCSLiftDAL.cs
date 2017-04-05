@@ -17,12 +17,29 @@ namespace WZYB.DAL
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["OcsLift"].ToString() + " order by id asc");
-                return DbHelperSQL.Query(strSql.ToString());
+                return getdataset(strSql.ToString());
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        public static DataSet getdataset(string sql)
+        {
+            System.Web.Caching.Cache objCache = System.Web.HttpRuntime.Cache;
+            SqlConnection conn = null;
+            if (objCache["ocsLift_conn" ] == null)
+            {
+                conn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["conn"]);
+                conn.Open();
+                objCache.Insert("ocsLift_conn", conn);
+            }
+            else
+            {
+                conn = (SqlConnection)objCache["ocsLift_conn"];
+            }
+            return DbHelperSQL.Query(sql.ToString(), conn);
         }
         
       

@@ -95,7 +95,16 @@ namespace WZYB.DAL
             {
                 strSql.Append(" order by " + filedOrder);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            if(strWhere .IndexOf("id=") > -1)
+            {
+                string id = strWhere.Replace ("id=","").Trim ();
+                return getdataset(strSql.ToString(), int.Parse(id));
+            }
+            else
+            {
+                return DbHelperSQL.Query(strSql.ToString());
+            }
+            
         }
 
         #endregion  成员方法
@@ -110,6 +119,23 @@ namespace WZYB.DAL
         }
 
         #endregion
+
+        public static DataSet getdataset(string sql, int id)
+        {
+            System.Web.Caching.Cache objCache = System.Web.HttpRuntime.Cache;
+            SqlConnection conn = null;
+            if (objCache["ocs_conn" + id.ToString()] == null)
+            {
+                conn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["conn"]);
+                conn.Open();
+                objCache.Insert("ocs_conn" + id.ToString(), conn);
+            }
+            else
+            {
+                conn = (SqlConnection)objCache["ocs_conn" + id.ToString()];
+            }
+            return DbHelperSQL.Query(sql.ToString(), conn);
+        }
     }
 }
 
