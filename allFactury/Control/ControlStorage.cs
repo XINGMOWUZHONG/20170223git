@@ -11,7 +11,7 @@ namespace WZYB.Control
 {
     public class ControlStorage
     {
-        public int sleepTime = int.Parse(System.Configuration.ConfigurationManager.AppSettings["car_interval"].ToString());
+        public int sleepTime = int.Parse(System.Configuration.ConfigurationManager.AppSettings["STORAGE_sleeptime"].ToString());
         public bool IsStart = false;
 
         public ControlStorage()

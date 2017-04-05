@@ -70,7 +70,7 @@ namespace WZYB.Control
         private int[] agvStopTime;
 
         #endregion
-        private int ThreadTime = 300;
+        private int ThreadTime = int.Parse( System.Configuration.ConfigurationManager.AppSettings["AGV_sleeptime"].ToString());
         public int handle = 1;
         public int AgvCount = 5;
         public bool IsStart = false;

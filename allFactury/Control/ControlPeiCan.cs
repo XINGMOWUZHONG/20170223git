@@ -71,7 +71,7 @@ namespace WZYB.Control
         private int[] agvStopTime;
 
         #endregion
-        private int ThreadTime = 300;
+        private int ThreadTime = int.Parse( System.Configuration.ConfigurationManager.AppSettings["PCC_sleeptime"].ToString());
         public int handle = 1;
         public bool IsStart = false;
 

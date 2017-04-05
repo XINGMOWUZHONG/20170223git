@@ -14,8 +14,8 @@ namespace WZYB.Control
         
         public bool IsStart = false;
         public int handle = 1;
-        public int sleepTime = 300;
-        public int ocsCarCount = 20;
+        public int sleepTime = int.Parse( System.Configuration.ConfigurationManager.AppSettings["OCS_sleeptime"].ToString());
+        public int ocsCarCount = int.Parse( System.Configuration.ConfigurationManager.AppSettings["OCS_count"].ToString());
 
         public ControlOcs()
         {

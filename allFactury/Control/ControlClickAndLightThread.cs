@@ -13,8 +13,8 @@ namespace WZYB.Control
         public bool IsStart = false;
         public string LinkStr = "";
         public int TypeStr = 0;
-        private int ThreadTimeClick = 300;
-        private int ThreadTimeLight = 300;
+        private int ThreadTimeClick = int.Parse( System.Configuration.ConfigurationManager.AppSettings["CLICK_sleeptime"].ToString());
+        private int ThreadTimeLight = int.Parse(System.Configuration.ConfigurationManager.AppSettings["LIGHT_sleeptime"].ToString());
         public int handle = 1;
 
 

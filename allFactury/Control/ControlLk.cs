@@ -11,7 +11,7 @@ namespace WZYB.Control
 {
     public class ControlLk
     {
-        public int sleepTime = int.Parse(System.Configuration.ConfigurationManager.AppSettings["car_interval"].ToString());
+        public int sleepTime = int.Parse(System.Configuration.ConfigurationManager.AppSettings["DDJ_sleeptime"].ToString());
         public bool IsStart = false;
         //立库库前库后输送机坐标的单位长度
         public float unitLength = 1.44f;
