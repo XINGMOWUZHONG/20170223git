@@ -24,15 +24,16 @@ namespace PccNew
         int handle = -1;
         ExternalAppDock iPhysicsDoc;
         bool loading_done;
-
+        bool initializ_done;
         #region
         //初始化
-        public void Initialization()
+        public void Initialization(object obj)
         {
+            System.Windows.Forms.Panel pp = (System.Windows.Forms.Panel)obj;
             remote = new RemoteInterface(true, true);
 
             iPhysicsDoc = new ExternalAppDock();
-            this.panel1.Controls.Add(iPhysicsDoc);
+            pp.Controls.Add(iPhysicsDoc);
             iPhysicsDoc.Dock = DockStyle.Fill;
             if (!remote.IsStarted)
                 remote.StartIPhysics(6000);
@@ -64,17 +65,25 @@ namespace PccNew
             //loading_done = true;
             //remote.sendReset();
             //remote.sendPlay();
+            initializ_done = true;
         }
 
         public void loadDemo()
         {
-            IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings["modefile"].ToString());
-            remote.execute(command);
-            if (System.Configuration.ConfigurationManager.AppSettings["isDebug"].ToString() == "0")
+            while(true)
             {
-                remote.switchModePresentation(true);
+                if (initializ_done)
+                {
+                    IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings["modefile"].ToString());
+                    remote.execute(command);
+                    if (System.Configuration.ConfigurationManager.AppSettings["isDebug"].ToString() == "0")
+                    {
+                        remote.switchModePresentation(true);
+                    }
+                    loading_done = true;
+                    break;
+                }
             }
-            loading_done = true;
         }
 
         //建立链接
@@ -138,9 +147,7 @@ namespace PccNew
             return 0;
         }
 
-        public ControlThread CT;
-        public ControlThreadClickandLight CT2;
-        public ControlStorageThread CST;
+       
         public PCC()
         {
             InitializeComponent();
@@ -150,21 +157,37 @@ namespace PccNew
         }
         private void PCC_Shown(object sender, EventArgs e)
         {
-            Initialization();
-            Thread.Sleep(10000);
-            loadDemo();
-            Thread.Sleep(10000);
-            remote.setCustomView("V_PCC");
             Thread.Sleep(2000);
-            //初始化 货位
-            CST.InitializStorage();
-            Thread.Sleep(2000);
-            //初始化托盘
-            CST.InitializStorageShowPallet();
+            //Thread t = new Thread(Initialization);
+            //t.Start(this.panel1);   
+            Initialization(this.panel1);
+            Thread.Sleep(1000);
+            Thread t2 = new Thread(loadDemo);
+            t2.Start(); 
+            while(true)
+            {
+                if (loading_done)
+                {
+                    //t.Abort();
+                    t2.Abort();
+                    Thread.Sleep(10000);
+                    remote.setCustomView("V_PCC");
+                    Thread.Sleep(2000);
+                    //初始化 货位
+                    CST.InitializStorage();
+                    Thread.Sleep(2000);
+                    //初始化托盘
+                    CST.InitializStorageShowPallet();
+                    break;
+                }
+            }
         }
         #endregion
 
         #region
+        public ControlThread CT;
+        public ControlThreadClickandLight CT2;
+        public ControlStorageThread CST;
         //按钮点击
         //启动运行 设置基础数据
         private void button1_Click(object sender, EventArgs e)
@@ -295,6 +318,16 @@ namespace PccNew
         private void button8_Click(object sender, EventArgs e)
         {
         //    Storage_NEW2.Change(int.Parse(this.textBox1.Text.Trim().Split(',')[0].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[1].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[2].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[3].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[4].ToString()));
+        }
+
+        private void PCC_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            remote.sendReset();
+            Disconnect();
+            CT.threadStopAll();
+            CT2.threadStopAll();
+            CST.StopThreadStorage();
+            this.timerClick.Stop();
         }
 
       

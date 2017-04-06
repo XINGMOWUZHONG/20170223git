@@ -160,6 +160,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PCC";
             this.Text = "吴忠仪表--三维监控";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PCC_FormClosing);
             this.Shown += new System.EventHandler(this.PCC_Shown);
             this.Resize += new System.EventHandler(this.PCC_Resize);
             this.panel2.ResumeLayout(false);
