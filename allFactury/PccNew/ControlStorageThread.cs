@@ -90,11 +90,18 @@ namespace PccNew
         private Thread ThreaStorageNewDouble;
         public void StartThreadStorage()
         {
-            
-            ThreaStoragePcc = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
-            ThreaStorageNew = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
-            ThreaStorageNewDouble = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
-            
+            if (ThreaStoragePcc == null)
+            {
+                ThreaStoragePcc = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
+            }
+            if (ThreaStorageNew == null)
+            {
+                ThreaStorageNew = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
+            }
+            if (ThreaStorageNewDouble == null)
+            {
+                ThreaStorageNewDouble = new Thread(new ParameterizedThreadStart(Storagecontrol.StorageThreadFunc));
+            }
             ThreaStoragePcc.Start(Storage_PCC);
             ThreaStorageNew.Start(Storage_NEW);
             ThreaStorageNewDouble.Start(Storage_NEW2);

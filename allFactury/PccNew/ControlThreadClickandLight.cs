@@ -18,7 +18,7 @@ namespace PccNew
         //type 1agv 2ddj  3pcc 4csc 5ocs 6 screen
         private void StartClickThread()
         {
-            //if (clickThread == null)
+            if (clickThread == null)
                 clickThread = new Thread[clickControl.AllCount];
             int m = 0;
             for (int i = 0; i < clickControl.AgvCount; i++)
@@ -73,7 +73,7 @@ namespace PccNew
         private Thread[] LightThread;
         private void StartLightThread()
         {
-            //if (LightThread == null)
+            if (LightThread == null)
                 LightThread = new Thread[clickControl.MachineCount];
             for (int i = 0; i < clickControl.MachineCount; i++)
             {

@@ -16,7 +16,7 @@ namespace PccNew
         private ControlPeiCan PccControl = new ControlPeiCan();
         private void StartThreadPcc()
         {
-            //if (ThreadPcc == null)
+            if (ThreadPcc == null)
             ThreadPcc = new Thread(new ParameterizedThreadStart(PccControl.PCCThreadFunc));
             ThreadPcc.Start();
         }
@@ -25,7 +25,7 @@ namespace PccNew
         private Thread[] ThreadNewLikuDDJList;
         private void StartThreadNewLikuDDJ()
         {
-            //if (ThreadNewLikuDDJList == null)
+            if (ThreadNewLikuDDJList == null)
             ThreadNewLikuDDJList = new Thread[3];
             for (int i = 0; i < 3; i++)
             {
@@ -37,7 +37,7 @@ namespace PccNew
         private Thread[] ThreadNewLikuCscList;
         private void StartThreadNewLikuCsc()
         {
-            //if (ThreadNewLikuCscList == null)
+            if (ThreadNewLikuCscList == null)
             ThreadNewLikuCscList = new Thread[2];
             for (int i = 0; i < 2; i++)
             {
@@ -50,7 +50,7 @@ namespace PccNew
         private Thread[] ocsThread;
         private void StartThreadOcs()
         {
-            //if (ocsThread == null)
+            if (ocsThread == null)
             ocsThread = new Thread[OcsControl.ocsCarCount];
             for (int i = 0; i < OcsControl.ocsCarCount; i++)
             {
@@ -64,7 +64,7 @@ namespace PccNew
         private ControlOcsLift OcsLiftcontrol = new ControlOcsLift();
         private void StartThreadOcsLift()
         {
-           // if (ThreadOcsLift == null)
+            if (ThreadOcsLift == null)
             ThreadOcsLift = new Thread(new ParameterizedThreadStart(OcsLiftcontrol.OcsLiftThreadFunc));
             ThreadOcsLift.Start();
         }
@@ -75,7 +75,7 @@ namespace PccNew
         private Thread[] agvThread;
         private void StartThreadAGV()
         {
-            //if (agvThread == null)
+            if (agvThread == null)
             agvThread = new Thread[agvControl.AgvCount];
             for (int i = 0; i < agvControl.AgvCount; i++)
             {
@@ -87,7 +87,7 @@ namespace PccNew
         private Thread ThreadNewLikuPallert;
         private void StartThreadNewLikuPallert()
         {
-            //if (ThreadNewLikuPallert == null)
+            if (ThreadNewLikuPallert == null)
             ThreadNewLikuPallert = new Thread(new ParameterizedThreadStart(LKcontrol.PallertThreadFunc));
             ThreadNewLikuPallert.Start();
         }
