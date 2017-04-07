@@ -101,8 +101,11 @@ namespace PccNew
         }
         public void StopThreadStorage()
         {
+            if (ThreaStoragePcc != null)
             ThreaStoragePcc.Abort();
+            if (ThreaStorageNew != null)
             ThreaStorageNew.Abort();
+            if (ThreaStorageNewDouble != null)
             ThreaStorageNewDouble.Abort();
         }
         public void PauseThreadStorage()

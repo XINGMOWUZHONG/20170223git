@@ -106,24 +106,31 @@ namespace PccNew
 
         public void threadStopAll()
         {
+            if (ThreadPcc!=null)
             ThreadPcc.Abort();
+            if (ThreadNewLikuDDJList != null)
             for (int i = 0; i < ThreadNewLikuDDJList.Length; i++)
             {
                 ThreadNewLikuDDJList[i].Abort();
             }
+            if (ThreadNewLikuCscList != null)
             for (int i = 0; i < ThreadNewLikuCscList.Length; i++)
             {
                 ThreadNewLikuCscList[i].Abort();
             }
+            if (ocsThread != null)
             for (int i = 0; i < ocsThread.Length; i++)
             {
                 ocsThread[i].Abort();
             }
+            if (agvThread != null)
             for (int i = 0; i < agvThread.Length; i++)
             {
                 agvThread[i].Abort();
             }
+            if (ThreadOcsLift != null)
             ThreadOcsLift.Abort();
+            if (ThreadNewLikuPallert != null)
             ThreadNewLikuPallert.Abort();
         }
 

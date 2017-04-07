@@ -90,11 +90,12 @@ namespace PccNew
 
         public void threadStopAll()
         {
+            if (clickThread!=null)
             for (int i = 0; i < clickThread.Length; i++)
             {
                 clickThread[i].Abort();
             }
-
+            if (LightThread != null)
             for (int i = 0; i < LightThread.Length; i++)
             {
                 LightThread[i].Abort();
