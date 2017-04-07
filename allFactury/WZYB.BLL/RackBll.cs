@@ -87,11 +87,11 @@ namespace WZYB.BLL
             }
         }
 
-        public static bool deleteRack(int id)
+        public static bool deleteRack(int id,int type)
         {
             try
             {
-                return RackDAL.deleteRackByid(id);
+                return RackDAL.deleteRackByid(id,type);
             }
             catch (Exception ex)
             {

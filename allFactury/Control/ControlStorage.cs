@@ -36,8 +36,9 @@ namespace WZYB.Control
                         {
                             foreach (Rack r in allRack)
                             {
+                                RackBll.deleteRack(r.id, g.StorageType);
                                 g.Change(r.Rack_z, r.Rack_colum, r.Rack_row, r.Rack_state, r.Rack_id);
-                                RackBll.deleteRack(r.id);
+                                
                             }
                         }
                     }

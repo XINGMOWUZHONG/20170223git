@@ -52,7 +52,7 @@ namespace WZYB.DAL
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("select * from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + " where rackid = "+type .ToString ());
-                return DbHelperSQL.Query(strSql.ToString());
+                return getdataset(strSql.ToString(),type);
             }
             catch (Exception ex)
             {
@@ -60,14 +60,33 @@ namespace WZYB.DAL
             }
         }
 
-        public static bool deleteRackByid(int id)
+        public static bool deleteRackByid(int id,int type)
         {
             try
             {
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("delete  from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + " where id =" + id.ToString());
-                int i= DbHelperSQL.ExecuteSql(strSql.ToString());
+                int i = delRack(strSql.ToString(), type);
                 if(i>0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static bool deleteRackByid(int id )
+        {
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("delete  from " + System.Configuration.ConfigurationManager.AppSettings["StorageTable"].ToString() + " where id =" + id.ToString());
+                int i = DbHelperSQL.ExecuteSql(strSql.ToString() );
+                if (i > 0)
                 {
                     return true;
                 }
@@ -123,6 +142,45 @@ namespace WZYB.DAL
                 throw ex;
             }
         }
+
+
+        public static DataSet getdataset(string sql, int type)
+        {
+            System.Web.Caching.Cache objCache = System.Web.HttpRuntime.Cache;
+            SqlConnection conn = null;
+            if (objCache["rack_conn" + type.ToString()] == null)
+            {
+                conn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["conn"]);
+                conn.Open();
+                objCache.Insert("rack_conn" + type.ToString(), conn);
+            }
+            else
+            {
+                conn = (SqlConnection)objCache["rack_conn" + type.ToString()];
+            }
+            return DbHelperSQL.Query(sql.ToString(), conn);
+        }
+
+
+        public static int  delRack(string sql, int type )
+        {
+            System.Web.Caching.Cache objCache = System.Web.HttpRuntime.Cache;
+            SqlConnection conn = null;
+            if (objCache["rack_conn" + type.ToString()] == null)
+            {
+                conn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["conn"]);
+                conn.Open();
+                objCache.Insert("rack_conn" + type.ToString(), conn);
+            }
+            else
+            {
+                conn = (SqlConnection)objCache["rack_conn" + type.ToString()];
+            }
+            return DbHelperSQL.ExecuteSql(sql.ToString(), conn);
+        }
+
+
+
 
     }
 }
