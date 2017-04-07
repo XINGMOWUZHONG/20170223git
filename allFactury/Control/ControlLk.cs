@@ -187,12 +187,12 @@ namespace WZYB.Control
                 //left 2
             else if (model.CGKddj_forktgt == 4.0f)
             {
-                model.CGKddj_forktgt = 0- 0.8f*2;
+                model.CGKddj_forktgt = 0- 0.68f*2;
             }
                 //right 2
             else if (model.CGKddj_forktgt == 3.0f)
             {
-                model.CGKddj_forktgt = 0.8f*2;
+                model.CGKddj_forktgt = 0.68f*2;
             }
             return model;
 
