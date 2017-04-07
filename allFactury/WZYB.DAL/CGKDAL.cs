@@ -69,7 +69,30 @@ namespace WZYB.DAL
             return DbHelperSQL.Query(sql.ToString(), conn);
         }
 
-
+        public static int delPalletById(int id,string table)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete   from " + table + " where id ="+id.ToString ());
+            System.Web.Caching.Cache objCache = System.Web.HttpRuntime.Cache;
+            SqlConnection conn = null;
+            string name = table.Trim();
+            if (id != 0)
+            {
+                name += id.ToString();
+            }
+            name += "_conn";
+            if (objCache[name] == null)
+            {
+                conn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings["conn"]);
+                conn.Open();
+                objCache.Insert(name, conn);
+            }
+            else
+            {
+                conn = (SqlConnection)objCache[name];
+            }
+            return DbHelperSQL.ExecuteSql(strSql .ToString (),conn);
+        }
       
 
     }

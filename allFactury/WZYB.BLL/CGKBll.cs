@@ -87,6 +87,20 @@ namespace WZYB.BLL
         }
 
 
+        public static int DelCGKpellert(int id)
+        {
+            try
+            {
+                int i = CGKDAL.delPalletById(id, CGK_pallert);
+                return i;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
 
         public static List<CGKcar> DataTableToCGKcar(DataTable dt)
         {

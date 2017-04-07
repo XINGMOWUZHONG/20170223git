@@ -57,7 +57,8 @@ namespace WZYB.Control
             {
                 foreach (CGKpellert pallert in o)
                 {
-                    ComTCPLib.SetOutputAsUINT(1, xmlIndex[pallert.CGKpellertid], uint.Parse( pallert.CGKpellertstate.ToString()));
+                    CGKBll.DelCGKpellert(pallert.CGKpellertid);
+                    ComTCPLib.SetOutputAsUINT(1, xmlIndex[pallert.CGKpellertid-1], uint.Parse( pallert.CGKpellertstate.ToString()));
                 }
             }
         }

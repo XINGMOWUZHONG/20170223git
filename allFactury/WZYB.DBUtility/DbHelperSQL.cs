@@ -9,8 +9,8 @@ namespace WZYB.DBUtility
     public class DbHelperSQL
     {
         private static readonly string ConnString = System.Configuration.ConfigurationManager.AppSettings["conn"];
-        private static readonly string StorageConnString = System.Configuration.ConfigurationManager.AppSettings["StorageConn"];        
-       
+        private static readonly string StorageConnString = System.Configuration.ConfigurationManager.AppSettings["StorageConn"];
+
         /// <summary>
         /// 取得某个字段的最大值
         /// </summary>
@@ -53,7 +53,7 @@ namespace WZYB.DBUtility
             }
         }
 
-        
+
         /// <summary>
         /// 执行存储过程，返回影响的行数		
         /// </summary>
@@ -119,7 +119,7 @@ namespace WZYB.DBUtility
             }
             return command;
         }
-        
+
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
         /// </summary>
@@ -152,7 +152,7 @@ namespace WZYB.DBUtility
                 }
             }
         }
-        
+
         private static void PrepareCommand(SqlCommand cmd, SqlConnection conn, SqlTransaction trans, string cmdText, SqlParameter[] cmdParms)
         {
             if (conn.State != ConnectionState.Open)
@@ -229,7 +229,7 @@ namespace WZYB.DBUtility
                 return true;
             }
         }
-        
+
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
         /// </summary>
@@ -313,7 +313,7 @@ namespace WZYB.DBUtility
                 }
             }
         }
-        
+
         /// <summary>
         /// 执行查询语句，返回DataSet
         /// </summary>
@@ -338,25 +338,47 @@ namespace WZYB.DBUtility
             }
         }
 
-        public static DataSet Query(string SQLString,SqlConnection conn)
+
+        public static int ExecuteSql(string SQLString, SqlConnection conn)
+        {
+
+            SqlCommand cmd = new SqlCommand(SQLString, conn);
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+                int rows = cmd.ExecuteNonQuery();
+                return rows;
+            }
+            catch (System.Data.SqlClient.SqlException e)
+            {
+                throw e;
+            }
+
+        }
+
+
+        public static DataSet Query(string SQLString, SqlConnection conn)
         {
             //using (SqlConnection connection = new SqlConnection(ConnString))
             //{
-                DataSet ds = new DataSet();
-                try
+            DataSet ds = new DataSet();
+            try
+            {
+                if (conn.State != ConnectionState.Open)
                 {
-                    if(conn.State != ConnectionState.Open)
-                    {
-                        conn.Open();
-                    }
-                    SqlDataAdapter command = new SqlDataAdapter(SQLString, conn);
-                    command.Fill(ds, "ds");
+                    conn.Open();
                 }
-                catch (System.Data.SqlClient.SqlException ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-                return ds;
+                SqlDataAdapter command = new SqlDataAdapter(SQLString, conn);
+                command.Fill(ds, "ds");
+            }
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return ds;
             //}
         }
 
@@ -377,7 +399,7 @@ namespace WZYB.DBUtility
                 }
                 return ds;
             }
-        }    
+        }
     }
 
     public class DbHelperOle
@@ -407,5 +429,7 @@ namespace WZYB.DBUtility
                 return ds;
             }
         }
+
+
     }
 }
