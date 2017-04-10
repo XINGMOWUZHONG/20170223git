@@ -155,16 +155,20 @@ namespace PccNew
             CT2 = new ControlThreadClickandLight();
             CST = new ControlStorageThread();
         }
+
+       
+
+
         private void PCC_Shown(object sender, EventArgs e)
         {
-            Thread.Sleep(2000);
-            //Thread t = new Thread(Initialization);
-            //t.Start(this.panel1);   
-            Initialization(this.panel1);
             Thread.Sleep(1000);
+            Initialization(this.panel1);
+            Thread.Sleep(5000);
+            //return;
+            Thread.Sleep(2000);
             Thread t2 = new Thread(loadDemo);
-            t2.Start(); 
-            while(true)
+            t2.Start();
+            while (true)
             {
                 if (loading_done)
                 {
@@ -180,7 +184,9 @@ namespace PccNew
                     CST.InitializStorageShowPallet();
                     break;
                 }
+                Thread.Sleep(1000);
             }
+            
         }
         #endregion
 
@@ -329,6 +335,10 @@ namespace PccNew
             CST.StopThreadStorage();
             this.timerClick.Stop();
         }
+
+       
+
+        
 
       
        
