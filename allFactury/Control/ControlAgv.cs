@@ -72,11 +72,13 @@ namespace WZYB.Control
         #endregion
         private int ThreadTime = int.Parse( System.Configuration.ConfigurationManager.AppSettings["AGV_sleeptime"].ToString());
         public int handle = 1;
-        public int AgvCount = 5;
+        public int AgvCount = int.Parse( System.Configuration.ConfigurationManager.AppSettings["AGV_count"].ToString());
+        public int PlatFormCount = int.Parse( System.Configuration.ConfigurationManager.AppSettings["PlatForm_count"].ToString());
         public bool IsStart = false;
         public string[] PostiveLineArr = null;
         public Dictionary<string, string> platFormDic = null;
 
+        private int[] PlatFormIndex;
         public ControlAgv()
         {
             IsStart = true;
@@ -91,6 +93,8 @@ namespace WZYB.Control
                 int[] XmlIndex = getXmlIndex(ID);
                 PostiveLineArr = AGVStatusBLL.getPostiveLine();
                 platFormDic = AGVStatusBLL.getPlatFormLine();
+                PlatFormIndex = getPlatFormXmlIndex(PlatFormCount);
+                bool isfirst = true;
                 while (true)
                 {
                     if (IsStart)
@@ -122,6 +126,16 @@ namespace WZYB.Control
             return index;
         }
 
+        private int[] getPlatFormXmlIndex(int PlatFormCount)
+        {
+            int[] index = new int[PlatFormCount];
+            for (int i = 0; i < PlatFormCount;i++ )
+            {
+                index[i] = GetIdex.getDicOutputIndex("ATTRIBUTE01_IN_Key" + (i + 1).ToString("00"));
+            }
+            return index;
+        }
+
         private void setCarData(AGVStatus lastData, AGVStatus thisData, int[] xmlIndex)
         {
             int CarXmlIndex_line = xmlIndex[3];
@@ -134,7 +148,6 @@ namespace WZYB.Control
             if (lastData == null)
             {
                 ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_line, UInt32.Parse(thisData.line));
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, UInt32.Parse(thisData.carstate.ToString ()));
                 ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, UInt16.Parse(thisData.palletstate.ToString()));
                 ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, UInt16.Parse(thisData.taskstate.ToString()));
                 if (PostiveLineArr.Contains(thisData.line.ToString()))
@@ -154,7 +167,8 @@ namespace WZYB.Control
                 {
                     ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("0"));
                 }
-                
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, UInt32.Parse(thisData.carstate.ToString()));
+                setPlatForm(thisData, lastData);
             }
             else if (!thisData.Equals(lastData))
             {
@@ -170,8 +184,6 @@ namespace WZYB.Control
                         ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, UInt16.Parse("0"));
                     }
                 }
-                if (thisData.carstate != lastData.carstate)
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, UInt32.Parse(thisData.carstate.ToString()));
                 if (thisData.palletstate != lastData.palletstate)
                 ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, UInt16.Parse(thisData.palletstate.ToString()));
                 if (thisData.taskstate != lastData.taskstate)
@@ -188,10 +200,42 @@ namespace WZYB.Control
                         ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("0"));
                     }
                 }
+                if (thisData.carstate != lastData.carstate)
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, UInt32.Parse(thisData.carstate.ToString()));
+                setPlatForm(thisData,lastData);
 
             }
 
         }
 
+        //1 取货 2放货 0未完成 1完成
+        private void setPlatForm(AGVStatus thisData,AGVStatus lastData)
+        {
+            if ((lastData == null && thisData != null) || (thisData.target != lastData.target && thisData.taskstate != lastData.taskstate))
+            {
+                if(thisData.taskstate == 1)
+                {
+                    if(thisData.complatestate == 1)
+                    {
+                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[ int.Parse(thisData.target)-1], UInt16.Parse("0"));
+                    }
+                    else
+                    {
+                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[int.Parse(thisData.target) - 1], UInt16.Parse("1"));
+                    }
+                }
+                else if (thisData.taskstate == 2)
+                {
+                    if (thisData.complatestate == 1)
+                    {
+                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[int.Parse(thisData.target) - 1], UInt16.Parse("1"));
+                    }
+                    else
+                    {
+                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[int.Parse(thisData.target) - 1], UInt16.Parse("0"));
+                    }
+                }
+            }
+        }
     }
 }
