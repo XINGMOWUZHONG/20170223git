@@ -72,8 +72,10 @@
             // 
             // pass
             // 
+            this.pass.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.pass.Location = new System.Drawing.Point(125, 61);
             this.pass.Name = "pass";
+            this.pass.PasswordChar = '*';
             this.pass.Size = new System.Drawing.Size(100, 21);
             this.pass.TabIndex = 4;
             // 
