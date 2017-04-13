@@ -38,8 +38,15 @@ namespace PccNew
         bool loading_done;
         bool initializ_done;
 
+        RemoteInterface remoteBrowser;
+        ExternalAppDock iPhysicsDocBrowser;
+
         public void Initialization(object obj)
         {
+            remoteBrowser = new RemoteInterface(true, true);
+            iPhysicsDocBrowser = new ExternalAppDock();
+            //iPhysicsDocBrowser.Dock = DockStyle.Fill;
+
             System.Windows.Forms.Panel pp = (System.Windows.Forms.Panel)obj;
             remote = new RemoteInterface(true, true);
 
@@ -254,6 +261,63 @@ namespace PccNew
                 CT2.threadContinueAll();
             }
         }
+
+        //树节点 点击
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            string name = e.Node.Name;
+            if (e.Node.Level == 2)
+            {
+                e.Node.Expand();
+                //定位
+                remote.setCustomView(name);
+            }
+            //弹窗 加载单独模型和物流信息/任务信息
+            else if (e.Node.Level == 3)
+            {
+                string linkstr="";
+                string modelName="";
+                //机床
+                if(e.Node.Parent.Name.ToLower().IndexOf("machine") >-1)
+                {
+                     linkstr = WZYB.Control.ControlInterfaceMethod.getLinkByTypeAndNum(6, e.Node.Name.ToLower().Replace("workinfo", "").ToString());
+                     modelName = e.Node.Parent.Name;
+                }
+                //物流设备
+                else
+                {
+                    //pcc
+                    if(e.Node.Parent.Index == 1)
+                    {
+                        linkstr = WZYB.Control.ControlInterfaceMethod.getLinkByTypeAndNum(3, "1");
+                    }
+                    //agv
+                    else if (e.Node.Parent.Index == 2)
+                    {
+                        linkstr = WZYB.Control.ControlInterfaceMethod.getLinkByTypeAndNum(1, (e.Node.Index +1).ToString ());
+                    }
+                    //ddj
+                    else if (e.Node.Parent.Index == 3 && e.Node.Index <3)
+                    {
+                        linkstr = WZYB.Control.ControlInterfaceMethod.getLinkByTypeAndNum(2, (e.Node.Index + 1).ToString());
+                    }
+                    //csc
+                    else if (e.Node.Parent.Index == 3 && e.Node.Index > 2)
+                    {
+                        linkstr = WZYB.Control.ControlInterfaceMethod.getLinkByTypeAndNum(4, (e.Node.Index + 1-3).ToString());
+                    }
+                    modelName = e.Node.Parent.Name;
+                }
+                 Browser b = new Browser();
+                 b.modelName = modelName;
+                 b.linkStr = linkstr;
+                 b.ShowDialog();
+
+            }
+           
+        }
+
+
         #endregion
 
         #region 辅助方法
@@ -373,6 +437,7 @@ namespace PccNew
             Thread.Sleep(2000);
             Thread t2 = new Thread(loadDemo);
             t2.Start();
+            Thread.Sleep(2000);
             while (true)
             {
                 if (loading_done)
@@ -393,6 +458,9 @@ namespace PccNew
             }
         }
         #endregion
+
+        
+
 
        
 

@@ -7,17 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using IPhysics;
 
 namespace PccNew
 {
     public partial class Browser : Form
     {
         public string url;
+        public RemoteInterface remote;
+        public ExternalAppDock iPhysicsDoc;
         public Browser()
         {
             InitializeComponent();
         }
-
+        public string linkStr = "";
+        public string modelName = "";
+        
         private void browser_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -25,7 +31,53 @@ namespace PccNew
 
         private void Browser_Load(object sender, EventArgs e)
         {
-            this.webBrowser1.Navigate(url);
+             
+        }
+
+        private void Browser_Shown(object sender, EventArgs e)
+        {
+            loadLink(linkStr);
+            loadModel(modelName);
+        }
+
+        private void loadLink(string link)
+        {
+            this.webBrowser2.Navigate(link);
+        }
+
+        private void loadModel(string name)
+        {
+            this.splitContainer1.Panel1.Controls.Add(iPhysicsDoc);
+            iPhysicsDoc.Dock = DockStyle.Fill;
+            if (remote.IsStarted)
+            {
+                return;
+            }
+            int timeout = 30000;
+            int sleepTime = 500;
+
+            if (!remote.IsStarted)
+                remote.StartIPhysics(6003);
+
+            while (!remote.IsConnected && timeout > 0)
+            {
+                System.Threading.Thread.Sleep(sleepTime);
+                timeout -= sleepTime;
+
+                if (!remote.IsConnected)
+                    remote.Connect("localhost", 6003);
+            }
+
+            iPhysicsDoc.DockExternalApp(remote.ExeProcess, iPhysicsDoc.Parent);
+            System.Threading.Thread.Sleep(400);
+            IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings[name].ToString());
+            remote.execute(command);
+            if (System.Configuration.ConfigurationManager.AppSettings["isDebug"].ToString() == "0")
+            {
+                remote.switchModePresentation(true);
+            }
+
+
         }
     }
 }

@@ -29,46 +29,58 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("悬挂线");
-            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("配餐车");
-            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("配餐区", new System.Windows.Forms.TreeNode[] {
-            treeNode44});
-            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("1号车");
-            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("2号车");
-            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("3号车");
-            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("4号车");
-            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("5号车");
-            System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("AGV小车", new System.Windows.Forms.TreeNode[] {
-            treeNode46,
-            treeNode47,
-            treeNode48,
-            treeNode49,
-            treeNode50});
-            System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("1号堆垛机");
-            System.Windows.Forms.TreeNode treeNode53 = new System.Windows.Forms.TreeNode("2号堆垛机");
-            System.Windows.Forms.TreeNode treeNode54 = new System.Windows.Forms.TreeNode("3号堆垛机");
-            System.Windows.Forms.TreeNode treeNode55 = new System.Windows.Forms.TreeNode("入库穿梭车");
-            System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("出库穿梭车");
-            System.Windows.Forms.TreeNode treeNode57 = new System.Windows.Forms.TreeNode("采购库", new System.Windows.Forms.TreeNode[] {
-            treeNode52,
-            treeNode53,
-            treeNode54,
-            treeNode55,
-            treeNode56});
-            System.Windows.Forms.TreeNode treeNode58 = new System.Windows.Forms.TreeNode("物流设备", new System.Windows.Forms.TreeNode[] {
-            treeNode43,
-            treeNode45,
-            treeNode51,
-            treeNode57});
-            System.Windows.Forms.TreeNode treeNode59 = new System.Windows.Forms.TreeNode("马扎克");
-            System.Windows.Forms.TreeNode treeNode60 = new System.Windows.Forms.TreeNode("柔性制造");
-            System.Windows.Forms.TreeNode treeNode61 = new System.Windows.Forms.TreeNode("MF制造");
-            System.Windows.Forms.TreeNode treeNode62 = new System.Windows.Forms.TreeNode("轴杆加工");
-            System.Windows.Forms.TreeNode treeNode63 = new System.Windows.Forms.TreeNode("机床设备", new System.Windows.Forms.TreeNode[] {
-            treeNode59,
-            treeNode60,
-            treeNode61,
-            treeNode62});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("悬挂线");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("配餐车");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("配餐区", new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("1号车");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("2号车");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("3号车");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("4号车");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("5号车");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("AGV小车", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("1号堆垛机");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("2号堆垛机");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("3号堆垛机");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("入库穿梭车");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("出库穿梭车");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("采购库", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13,
+            treeNode14});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("采购库2");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("窄巷道库");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("物流设备", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode3,
+            treeNode9,
+            treeNode15,
+            treeNode16,
+            treeNode17});
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("任务信息");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("马扎克", new System.Windows.Forms.TreeNode[] {
+            treeNode19});
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("任务信息");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("柔性制造", new System.Windows.Forms.TreeNode[] {
+            treeNode21});
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("任务信息");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("MF制造", new System.Windows.Forms.TreeNode[] {
+            treeNode23});
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("任务信息");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("轴杆加工", new System.Windows.Forms.TreeNode[] {
+            treeNode25});
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("机床设备", new System.Windows.Forms.TreeNode[] {
+            treeNode20,
+            treeNode22,
+            treeNode24,
+            treeNode26});
             this.panel2 = new System.Windows.Forms.Panel();
             this.bt_hideshow = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -130,7 +142,7 @@
             // 
             // bt_hideshow
             // 
-            this.bt_hideshow.Location = new System.Drawing.Point(216, 284);
+            this.bt_hideshow.Location = new System.Drawing.Point(216, 309);
             this.bt_hideshow.Name = "bt_hideshow";
             this.bt_hideshow.Size = new System.Drawing.Size(19, 40);
             this.bt_hideshow.TabIndex = 6;
@@ -295,55 +307,69 @@
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(3, 3);
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode43.Name = "节点2";
-            treeNode43.Text = "悬挂线";
-            treeNode44.Name = "节点10";
-            treeNode44.Text = "配餐车";
-            treeNode45.Name = "节点3";
-            treeNode45.Text = "配餐区";
-            treeNode46.Name = "节点11";
-            treeNode46.Text = "1号车";
-            treeNode47.Name = "节点12";
-            treeNode47.Text = "2号车";
-            treeNode48.Name = "节点13";
-            treeNode48.Text = "3号车";
-            treeNode49.Name = "节点14";
-            treeNode49.Text = "4号车";
-            treeNode50.Name = "节点15";
-            treeNode50.Text = "5号车";
-            treeNode51.Name = "节点4";
-            treeNode51.Text = "AGV小车";
-            treeNode52.Name = "节点16";
-            treeNode52.Text = "1号堆垛机";
-            treeNode53.Name = "节点17";
-            treeNode53.Text = "2号堆垛机";
-            treeNode54.Name = "节点19";
-            treeNode54.Text = "3号堆垛机";
-            treeNode55.Name = "节点20";
-            treeNode55.Text = "入库穿梭车";
-            treeNode56.Name = "节点21";
-            treeNode56.Text = "出库穿梭车";
-            treeNode57.Name = "节点5";
-            treeNode57.Text = "采购库";
-            treeNode58.Name = "";
-            treeNode58.Text = "物流设备";
-            treeNode59.Name = "节点6";
-            treeNode59.Text = "马扎克";
-            treeNode60.Name = "节点7";
-            treeNode60.Text = "柔性制造";
-            treeNode61.Name = "节点8";
-            treeNode61.Text = "MF制造";
-            treeNode62.Name = "节点9";
-            treeNode62.Text = "轴杆加工";
-            treeNode63.Name = "节点1";
-            treeNode63.Text = "机床设备";
+            treeNode1.Name = "v_ocs";
+            treeNode1.Text = "悬挂线";
+            treeNode2.Name = "pcc_car";
+            treeNode2.Text = "配餐车";
+            treeNode3.Name = "v_pcc";
+            treeNode3.Text = "配餐区";
+            treeNode4.Name = "agv_car1";
+            treeNode4.Text = "1号车";
+            treeNode5.Name = "agv_car2";
+            treeNode5.Text = "2号车";
+            treeNode6.Name = "agv_car3";
+            treeNode6.Text = "3号车";
+            treeNode7.Name = "agv_car4";
+            treeNode7.Text = "4号车";
+            treeNode8.Name = "agv_car5";
+            treeNode8.Text = "5号车";
+            treeNode9.Name = "v_agv";
+            treeNode9.Text = "AGV小车";
+            treeNode10.Name = "cgk_car1";
+            treeNode10.Text = "1号堆垛机";
+            treeNode11.Name = "cgk_car2";
+            treeNode11.Text = "2号堆垛机";
+            treeNode12.Name = "cgk_car3";
+            treeNode12.Text = "3号堆垛机";
+            treeNode13.Name = "cgk_csc_in";
+            treeNode13.Text = "入库穿梭车";
+            treeNode14.Name = "cgk_csc_out";
+            treeNode14.Text = "出库穿梭车";
+            treeNode15.Name = "v_cgk";
+            treeNode15.Text = "采购库";
+            treeNode16.Name = "v_cgk2";
+            treeNode16.Text = "采购库2";
+            treeNode17.Name = "v_cgk3";
+            treeNode17.Text = "窄巷道库";
+            treeNode18.Name = "logistics";
+            treeNode18.Text = "物流设备";
+            treeNode19.Name = "workinfo1";
+            treeNode19.Text = "任务信息";
+            treeNode20.Name = "v_machine_1";
+            treeNode20.Text = "马扎克";
+            treeNode21.Name = "workinfo2";
+            treeNode21.Text = "任务信息";
+            treeNode22.Name = "v_machine_2";
+            treeNode22.Text = "柔性制造";
+            treeNode23.Name = "workinfo3";
+            treeNode23.Text = "任务信息";
+            treeNode24.Name = "v_machine_3";
+            treeNode24.Text = "MF制造";
+            treeNode25.Name = "workinfo4";
+            treeNode25.Text = "任务信息";
+            treeNode26.Name = "v_machine_4";
+            treeNode26.Text = "轴杆加工";
+            treeNode27.Name = "machine";
+            treeNode27.Text = "机床设备";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode58,
-            treeNode63});
-            this.treeView1.Size = new System.Drawing.Size(187, 257);
+            treeNode18,
+            treeNode27});
+            this.treeView1.Size = new System.Drawing.Size(193, 266);
             this.treeView1.TabIndex = 0;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // tabPage1
             // 

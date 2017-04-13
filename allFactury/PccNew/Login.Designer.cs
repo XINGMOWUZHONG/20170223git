@@ -69,6 +69,7 @@
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(100, 21);
             this.name.TabIndex = 3;
+            this.name.Text = "111111";
             // 
             // pass
             // 
@@ -78,6 +79,7 @@
             this.pass.PasswordChar = '*';
             this.pass.Size = new System.Drawing.Size(100, 21);
             this.pass.TabIndex = 4;
+            this.pass.Text = "111111";
             // 
             // Login
             // 
