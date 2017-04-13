@@ -33,6 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -64,6 +65,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.button5);
             this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.button8);
             this.panel2.Controls.Add(this.button7);
@@ -76,6 +78,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(120, 609);
             this.panel2.TabIndex = 4;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(25, 229);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 18;
+            this.button5.Text = "LoadModel";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // textBox1
             // 
@@ -182,6 +194,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Timer timerClick;
+        private System.Windows.Forms.Button button5;
     }
 }
 

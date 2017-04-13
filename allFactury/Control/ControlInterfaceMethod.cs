@@ -107,6 +107,11 @@ namespace WZYB.Control
             return null;
         }
 
+        //登录操作
+        public static bool login(string name,string pass)
+        {
+            return true;
+        }
 
     }
 }

@@ -7,26 +7,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using IPhysics;
 using Microsoft.Win32;
 using System.Threading;
 using System.Xml;
-
-
 using Storage;
 using StorageArea.Model;
+
 namespace PccNew
 {
-    public partial class PCC : Form
+    public partial class MainForm : Form
     {
+        public MainForm()
+        {
+            InitializeComponent();
+            CT = new ControlThread();
+            CT2 = new ControlThreadClickandLight();
+            CST = new ControlStorageThread();
+        }
+
+        #region industri method
+        public ControlThread CT;
+        public ControlThreadClickandLight CT2;
+        public ControlStorageThread CST;
+
+
         RemoteInterface remote;
         int handle = -1;
         ExternalAppDock iPhysicsDoc;
         bool loading_done;
         bool initializ_done;
-        #region
-        //初始化
+
         public void Initialization(object obj)
         {
             System.Windows.Forms.Panel pp = (System.Windows.Forms.Panel)obj;
@@ -36,7 +47,7 @@ namespace PccNew
             pp.Controls.Add(iPhysicsDoc);
             iPhysicsDoc.Dock = DockStyle.Fill;
             if (!remote.IsStarted)
-                remote.StartIPhysics(6000);
+                remote.StartIPhysics( decimal.Parse( System.Configuration.ConfigurationManager.AppSettings["modeport"].ToString()));
             int timeout = 30000;
             int sleepTime = 500;
             while (!remote.IsConnected && timeout > 0)
@@ -45,7 +56,7 @@ namespace PccNew
                 timeout -= sleepTime;
 
                 if (!remote.IsConnected)
-                    remote.Connect("localhost", 6000);
+                    remote.Connect("localhost", int.Parse(System.Configuration.ConfigurationManager.AppSettings["modeport"].ToString()));
             }
 
             iPhysicsDoc.DockExternalApp(remote.ExeProcess, iPhysicsDoc.Parent);
@@ -70,7 +81,7 @@ namespace PccNew
 
         public void loadDemo()
         {
-            while(true)
+            while (true)
             {
                 if (initializ_done)
                 {
@@ -146,26 +157,208 @@ namespace PccNew
 
             return 0;
         }
+        #endregion
 
-       
-        public PCC()
+
+        #region button click
+
+        #region 启动停止timer
+        //显示隐藏
+        private void bt_hideshow_Click(object sender, EventArgs e)
         {
-            InitializeComponent();
-            CT = new ControlThread();
-            CT2 = new ControlThreadClickandLight();
-            CST = new ControlStorageThread();
+            if (bt_hideshow.Text == "<")
+            {
+                this.panel1.Width = 0;
+                bt_hideshow.Location = new Point(0, (panel1.Height - bt_hideshow.Height) / 2);
+                bt_hideshow.Text = ">";
+            }
+            else
+            {
+                this.panel1.Width = 217;
+                bt_hideshow.Location = new Point(217, (panel1.Height - bt_hideshow.Height) / 2);
+                bt_hideshow.Text = "<";
+            }
+        }
+        //主窗体 resize
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (bt_hideshow.Text == "<")
+            {
+                bt_hideshow.Location = new Point(217, (panel1.Height - bt_hideshow.Height) / 2);
+            }
+            else
+            {
+                bt_hideshow.Location = new Point(0, (panel1.Height - bt_hideshow.Height) / 2);
+            }
+        }
+        //启动
+        private void bt_play_Click(object sender, EventArgs e)
+        {
+            remote.sendReset();
+            remote.sendPlay();
+            Connect();
+            CT.threadStartAll();
+            CT2.threadStartAll();
+            CST.StartThreadStorage();
+            this.timerClick.Enabled = true;
+        }
+        //停止
+        private void bt_stop_Click(object sender, EventArgs e)
+        {
+            remote.sendReset();
+            remote.sendReset();
+            Disconnect();
+            CT.threadStopAll();
+            CT2.threadStopAll();
+            CST.StopThreadStorage();
+            this.timerClick.Enabled = false;
+        }
+        //暂停
+        private void bt_pause_Click(object sender, EventArgs e)
+        {
+            remote.sendPause();
+            CT.threadPauseAll();
+            CT2.threadPauseAll();
+            CST.PauseThreadStorage();
+            this.timerClick.Enabled = false;
+        }
+        //继续
+        private void bt_goon_Click(object sender, EventArgs e)
+        {
+            remote.sendPlay();
+            CT.threadContinueAll();
+            CT2.threadContinueAll();
+            CST.ContinueThreadStorage();
+            this.timerClick.Enabled = true;
+        }
+        //timer事件
+        private void timerClick_Tick(object sender, EventArgs e)
+        {
+            string[] arr = CT2.getLinkAndType();
+            if (arr != null)
+            {
+                showNewWindow(arr[1], int.Parse(arr[0]));
+            }
         }
 
-       
-
-
-        private void PCC_Shown(object sender, EventArgs e)
+        public void showNewWindow(string linkStr, int type)
         {
-            //return;
+            this.timerClick.Enabled = false;
+            Browser bb = new Browser();
+            bb.url = linkStr;
+            bb.ShowDialog();
+            if (bb.DialogResult == System.Windows.Forms.DialogResult.OK)
+            {
+                bb.Close();
+                this.timerClick.Enabled = true;
+                CT2.threadContinueAll();
+            }
+        }
+        #endregion
+
+        #region 辅助方法
+        private void bt_view_up_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_view_down_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_view_before_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_view_after_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_view_left_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_view_right_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_view_reset_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_pos_up_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_pos_down_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_pos_left_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_pos_right_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_scene_small_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_scene_big_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_scene_reset_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_search_Click(object sender, EventArgs e)
+        {
+
+        }
+        //摄像头点击
+        private void bt_video_1_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #endregion
+
+
+        #region 主窗体事件
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            remote.sendReset();
+            Disconnect();
+            CT.threadStopAll();
+            CT2.threadStopAll();
+            CST.StopThreadStorage();
+            this.timerClick.Stop();
+            Application.Exit();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
             Thread.Sleep(1000);
-            Initialization(this.panel1);
+            Initialization(this.panel2);
             Thread.Sleep(5000);
-            return;
+            //return;
             Thread.Sleep(2000);
             Thread t2 = new Thread(loadDemo);
             t2.Start();
@@ -187,171 +380,11 @@ namespace PccNew
                 }
                 Thread.Sleep(1000);
             }
-            
         }
         #endregion
-
-        #region
-        public ControlThread CT;
-        public ControlThreadClickandLight CT2;
-        public ControlStorageThread CST;
-        //按钮点击
-        //启动运行 设置基础数据
-        private void button1_Click(object sender, EventArgs e)
-        {
-            remote.sendReset();
-            remote.sendPlay();
-            Connect();
-            CT.threadStartAll();
-            CT2.threadStartAll();
-            CST.StartThreadStorage();
-            this.timerClick.Enabled = true;
-        }
-
-        //停止运行
-        private void button2_Click(object sender, EventArgs e)
-        {
-            remote.sendReset();
-            remote.sendReset();
-            Disconnect();
-            CT.threadStopAll();
-            CT2.threadStopAll();
-            CST.StopThreadStorage();
-            this.timerClick.Enabled = false;
-        }
-
-        //暂停
-        private void button3_Click(object sender, EventArgs e)
-        {
-            remote.sendPause();
-            CT.threadPauseAll();
-            CT2.threadPauseAll();
-            CST.PauseThreadStorage();
-            this.timerClick.Enabled = false;
-        }
-
-        //继续
-        private void button4_Click(object sender, EventArgs e)
-        {
-            remote.sendPlay(); 
-            CT.threadContinueAll();
-            CT2.threadContinueAll();
-            CST.ContinueThreadStorage();
-            this.timerClick.Enabled = true;
-        }
-        private void button6_Click(object sender, EventArgs e)
-        {
-            if (button6.Text == "<")
-            {
-                this.panel2.Width = 0;
-                button6.Location = new Point(0, (panel2.Height - button6.Height) / 2);
-                button6.Text = ">";
-            }
-            else
-            {
-                this.panel2.Width = 120;
-                button6.Location = new Point(120, (panel2.Height - button6.Height) / 2);
-                button6.Text = "<";
-            }
-        }
-
-        private void PCC_Resize(object sender, EventArgs e)
-        {
-            if (button6.Text == "<")
-            {
-                button6.Location = new Point(120, (panel2.Height - button6.Height) / 2);
-            }
-            else
-            {
-                button6.Location = new Point(0, (panel2.Height - button6.Height) / 2);
-            }
-        }
-
-        #endregion
-
-        #region
-        //timer 监控点击事件 然后打开窗体
-        private void timerClick_Tick(object sender, EventArgs e)
-        {
-            string[] arr = CT2.getLinkAndType();
-            if (arr != null)
-            {
-                showNewWindow(arr[1], int.Parse(arr[0]));
-            }
-        }
-        public void showNewWindow(string linkStr, int type)
-        {
-            this.timerClick.Enabled = false;
-            Browser bb = new Browser();
-            bb.url = linkStr;
-            bb.ShowDialog();
-            if (bb.DialogResult == System.Windows.Forms.DialogResult.OK)
-            {
-                bb.Close();
-                this.timerClick.Enabled = true;
-                CT2.threadContinueAll();
-            }
-        }
-        #endregion
-
-        #region
-        //货位操作
-        
-
-
-        #endregion
-
-
-        /// <summary>
-        /// test-------------------------------------------------
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button7_Click(object sender, EventArgs e)
-        {
-            //Storage_PCC.FullAll();
-            //Storage_NEW.FullAll();
-            //Storage_NEW2.FullAll();
-
-            //Storage_PCC.Change(0, 0, 0, 2, 1);
-            //Storage_PCC.Change(1, 0, 0, 2, 1);
-            //Storage_NEW.Change(0, 0, 0, 2, 1);
-            //Storage_NEW.Change(1, 0, 0, 2, 1);
-            //Storage_NEW2.Change(0, 0, 0, 2, 1);
-            //Storage_NEW2.Change(1, 0, 0, 2, 1);
-            //Storage_NEW2.Change(1, 1, 0, 2, 1);
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-        //    Storage_NEW2.Change(int.Parse(this.textBox1.Text.Trim().Split(',')[0].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[1].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[2].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[3].ToString()), int.Parse(this.textBox1.Text.Trim().Split(',')[4].ToString()));
-        }
-
-        private void PCC_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            remote.sendReset();
-            Disconnect();
-            CT.threadStopAll();
-            CT2.threadStopAll();
-            CST.StopThreadStorage();
-            this.timerClick.Stop();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            LoadModel lm = new LoadModel();
-            lm.ShowDialog();
-        }
 
        
 
-       
 
-        
-
-      
-       
-
-      
     }
 }
