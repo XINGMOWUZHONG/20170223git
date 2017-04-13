@@ -162,7 +162,7 @@ namespace PccNew
 
         #region button click
 
-        #region 启动停止timer
+        #region 启动/停止/timer  事件
         //显示隐藏
         private void bt_hideshow_Click(object sender, EventArgs e)
         {
@@ -257,80 +257,91 @@ namespace PccNew
         #endregion
 
         #region 辅助方法
+
+        #region view click
         private void bt_view_up_Click(object sender, EventArgs e)
         {
-
+            remote.lookFromBottom();
         }
 
         private void bt_view_down_Click(object sender, EventArgs e)
         {
-
+            remote.lookFromTop();
         }
 
         private void bt_view_before_Click(object sender, EventArgs e)
         {
-
+            remote.lookFromFront();
         }
 
         private void bt_view_after_Click(object sender, EventArgs e)
         {
-
+            remote.lookFromBack();
         }
 
         private void bt_view_left_Click(object sender, EventArgs e)
         {
-
+            remote.lookFromLeft();
         }
 
         private void bt_view_right_Click(object sender, EventArgs e)
         {
-
+            remote.lookFromRight();
         }
 
         private void bt_view_reset_Click(object sender, EventArgs e)
         {
-
+            remote.lookFromIsometry();
         }
+        #endregion
 
+        #region pos click
         private void bt_pos_up_Click(object sender, EventArgs e)
         {
-
+            remote.panUp(0.2f);
         }
 
         private void bt_pos_down_Click(object sender, EventArgs e)
         {
-
+            remote.panDown(0.2f);
         }
 
         private void bt_pos_left_Click(object sender, EventArgs e)
         {
-
+            remote.panLeft(0.2f);
         }
 
         private void bt_pos_right_Click(object sender, EventArgs e)
         {
-
+            remote.panRight(0.2f);
         }
+        #endregion
 
+        #region zoom click
         private void bt_scene_small_Click(object sender, EventArgs e)
         {
-
+            remote.zoomOut(0.2f);
         }
 
         private void bt_scene_big_Click(object sender, EventArgs e)
         {
-
+            remote.zoomIn(0.2f);
         }
 
         private void bt_scene_reset_Click(object sender, EventArgs e)
         {
-
+            remote.resetZoom();
         }
 
+       
+        #endregion
+
+        //搜索
         private void bt_search_Click(object sender, EventArgs e)
         {
 
         }
+
         //摄像头点击
         private void bt_video_1_Click(object sender, EventArgs e)
         {
