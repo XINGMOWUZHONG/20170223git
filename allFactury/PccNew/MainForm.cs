@@ -13,6 +13,9 @@ using System.Threading;
 using System.Xml;
 using Storage;
 using StorageArea.Model;
+using WZYB.Model;
+using WZYB.BLL;
+using WZYB.Control;
 
 namespace PccNew
 {
@@ -40,12 +43,13 @@ namespace PccNew
 
         RemoteInterface remoteBrowser;
         ExternalAppDock iPhysicsDocBrowser;
-
+        Browser bb = new Browser();
         public void Initialization(object obj)
         {
             remoteBrowser = new RemoteInterface(true, true);
             iPhysicsDocBrowser = new ExternalAppDock();
-            //iPhysicsDocBrowser.Dock = DockStyle.Fill;
+            bb.splitContainer1.Panel1.Controls.Add(iPhysicsDocBrowser);
+            iPhysicsDocBrowser.Dock = DockStyle.Fill;
 
             System.Windows.Forms.Panel pp = (System.Windows.Forms.Panel)obj;
             remote = new RemoteInterface(true, true);
@@ -266,14 +270,14 @@ namespace PccNew
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             string name = e.Node.Name;
-            if (e.Node.Level == 2)
+            if (e.Node.Level == 1)
             {
                 e.Node.Expand();
                 //定位
                 remote.setCustomView(name);
             }
             //弹窗 加载单独模型和物流信息/任务信息
-            else if (e.Node.Level == 3)
+            else if (e.Node.Level == 2)
             {
                 string linkstr="";
                 string modelName="";
@@ -308,10 +312,12 @@ namespace PccNew
                     }
                     modelName = e.Node.Parent.Name;
                 }
-                 Browser b = new Browser();
-                 b.modelName = modelName;
-                 b.linkStr = linkstr;
-                 b.ShowDialog();
+                 //Browser b = new Browser();
+                 bb.remote = this.remoteBrowser;
+                 bb.iPhysicsDoc = this.iPhysicsDocBrowser;
+                 bb.modelName = modelName;
+                 bb.linkStr = linkstr;
+                 bb.ShowDialog();
 
             }
            
@@ -403,7 +409,33 @@ namespace PccNew
         //搜索
         private void bt_search_Click(object sender, EventArgs e)
         {
-
+            string searchstr = this.tb_search.Text.Trim();
+            if (searchstr.Length < 1)
+            {
+                MessageBox.Show("托盘号码不能为空！");
+                return;
+            }
+            Rack r = ControlInterfaceMethod.searchRack(searchstr);
+            if(r == null)
+            {
+                MessageBox.Show("托盘号码不正确！");
+                return;
+            }
+            RackBll rb = new RackBll();
+            rb.InsertRack(r);
+            //1 新立库 2 双身为 3 配餐  4老库 5 窄巷道
+            if(r.Rack_type == 1 || r.Rack_type == 1)
+            {
+                remote.setCustomView("v_cgk");
+            }
+            else if(r.Rack_type == 3)
+            {
+                remote.setCustomView("v_pcc");
+            }
+            else if(r.Rack_type == 4 || r.Rack_type == 5)
+            {
+                remote.setCustomView("v_cgk2");
+            } 
         }
 
         //摄像头点击
@@ -445,7 +477,7 @@ namespace PccNew
                     //t.Abort();
                     t2.Abort();
                     Thread.Sleep(10000);
-                    remote.setCustomView("V_PCC");
+                    remote.setCustomView("v_all");
                     Thread.Sleep(2000);
                     //初始化 货位
                     CST.InitializStorage();

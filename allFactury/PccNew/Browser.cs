@@ -38,17 +38,23 @@ namespace PccNew
         {
             loadLink(linkStr);
             loadModel(modelName);
+            remote.setCustomView("v_pcc_car");
         }
 
         private void loadLink(string link)
         {
-            this.webBrowser2.Navigate(link);
+            if(link.Length > 0)
+            {
+                this.webBrowser2.Navigate(link);
+            }
         }
 
         private void loadModel(string name)
         {
-            this.splitContainer1.Panel1.Controls.Add(iPhysicsDoc);
-            iPhysicsDoc.Dock = DockStyle.Fill;
+            if (name.Length < 1)
+                return;
+            //this.splitContainer1.Panel1.Controls.Add(iPhysicsDoc);
+            //iPhysicsDoc.Dock = DockStyle.Fill;
             if (remote.IsStarted)
             {
                 return;
@@ -70,7 +76,7 @@ namespace PccNew
 
             iPhysicsDoc.DockExternalApp(remote.ExeProcess, iPhysicsDoc.Parent);
             System.Threading.Thread.Sleep(400);
-            IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings[name].ToString());
+            IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + "/pcc_car.iphz");
             remote.execute(command);
             if (System.Configuration.ConfigurationManager.AppSettings["isDebug"].ToString() == "0")
             {

@@ -29,7 +29,7 @@ namespace WZYB.Model
             get { return _id; }
         }
         /// <summary>
-        /// 货架类型 1 新立库 2 配餐 3 老立库
+        /// 货架类型//1 新立库 2 双身为 3 配餐  4老库 5 窄巷道
         /// </summary>
         public int Rack_type
         {

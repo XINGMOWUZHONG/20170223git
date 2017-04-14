@@ -22,7 +22,7 @@ namespace Storage
         public int StorageAreaCount = 0;
         private string StorageAreaspacing = "";
 
-        //1 新立库 2 双身为 3 配餐
+        //1 新立库 2 双身为 3 配餐  4老库 5 窄巷道
         public int StorageType = 0;
         public void Initialize(string config)
         {
