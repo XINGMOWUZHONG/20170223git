@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.bt_login = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.TextBox();
             this.pass = new System.Windows.Forms.TextBox();
+            this.bt_cancle = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // bt_login
             // 
-            this.bt_login.Location = new System.Drawing.Point(79, 109);
+            this.bt_login.Location = new System.Drawing.Point(48, 102);
             this.bt_login.Name = "bt_login";
             this.bt_login.Size = new System.Drawing.Size(75, 23);
             this.bt_login.TabIndex = 0;
@@ -81,18 +83,33 @@
             this.pass.TabIndex = 4;
             this.pass.Text = "111111";
             // 
+            // bt_cancle
+            // 
+            this.bt_cancle.Location = new System.Drawing.Point(143, 102);
+            this.bt_cancle.Name = "bt_cancle";
+            this.bt_cancle.Size = new System.Drawing.Size(75, 23);
+            this.bt_cancle.TabIndex = 5;
+            this.bt_cancle.Text = "取消";
+            this.bt_cancle.UseVisualStyleBackColor = true;
+            this.bt_cancle.Click += new System.EventHandler(this.bt_cancle_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(254, 159);
+            this.Controls.Add(this.bt_cancle);
             this.Controls.Add(this.pass);
             this.Controls.Add(this.name);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bt_login);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Login";
-            this.Text = "Login";
+            this.Text = "吴忠仪表三维监控";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,5 +122,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.TextBox pass;
+        private System.Windows.Forms.Button bt_cancle;
     }
 }

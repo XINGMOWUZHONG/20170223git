@@ -36,5 +36,10 @@ namespace PccNew
             mf.ShowDialog();
             
         }
+
+        private void bt_cancle_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
