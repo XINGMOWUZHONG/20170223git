@@ -37,6 +37,7 @@ namespace PccNew
         private void Browser_Shown(object sender, EventArgs e)
         {
             loadLink(linkStr);
+            System.Threading.Thread.Sleep(500);
             loadModel(modelName);
             remote.setCustomView("v_pcc_car");
         }

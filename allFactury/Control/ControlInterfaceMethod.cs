@@ -113,9 +113,9 @@ namespace WZYB.Control
             return true;
         }
         //视频监控
-        public void getVideo(string name)
-        { 
-        
+        public static  string getVideo(string name)
+        {
+            return string.Empty;
         }
     }
 }

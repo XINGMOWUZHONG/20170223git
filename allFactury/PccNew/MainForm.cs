@@ -441,7 +441,10 @@ namespace PccNew
         //摄像头点击
         private void bt_video_1_Click(object sender, EventArgs e)
         {
-
+            string webStr = ControlInterfaceMethod.getVideo("1");
+            BrowserVideo bv = new BrowserVideo();
+            bv.videoStr = webStr;
+            bv.ShowDialog();
         }
         #endregion
 

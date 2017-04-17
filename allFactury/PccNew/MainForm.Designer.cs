@@ -142,30 +142,31 @@
             // 
             // bt_hideshow
             // 
+            this.bt_hideshow.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.bt_hideshow.Location = new System.Drawing.Point(216, 309);
             this.bt_hideshow.Name = "bt_hideshow";
             this.bt_hideshow.Size = new System.Drawing.Size(19, 40);
             this.bt_hideshow.TabIndex = 6;
             this.bt_hideshow.Text = "<";
-            this.bt_hideshow.UseVisualStyleBackColor = true;
+            this.bt_hideshow.UseVisualStyleBackColor = false;
             this.bt_hideshow.Click += new System.EventHandler(this.bt_hideshow_Click);
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 35);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(217, 818);
+            this.panel1.Size = new System.Drawing.Size(217, 725);
             this.panel1.TabIndex = 5;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.bt_video_1);
-            this.groupBox4.Location = new System.Drawing.Point(3, 641);
+            this.groupBox4.Location = new System.Drawing.Point(3, 600);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(200, 100);
             this.groupBox4.TabIndex = 9;
@@ -187,7 +188,7 @@
             this.groupBox3.Controls.Add(this.bt_search);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.tb_search);
-            this.groupBox3.Location = new System.Drawing.Point(2, 517);
+            this.groupBox3.Location = new System.Drawing.Point(3, 475);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(205, 100);
             this.groupBox3.TabIndex = 8;
@@ -226,7 +227,7 @@
             this.groupBox2.Controls.Add(this.bt_stop);
             this.groupBox2.Controls.Add(this.bt_pause);
             this.groupBox2.Controls.Add(this.bt_play);
-            this.groupBox2.Location = new System.Drawing.Point(3, 78);
+            this.groupBox2.Location = new System.Drawing.Point(3, 25);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(208, 109);
             this.groupBox2.TabIndex = 7;
@@ -276,7 +277,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tabpanel);
-            this.groupBox1.Location = new System.Drawing.Point(2, 193);
+            this.groupBox1.Location = new System.Drawing.Point(3, 150);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(208, 318);
             this.groupBox1.TabIndex = 1;
@@ -307,6 +308,7 @@
             // 
             // treeView1
             // 
+            this.treeView1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
