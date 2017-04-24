@@ -298,6 +298,12 @@ namespace PccNew
                     //agv
                     else if (e.Node.Parent.Index == 2)
                     {
+                        //定位全场 
+                        remote.setCustomView("v_all");
+                        //特殊显示agv
+                        ControlAgv ca = new ControlAgv();
+                        ca.focusAgv(e.Node.Index + 1);
+
                         linkstr = WZYB.Control.ControlInterfaceMethod.getLinkByTypeAndNum(1, (e.Node.Index +1).ToString ());
                     }
                     //ddj
