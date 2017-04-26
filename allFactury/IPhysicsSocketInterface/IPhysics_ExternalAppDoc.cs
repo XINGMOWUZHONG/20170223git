@@ -35,13 +35,16 @@ namespace IPhysics
             }
         }
 
-        public Process ExternalApp { 
-            get { 
-                return externalApp; 
+        public Process ExternalApp
+        {
+            get
+            {
+                return externalApp;
             }
 
-            set { 
-                DockExternalApp(value, this.ControlParent); 
+            set
+            {
+                DockExternalApp(value, this.ControlParent);
             }
         }
 

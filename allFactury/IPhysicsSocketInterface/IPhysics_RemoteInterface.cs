@@ -12,7 +12,7 @@ using System.Globalization;
 
 namespace IPhysics
 {
-    
+
     public class RemoteInterface
     {
         NumberFormatInfo nfi = new NumberFormatInfo();
@@ -23,26 +23,28 @@ namespace IPhysics
         private bool autoAttach;
         private bool useSpecialVersion;
         private bool disableRescue;
+        private bool greetingMessageReceived;
 
-         // disable-rescue
+        // disable-rescue
 
         public bool DisableRescue { get { return disableRescue; } set { disableRescue = value; } }
         public Process ExeProcess { get { return exeProcess; } }
         public bool UseSpecialVersion { get { return useSpecialVersion; } set { useSpecialVersion = value; } }
         public string SpecialIPhysicsPath { get; set; }
-        
-        public bool IsConnected { get { return socket.Connected; } }
+
+        public bool IsConnected { get { return socket.Connected && greetingMessageReceived; } }
         public bool IsStarted { get { return exeProcess != null && exeProcess.Responding; } }
-        
+
         public bool AutoClose { get { return autoClose; } set { autoClose = value; } }
         public bool AutoAttach { get { return autoAttach; } set { autoAttach = value; } }
 
-        public RemoteInterface( 
+        public RemoteInterface(
             bool autoAttachToRunningProcess = false
             , bool autoCloseProcessOnExit = false
             , bool disableRescue = true
             )
         {
+            greetingMessageReceived = false;
             nfi.NumberDecimalSeparator = ".";
             Console.WriteLine("Logging started");
             newSocket();
@@ -59,11 +61,12 @@ namespace IPhysics
                     exeProcess = processes[0];
                 }
             }
-        }   
+        }
 
         ~RemoteInterface()
         {
-            if (exeProcess != null) {
+            if (exeProcess != null)
+            {
                 if (AutoClose)
                 {
                     //sendData("application.quit(true)");
@@ -76,6 +79,7 @@ namespace IPhysics
 
         private void newSocket()
         {
+            greetingMessageReceived = false;
             socket = new Socket(
                 AddressFamily.InterNetwork
                 , SocketType.Stream
@@ -84,8 +88,8 @@ namespace IPhysics
 
             socket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.NoDelay, true);
         }
-       
-        
+
+
         public void sendData(String program)
         {
             if (!socket.Connected)
@@ -100,11 +104,11 @@ namespace IPhysics
             {
                 socket.Send(buffer);
                 socket.Receive(buffer);
-                
+
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Could not send "+ buffer.Length + " bytes of data: " + ex.Message);
+                Console.WriteLine("Could not send " + buffer.Length + " bytes of data: " + ex.Message);
             }
         }
 
@@ -116,7 +120,7 @@ namespace IPhysics
         public void execute(IPhysics_Command[] commands)
         {
             //ToDo: Block everything else until done
-            for(int i = 0; i < commands.Length; i++)
+            for (int i = 0; i < commands.Length; i++)
                 sendData(commands[i].toJavaScript());
         }
 
@@ -129,9 +133,21 @@ namespace IPhysics
         public void Connect(string address, int port)
         {
             newSocket();
+            Thread.Sleep(100);
             try
             {
                 socket.Connect(address, port);
+                Thread.Sleep(100);
+                if (socket.Available > 0)
+                {
+                    var buffer = new byte[socket.Available];
+                    socket.Receive(buffer);
+                    Thread.Sleep(100);
+                    var retValue = Encoding.ASCII.GetString(buffer);
+                    greetingMessageReceived = retValue.Contains("greetingMessage");
+                    Thread.Sleep(100);
+                }
+
             }
             catch (Exception ex)
             {
@@ -146,7 +162,7 @@ namespace IPhysics
 
         public void sendPause()
         {
-            sendData("application.simulation.pause();");   
+            sendData("application.simulation.pause();");
         }
 
         public void sendReset()
@@ -190,10 +206,10 @@ namespace IPhysics
                 , "C:\\Program Files\\machineering\\industrialPhysics(x64)").ToString();
             startInfo.FileName += "\\bin\\industrialPhysics.exe";
             startInfo.WindowStyle = ProcessWindowStyle.Normal;
-            
+
             if (DisableRescue)
                 startInfo.Arguments += "disable-rescue ";
-            
+
             startInfo.Arguments += "js-server " + port.ToString();
 
             if (useSpecialVersion)
@@ -231,7 +247,7 @@ namespace IPhysics
             exeProcess.CloseMainWindow();
         }
 
-        public bool SpecialVersionExists() 
+        public bool SpecialVersionExists()
         {
             return System.IO.File.Exists(SpecialIPhysicsPath);
         }
