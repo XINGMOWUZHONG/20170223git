@@ -140,7 +140,7 @@ namespace WZYB.BLL
                     }
                     if (dt.Rows[n]["position"].ToString() != "")
                     {
-                        model.position = decimal.Parse(dt.Rows[n]["position"].ToString());
+                        model.position = float.Parse(dt.Rows[n]["position"].ToString());
                     }
                     modelList.Add(model);
                 }

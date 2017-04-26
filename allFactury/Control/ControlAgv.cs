@@ -148,26 +148,26 @@ namespace WZYB.Control
             if (lastData == null)
             {
                 ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_line, UInt32.Parse(thisData.line));
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, UInt16.Parse(thisData.palletstate.ToString()));
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, UInt16.Parse(thisData.taskstate.ToString()));
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, (UInt16)thisData.palletstate );
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, (UInt16)thisData.taskstate);
                 if (PostiveLineArr.Contains(thisData.line.ToString()))
                 {
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, UInt16.Parse("1"));
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, 1);
                 }
                 else
                 {
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, UInt16.Parse("0"));
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, 0);
                 }
                 string Platlines = platFormDic[thisData.target];
                 if (Platlines != null && Platlines.Split(',').Contains(thisData.line))
                 {
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("1"));
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, 1);
                 }
                 else
                 {
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("0"));
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, 0);
                 }
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, UInt32.Parse(thisData.carstate.ToString()));
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, (UInt16)thisData.carstate);
                 setPlatForm(thisData, lastData);
             }
             else if (!thisData.Equals(lastData))
@@ -177,31 +177,31 @@ namespace WZYB.Control
                     ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_line, UInt32.Parse(thisData.line));
                     if (PostiveLineArr.Contains(thisData.line.ToString()))
                     {
-                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, UInt16.Parse("1"));
+                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, 1);
                     }
                     else
                     {
-                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, UInt16.Parse("0"));
+                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, 0);
                     }
                 }
                 if (thisData.palletstate != lastData.palletstate)
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, UInt16.Parse(thisData.palletstate.ToString()));
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, (UInt16)thisData.palletstate);
                 if (thisData.taskstate != lastData.taskstate)
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, UInt16.Parse(thisData.taskstate.ToString()));
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, (UInt16)thisData.taskstate);
                 if (thisData.target != lastData.target)
                 {
                     string Platlines = platFormDic[thisData.target];
                     if (Platlines != null && Platlines.Split(',').Contains(thisData.line))
                     {
-                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("1"));
+                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, 1);
                     }
                     else
                     {
-                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, UInt16.Parse("0"));
+                        ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, 0);
                     }
                 }
                 if (thisData.carstate != lastData.carstate)
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, UInt32.Parse(thisData.carstate.ToString()));
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, (UInt32)thisData.carstate);
                 setPlatForm(thisData,lastData);
 
             }
@@ -217,22 +217,22 @@ namespace WZYB.Control
                 {
                     if(thisData.complatestate == 1)
                     {
-                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[ int.Parse(thisData.target)-1], UInt16.Parse("0"));
+                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[ int.Parse(thisData.target)-1], 0);
                     }
                     else
                     {
-                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[int.Parse(thisData.target) - 1], UInt16.Parse("1"));
+                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[int.Parse(thisData.target) - 1], 1);
                     }
                 }
                 else if (thisData.taskstate == 2)
                 {
                     if (thisData.complatestate == 1)
                     {
-                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[int.Parse(thisData.target) - 1], UInt16.Parse("1"));
+                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[int.Parse(thisData.target) - 1], 1);
                     }
                     else
                     {
-                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[int.Parse(thisData.target) - 1], UInt16.Parse("0"));
+                        ComTCPLib.SetOutputAsUINT(1, PlatFormIndex[int.Parse(thisData.target) - 1], 0);
                     }
                 }
             }
@@ -246,18 +246,18 @@ namespace WZYB.Control
             int index3 = GetIdex.getDicOutputIndex("color01_Key03");
             int index4 = GetIdex.getDicOutputIndex("color01_Key04");
             int index5 = GetIdex.getDicOutputIndex("color01_Key05");
-            ComTCPLib.SetOutputAsUINT(1, index1, UInt16.Parse("0"));
-            ComTCPLib.SetOutputAsUINT(1, index2, UInt16.Parse("0"));
-            ComTCPLib.SetOutputAsUINT(1, index3, UInt16.Parse("0"));
-            ComTCPLib.SetOutputAsUINT(1, index4, UInt16.Parse("0"));
-            ComTCPLib.SetOutputAsUINT(1, index5, UInt16.Parse("0"));
+            ComTCPLib.SetOutputAsUINT(1, index1, 0);
+            ComTCPLib.SetOutputAsUINT(1, index2, 0);
+            ComTCPLib.SetOutputAsUINT(1, index3, 0);
+            ComTCPLib.SetOutputAsUINT(1, index4, 0);
+            ComTCPLib.SetOutputAsUINT(1, index5, 0);
             if(index == 1)
             {
-                ComTCPLib.SetOutputAsUINT(1, GetIdex.getDicOutputIndex("color01_Key"), UInt16.Parse("1"));
+                ComTCPLib.SetOutputAsUINT(1, GetIdex.getDicOutputIndex("color01_Key"), 1);
             }
             else
             {
-                ComTCPLib.SetOutputAsUINT(1, GetIdex.getDicOutputIndex("color01_Key0" + index.ToString()), UInt16.Parse("1"));
+                ComTCPLib.SetOutputAsUINT(1, GetIdex.getDicOutputIndex("color01_Key0" + index.ToString()), 1);
             }
             
         }

@@ -11,7 +11,7 @@ namespace WZYB.Model
         private int _carid;
         private string _line;
         private int _displayState;
-        private decimal? _position;
+        private float _position;
         /// <summary>
         /// 车辆ID
         /// </summary>
@@ -38,7 +38,7 @@ namespace WZYB.Model
         /// <summary>
         /// 具体位置
         /// </summary>
-        public decimal? position
+        public float position
         {
             set { _position = value; }
             get { return _position; }

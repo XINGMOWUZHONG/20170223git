@@ -59,7 +59,7 @@ namespace WZYB.Control
             {
                 foreach (OCSLift Lift in o)
                 {
-                    int value=0;
+                    uint value=0;
                     if(Lift.LiftTopstate == 0 && Lift .LiftDownstate == 0)
                     {
                          value=2;
@@ -72,7 +72,7 @@ namespace WZYB.Control
                     {
                         value=0;
                     }
-                    ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId -1], uint.Parse(value.ToString ()));
+                    ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId -1], value);
                 }
             }
         }
@@ -89,15 +89,15 @@ namespace WZYB.Control
                     }
                     else if(Lift.LiftDownstate == 1 )
                     {
-                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId-1], uint.Parse("0"));
+                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId-1], 0);
                     }
                     else if (Lift.LiftTopstate == 1)
                     {
-                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId-1], uint.Parse("1"));
+                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId-1], 1);
                     }
                     else
                     {
-                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId-1], uint.Parse("2"));
+                        ComTCPLib.SetOutputAsUINT(1, xmlIndex[Lift.LiftId-1],2);
                     }
                     
                 }

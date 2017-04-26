@@ -77,14 +77,14 @@ namespace WZYB.Control
                 //设定驱动段 002
                 ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsPath, UInt32.Parse(thisData.line.Substring(1)));
                 //设定位置 003
-                ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos, float.Parse(thisData.position.ToString()));
+                ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos,  thisData.position );
                 //设定是否显示阀体
                 ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsFtv, (UInt32)thisData.displayState);
 
             }
             else if (!thisData.Equals(lastData))
             {
-                if (!thisData.line.Equals (lastData .line))
+                if (!thisData.line.Equals (lastData.line))
                {
                    int tmpArea = getOcsArea(thisData.line);
                    if (tmpArea != -1)
@@ -96,7 +96,7 @@ namespace WZYB.Control
 
                 if (thisData.position !=lastData.position)
                 {
-                    ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos, float.Parse(thisData.position.ToString()));
+                    ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos,  thisData.position );
                 }
 
                 if (thisData.displayState != lastData.displayState)
