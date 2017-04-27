@@ -89,9 +89,9 @@ namespace PccNew
             {
                 if (initializ_done)
                 {
-                    IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + "/pcc_car.iphz");
+                    //IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + "/pcc_car.iphz");
                     
-                    //IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings["modefile"].ToString());
+                    IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings["modefile"].ToString());
                     remote.execute(command);
                     if (System.Configuration.ConfigurationManager.AppSettings["isDebug"].ToString() == "0")
                     {
