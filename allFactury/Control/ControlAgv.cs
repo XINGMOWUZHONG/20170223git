@@ -241,23 +241,29 @@ namespace WZYB.Control
         //定位agv
         public void focusAgv(int index)
         {
-            int index1 = GetIdex.getDicOutputIndex("color01_Key");
-            int index2 = GetIdex.getDicOutputIndex("color01_Key02");
-            int index3 = GetIdex.getDicOutputIndex("color01_Key03");
-            int index4 = GetIdex.getDicOutputIndex("color01_Key04");
-            int index5 = GetIdex.getDicOutputIndex("color01_Key05");
-            ComTCPLib.SetOutputAsUINT(1, index1, 0);
-            ComTCPLib.SetOutputAsUINT(1, index2, 0);
-            ComTCPLib.SetOutputAsUINT(1, index3, 0);
-            ComTCPLib.SetOutputAsUINT(1, index4, 0);
-            ComTCPLib.SetOutputAsUINT(1, index5, 0);
-            if(index == 1)
+            try
             {
-                ComTCPLib.SetOutputAsUINT(1, GetIdex.getDicOutputIndex("color01_Key"), 1);
-            }
-            else
+                int index1 = GetIdex.getDicOutputIndex("color01_Key");
+                int index2 = GetIdex.getDicOutputIndex("color01_Key02");
+                int index3 = GetIdex.getDicOutputIndex("color01_Key03");
+                int index4 = GetIdex.getDicOutputIndex("color01_Key04");
+                int index5 = GetIdex.getDicOutputIndex("color01_Key05");
+                ComTCPLib.SetOutputAsUINT(1, index1, 0);
+                ComTCPLib.SetOutputAsUINT(1, index2, 0);
+                ComTCPLib.SetOutputAsUINT(1, index3, 0);
+                ComTCPLib.SetOutputAsUINT(1, index4, 0);
+                ComTCPLib.SetOutputAsUINT(1, index5, 0);
+                if (index == 1)
+                {
+                    ComTCPLib.SetOutputAsUINT(1, GetIdex.getDicOutputIndex("color01_Key"), 1);
+                }
+                else
+                {
+                    ComTCPLib.SetOutputAsUINT(1, GetIdex.getDicOutputIndex("color01_Key0" + index.ToString()), 1);
+                }
+            }catch(Exception ex)
             {
-                ComTCPLib.SetOutputAsUINT(1, GetIdex.getDicOutputIndex("color01_Key0" + index.ToString()), 1);
+                return;
             }
             
         }

@@ -41,18 +41,11 @@ namespace PccNew
         bool loading_done;
         bool initializ_done;
 
-        RemoteInterface remoteBrowser;
-        ExternalAppDock iPhysicsDocBrowser;
-        Browser bb = new Browser();
+        
         public void Initialization(object obj)
-        {
-            remoteBrowser = new RemoteInterface(true, true);
-            iPhysicsDocBrowser = new ExternalAppDock();
-            bb.splitContainer1.Panel1.Controls.Add(iPhysicsDocBrowser);
-            iPhysicsDocBrowser.Dock = DockStyle.Fill;
-
+        { 
             System.Windows.Forms.Panel pp = (System.Windows.Forms.Panel)obj;
-            remote = new RemoteInterface(true, true);
+            remote = new RemoteInterface(false, true);
 
             iPhysicsDoc = new ExternalAppDock();
             pp.Controls.Add(iPhysicsDoc);
@@ -96,7 +89,9 @@ namespace PccNew
             {
                 if (initializ_done)
                 {
-                    IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings["modefile"].ToString());
+                    IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + "/pcc_car.iphz");
+                    
+                    //IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings["modefile"].ToString());
                     remote.execute(command);
                     if (System.Configuration.ConfigurationManager.AppSettings["isDebug"].ToString() == "0")
                     {
@@ -302,8 +297,7 @@ namespace PccNew
                         remote.setCustomView("v_all");
                         //特殊显示agv
                         ControlAgv ca = new ControlAgv();
-                        ca.focusAgv(e.Node.Index + 1);
-
+                        ca.focusAgv(e.Node.Index + 1); 
                         linkstr = WZYB.Control.ControlInterfaceMethod.getLinkByTypeAndNum(1, (e.Node.Index +1).ToString ());
                     }
                     //ddj
@@ -318,9 +312,7 @@ namespace PccNew
                     }
                     modelName = e.Node.Parent.Name;
                 }
-                 //Browser b = new Browser();
-                 bb.remote = this.remoteBrowser;
-                 bb.iPhysicsDoc = this.iPhysicsDocBrowser;
+                 Browser bb = new Browser(); 
                  bb.modelName = modelName;
                  bb.linkStr = linkstr;
                  bb.ShowDialog();
