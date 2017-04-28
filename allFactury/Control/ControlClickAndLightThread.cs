@@ -89,6 +89,7 @@ namespace WZYB.Control
          //type 1agv 2ddj  3pcc 4csc 5ocs 6 screen
         public bool getisClick(string num,int type)
         {
+            //return false;
             string indexstr = "";
             switch (type)
             { 
@@ -120,9 +121,12 @@ namespace WZYB.Control
 
         public void setLightState(string num)
         {
+            //return;
             string indexstr = MachineCountStr.Replace("**", num);
+            int index = GetIdex.getDicOutputIndex(indexstr);
             int  state = ControlInterfaceMethod.getMachineLightState( num);
-            gi.updateValue(indexstr,state.ToString (),1,handle);
+            //gi.updateValue(indexstr,state.ToString (),1,handle);
+            ComTCPLib.SetOutputAsUINT(1, index, (uint)state);
         }
 
     }
