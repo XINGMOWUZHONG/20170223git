@@ -91,7 +91,7 @@ namespace PccNew
         public void Initialization(object obj)
         {
             System.Windows.Forms.Panel pp = (System.Windows.Forms.Panel)obj;
-            remote = new RemoteInterface(false, true);
+            remote = new RemoteInterface(false, false);
 
             iPhysicsDoc = new ExternalAppDock();
             pp.Controls.Add(iPhysicsDoc);
@@ -120,7 +120,8 @@ namespace PccNew
         }
         private void browser_FormClosed(object sender, FormClosedEventArgs e)
         {
-            remote.ShutDownIPhysics();  
+            StopProcess();
+            //remote.ShutDownIPhysics();  
             this.DialogResult = DialogResult.OK;
         }
 
@@ -163,6 +164,25 @@ namespace PccNew
             }
 
 
+        }
+
+        public static void StopProcess()
+        {
+            try
+            {
+                System.Diagnostics.Process[] ps = System.Diagnostics.Process.GetProcessesByName("industrialPhysics");
+                foreach (System.Diagnostics.Process p in ps)
+                {
+                    if (p.Id.ToString() != MainForm.PID)
+                    {
+                        p.Kill();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

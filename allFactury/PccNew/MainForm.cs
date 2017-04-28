@@ -40,7 +40,7 @@ namespace PccNew
         ExternalAppDock iPhysicsDoc;
         bool loading_done;
         bool initializ_done;
-
+        public static string PID = "";
         
         public void Initialization(object obj)
         { 
@@ -458,6 +458,7 @@ namespace PccNew
             CT2.threadStopAll();
             CST.StopThreadStorage();
             this.timerClick.Stop();
+            remote.ShutDownIPhysics();
             Application.Exit();
         }
 
@@ -488,7 +489,9 @@ namespace PccNew
                     break;
                 }
                 Thread.Sleep(1000);
-            }
+            } 
+            System.Diagnostics.Process[] ps = System.Diagnostics.Process.GetProcessesByName("industrialPhysics"); 
+            PID = ps[0].Id.ToString(); 
         }
         #endregion
 
