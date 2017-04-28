@@ -11,7 +11,7 @@ namespace WZYB.Control
 {
     public  class ControlUpdateData
     { 
-        private int ThreadTime = 500; 
+        private int ThreadTime = int.Parse( System.Configuration.ConfigurationManager.AppSettings["DataUpdate_sleeptime"].ToString());
         public bool IsStart = false;
         public ControlUpdateData()
         {
