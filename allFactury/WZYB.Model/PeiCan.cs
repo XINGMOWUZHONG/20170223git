@@ -11,21 +11,21 @@ namespace WZYB.Model
         public PeiCan()
 		{}
 		#region Model
-		private int _id;
-		private int _source;
-		private int _target;
-		private int _target_z;
+        private uint _id;
+        private uint _source;
+        private uint _target;
+        private uint _target_z;
 		private long _currentlocation;
-		private int _carstate;
-		private int _palletstate;
-		private int _taskstate;
-		private int _complatestate;
+        private uint _carstate;
+        private uint _palletstate;
+        private uint _taskstate;
+        private uint _complatestate;
 		private DateTime _time;
 		private string _additional;
 		/// <summary>
 		/// 
 		/// </summary>
-		public int id
+        public uint id
 		{
 			set{ _id=value;}
 			get{return _id;}
@@ -33,7 +33,7 @@ namespace WZYB.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int source
+        public uint source
 		{
 			set{ _source=value;}
 			get{return _source;}
@@ -41,7 +41,7 @@ namespace WZYB.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int target
+        public uint target
 		{
 			set{ _target=value;}
 			get{return _target;}
@@ -49,7 +49,7 @@ namespace WZYB.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int target_z
+        public uint target_z
 		{
 			set{ _target_z=value;}
 			get{return _target_z;}
@@ -65,7 +65,7 @@ namespace WZYB.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int Carstate
+        public uint Carstate
 		{
 			set{ _carstate=value;}
 			get{return _carstate;}
@@ -73,7 +73,7 @@ namespace WZYB.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int Palletstate
+        public uint Palletstate
 		{
 			set{ _palletstate=value;}
 			get{return _palletstate;}
@@ -81,7 +81,7 @@ namespace WZYB.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int TaskState
+        public uint TaskState
 		{
 			set{ _taskstate=value;}
 			get{return _taskstate;}
@@ -89,7 +89,7 @@ namespace WZYB.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int ComplateState
+        public uint ComplateState
 		{
 			set{ _complatestate=value;}
 			get{return _complatestate;}

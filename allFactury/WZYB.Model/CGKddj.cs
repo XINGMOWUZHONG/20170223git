@@ -13,18 +13,18 @@ namespace WZYB.Model
     public class CGKddj
     {
         #region Model
-        private int _CGKddj_id;
-        private int _CGKddj_state;
+        private uint _CGKddj_id;
+        private uint _CGKddj_state;
         private float _CGKddj_tgt;
         private float _CGKddj_source;
         private float _CGKddj_current;
         private float _CGKddj_forktgt;
         private float _CGKddj_platformtgt;
-        private int _CGKddj_pallertstate;
+        private uint _CGKddj_pallertstate;
         /// <summary>
         /// 堆垛机ID
         /// </summary>
-        public int CGKddj_id
+        public uint CGKddj_id
         {
             set { _CGKddj_id = value; }
             get { return _CGKddj_id; }
@@ -32,7 +32,7 @@ namespace WZYB.Model
         /// <summary>
         /// 堆垛机状态
         /// </summary>
-        public int CGKddj_state
+        public uint CGKddj_state
         {
             set { _CGKddj_state = value; }
             get { return _CGKddj_state; }
@@ -84,7 +84,7 @@ namespace WZYB.Model
         /// <summary>
         /// 堆垛托盘状态
         /// </summary>
-        public int CGKddj_pallertstate
+        public uint CGKddj_pallertstate
         {
             set { _CGKddj_pallertstate = value; }
             get { return _CGKddj_pallertstate; }

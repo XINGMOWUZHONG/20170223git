@@ -87,11 +87,11 @@ namespace WZYB.BLL
             }
         }
 
-        public static bool deleteRack(int id,int type)
+        public static bool deleteRack(uint id,int type)
         {
             try
             {
-                return RackDAL.deleteRackByid(id,type);
+                return RackDAL.deleteRackByid((int)id, (int)type);
             }
             catch (Exception ex)
             {
@@ -111,31 +111,31 @@ namespace WZYB.BLL
                     model = new Rack();
                     if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.id = int.Parse(dt.Rows[n]["id"].ToString());
+                        model.id = uint.Parse(dt.Rows[n]["id"].ToString());
                     }
                     if (dt.Rows[n]["rackid"].ToString() != "")
                     {
-                        model.Rack_type = int.Parse(dt.Rows[n]["rackid"].ToString());
+                        model.Rack_type = uint.Parse(dt.Rows[n]["rackid"].ToString());
                     }
                     if (dt.Rows[n]["location_y"].ToString() != "")
                     {
-                        model.Rack_row = int.Parse(dt.Rows[n]["location_y"].ToString());
+                        model.Rack_row = uint.Parse(dt.Rows[n]["location_y"].ToString());
                     }
                     if (dt.Rows[n]["location_x"].ToString() != "")
                     {
-                        model.Rack_colum = int.Parse(dt.Rows[n]["location_x"].ToString());
+                        model.Rack_colum = uint.Parse(dt.Rows[n]["location_x"].ToString());
                     }
                     if (dt.Rows[n]["location_z"].ToString() != "")
                     {
-                        model.Rack_z = int.Parse(dt.Rows[n]["location_z"].ToString());
+                        model.Rack_z = uint.Parse(dt.Rows[n]["location_z"].ToString());
                     }
                     if (dt.Rows[n]["pallet_num"].ToString() != "")
                     {
-                        model.Rack_id = int.Parse(dt.Rows[n]["pallet_num"].ToString());
+                        model.Rack_id = uint.Parse(dt.Rows[n]["pallet_num"].ToString());
                     }
                     if (dt.Rows[n]["rack_state"].ToString() != "")
                     {
-                        model.Rack_state = int.Parse(dt.Rows[n]["rack_state"].ToString());
+                        model.Rack_state = uint.Parse(dt.Rows[n]["rack_state"].ToString());
                     }
 
                     modelList.Add(model);

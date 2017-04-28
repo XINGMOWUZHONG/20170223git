@@ -79,7 +79,7 @@ namespace WZYB.Control
                 //设定位置 003
                 ComTCPLib.SetOutputAsREAL32(handle, CarXmlIndex_OcsPos,  thisData.position );
                 //设定是否显示阀体
-                ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsFtv, (UInt32)thisData.displayState);
+                ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsFtv, thisData.displayState);
 
             }
             else if (!thisData.Equals(lastData))
@@ -101,7 +101,7 @@ namespace WZYB.Control
 
                 if (thisData.displayState != lastData.displayState)
                 {
-                    ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsFtv, (UInt32)thisData.displayState);
+                    ComTCPLib.SetOutputAsUINT(handle, CarXmlIndex_OcsFtv, thisData.displayState);
                 }
 
             }

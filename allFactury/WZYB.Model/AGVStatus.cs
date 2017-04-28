@@ -15,20 +15,20 @@ namespace WZYB.Model
         public AGVStatus()
         { }
         #region Model
-        private int _id;
+        private uint _id;
         private string _line;
-        private int? _carstate;
-        private int? _palletstate;
+        private uint _carstate;
+        private uint _palletstate;
         private string _source;
         private string _target;
-        private int? _taskstate;
-        private int? _complatestate;
-        private DateTime? _nowtime;
+        private uint _taskstate;
+        private uint _complatestate;
+        private DateTime _nowtime;
         private string _additional;
         /// <summary>
         /// 车辆ID
         /// </summary>
-        public int id
+        public uint id
         {
             set { _id = value; }
             get { return _id; }
@@ -44,7 +44,7 @@ namespace WZYB.Model
         /// <summary>
         /// 
         /// </summary>
-        public int? carstate
+        public uint carstate
         {
             set { _carstate = value; }
             get { return _carstate; }
@@ -52,7 +52,7 @@ namespace WZYB.Model
         /// <summary>
         /// 
         /// </summary>
-        public int? palletstate
+        public uint palletstate
         {
             set { _palletstate = value; }
             get { return _palletstate; }
@@ -76,7 +76,7 @@ namespace WZYB.Model
         /// <summary>
         /// 
         /// </summary>
-        public int? taskstate
+        public uint taskstate
         {
             set { _taskstate = value; }
             get { return _taskstate; }
@@ -84,7 +84,7 @@ namespace WZYB.Model
         /// <summary>
         /// 
         /// </summary>
-        public int? complatestate
+        public uint complatestate
         {
             set { _complatestate = value; }
             get { return _complatestate; }
@@ -92,7 +92,7 @@ namespace WZYB.Model
         /// <summary>
         /// 当前时间
         /// </summary>
-        public DateTime? nowtime
+        public DateTime nowtime
         {
             set { _nowtime = value; }
             get { return _nowtime; }

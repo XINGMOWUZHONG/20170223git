@@ -13,17 +13,17 @@ namespace WZYB.Model
     public class Rack
     {
         #region Model
-        private int _id;
-        private int _Rack_type;
-        private int _Rack_row;
-        private int _Rack_colum;
-        private int _Rack_id;
-        private int _Rack_state;
-        private int _Rack_z;
+        private uint _id;
+        private uint _Rack_type;
+        private uint _Rack_row;
+        private uint _Rack_colum;
+        private uint _Rack_id;
+        private uint _Rack_state;
+        private uint _Rack_z;
         /// <summary>
         /// 穿梭车ID
         /// </summary>
-        public int id
+        public uint id
         {
             set { _id = value; }
             get { return _id; }
@@ -31,7 +31,7 @@ namespace WZYB.Model
         /// <summary>
         /// 货架类型//1 新立库 2 双身为 3 配餐  4老库 5 窄巷道
         /// </summary>
-        public int Rack_type
+        public uint Rack_type
         {
             set { _Rack_type = value; }
             get { return _Rack_type; }
@@ -40,7 +40,7 @@ namespace WZYB.Model
         /// <summary>
         /// 行
         /// </summary>
-        public int Rack_row
+        public uint Rack_row
         {
             set { _Rack_row = value; }
             get { return _Rack_row; }
@@ -49,7 +49,7 @@ namespace WZYB.Model
         /// <summary>
         /// 列
         /// </summary>
-        public int Rack_colum
+        public uint Rack_colum
         {
             set { _Rack_colum = value; }
             get { return _Rack_colum; }
@@ -58,7 +58,7 @@ namespace WZYB.Model
         /// <summary>
         /// 货位标识
         /// </summary>
-        public int Rack_id
+        public uint Rack_id
         {
             set { _Rack_id = value; }
             get { return _Rack_id; }
@@ -67,7 +67,7 @@ namespace WZYB.Model
         /// <summary>
         /// 货位状态
         /// </summary>
-        public int Rack_state
+        public uint Rack_state
         {
             set { _Rack_state = value; }
             get { return _Rack_state; }
@@ -77,7 +77,7 @@ namespace WZYB.Model
         /// <summary>
         /// 货位z轴
         /// </summary>
-        public int Rack_z
+        public uint Rack_z
         {
             set { _Rack_z = value; }
             get { return _Rack_z; }

@@ -13,14 +13,14 @@ namespace WZYB.Model
     public class CGKcar
     {
         #region Model
-        private int _CGKcar_id;
-        private int _CGKcar_state;
-        private int _CGKcar_tgt;
-        private int _CGKcar_source;
-        private int _CGKcar_current;
-        private int _CGKcar_pallertstate;
-        private int _CGKcar_action;
-        private int _target_z;
+        private uint _CGKcar_id;
+        private uint _CGKcar_state;
+        private uint _CGKcar_tgt;
+        private uint _CGKcar_source;
+        private uint _CGKcar_current;
+        private uint _CGKcar_pallertstate;
+        private uint _CGKcar_action;
+        private uint _target_z;
 
         //private int _CGKcar_tgt_out_z;
         //private float _CGKcar_tgt_out_x;
@@ -28,7 +28,7 @@ namespace WZYB.Model
         //private float _CGKcar_current_out;
         //private int _CGKcar_state_out;
 
-        public int target_z
+        public uint target_z
         {
             set { _target_z = value; }
             get { return _target_z; }
@@ -38,7 +38,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车ID
         /// </summary>
-        public int CGKcar_id
+        public uint CGKcar_id
         {
             set { _CGKcar_id = value; }
             get { return _CGKcar_id; }
@@ -46,7 +46,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车状态
         /// </summary>
-        public int CGKcar_state
+        public uint CGKcar_state
         {
             set { _CGKcar_state = value; }
             get { return _CGKcar_state; }
@@ -54,7 +54,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车目标
         /// </summary>
-        public int CGKcar_tgt
+        public uint CGKcar_tgt
         {
             set { _CGKcar_tgt = value; }
             get { return _CGKcar_tgt; }
@@ -62,7 +62,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车原位置
         /// </summary>
-        public int CGKcar_source
+        public uint CGKcar_source
         {
             set { _CGKcar_source = value; }
             get { return _CGKcar_source; }
@@ -70,7 +70,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车当前位置
         /// </summary>
-        public int CGKcar_current
+        public uint CGKcar_current
         {
             set { _CGKcar_current = value; }
             get { return _CGKcar_current; }
@@ -78,7 +78,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车托盘状态
         /// </summary>
-        public int CGKcar_pallertstate
+        public uint CGKcar_pallertstate
         {
             set { _CGKcar_pallertstate = value; }
             get { return _CGKcar_pallertstate; }
@@ -87,7 +87,7 @@ namespace WZYB.Model
         /// <summary>
         /// 穿梭车 取货还是放货 0 静止 1 取货 2放货
         /// </summary>
-        public int CGKcar_action
+        public uint CGKcar_action
         {
             set { _CGKcar_action = value; }
             get { return _CGKcar_action; }

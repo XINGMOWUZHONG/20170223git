@@ -8,20 +8,20 @@ namespace WZYB.Model
     public class OCSStatus : IComparable
 	{
         #region Model
-        private int _carid;
+        private uint _carid;
         private string _line;
-        private int _displayState;
+        private uint _displayState;
         private float _position;
         /// <summary>
         /// ³µÁ¾ID
         /// </summary>
-        public int carId
+        public uint carId
         {
             set { _carid = value; }
             get { return _carid; }
         }
 
-        public int displayState
+        public uint displayState
         {
             set { _displayState = value; }
             get { return _displayState; }
@@ -47,7 +47,7 @@ namespace WZYB.Model
 
         public int CompareTo(object obj)
         {
-            int res = 0;
+            uint res = 0;
             try
             {
                 
@@ -57,7 +57,7 @@ namespace WZYB.Model
             {
                 throw new Exception("", ex.InnerException);
             }
-            return res;
+            return 1;
         }
 
 	}

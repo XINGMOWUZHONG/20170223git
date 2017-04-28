@@ -13,12 +13,12 @@ namespace WZYB.Model
     public class CGKpellert
     {
         #region Model
-        private int _CGKpellertid;
-        private int _CGKpellertstate;
+        private uint _CGKpellertid;
+        private uint _CGKpellertstate;
         /// <summary>
         /// 托盘id
         /// </summary>
-        public int CGKpellertid
+        public uint CGKpellertid
         {
             set { _CGKpellertid = value; }
             get { return _CGKpellertid; }
@@ -26,7 +26,7 @@ namespace WZYB.Model
         /// <summary>
         /// 所在驱动段
         /// </summary>
-        public int CGKpellertstate
+        public uint CGKpellertstate
         {
             set { _CGKpellertstate = value; }
             get { return _CGKpellertstate; }

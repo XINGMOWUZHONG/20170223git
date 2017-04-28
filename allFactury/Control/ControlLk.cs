@@ -229,11 +229,11 @@ namespace WZYB.Control
                 {
                     ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_source, thisddj.CGKddj_source);
                 }
-                ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_state, (UInt16)thisddj.CGKddj_state);
+                ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_state, thisddj.CGKddj_state);
                 ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_tgt, thisddj.CGKddj_tgt);
                 ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_forktgt, thisddj.CGKddj_forktgt);
                 ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_platformtgt, thisddj.CGKddj_platformtgt);
-                ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_pallertstate, (UInt16)thisddj.CGKddj_pallertstate);
+                ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_pallertstate, thisddj.CGKddj_pallertstate);
             }
             else if (!thisddj.Equals(lastddj))
             {
@@ -247,7 +247,7 @@ namespace WZYB.Control
                         ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_source, thisddj.CGKddj_source);
                 }
                 if (thisddj.CGKddj_state != lastddj.CGKddj_state)
-                    ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_state,(UInt16)thisddj.CGKddj_state);
+                    ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_state,thisddj.CGKddj_state);
                 if (thisddj.CGKddj_tgt != lastddj.CGKddj_tgt)
                     ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_tgt, thisddj.CGKddj_tgt);
                 if (thisddj.CGKddj_forktgt != lastddj.CGKddj_forktgt)
@@ -255,7 +255,7 @@ namespace WZYB.Control
                 if (thisddj.CGKddj_platformtgt != lastddj.CGKddj_platformtgt)
                     ComTCPLib.SetOutputAsREAL32(1, DDJXmlIndex_platformtgt, thisddj.CGKddj_platformtgt);
                 if (thisddj.CGKddj_pallertstate != lastddj.CGKddj_pallertstate)
-                    ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_pallertstate, (UInt16)thisddj.CGKddj_pallertstate);
+                    ComTCPLib.SetOutputAsUINT(1, DDJXmlIndex_pallertstate, thisddj.CGKddj_pallertstate);
             }
 
         }
@@ -274,8 +274,8 @@ namespace WZYB.Control
             }
             WZYB.Model.Rack r = new Rack();
             //堆垛机的坐标和货位生成的坐标是反的
-            r.Rack_colum =38- (int)thisddj.CGKddj_tgt;
-            r.Rack_row = 13-(int)thisddj.CGKddj_platformtgt;
+            r.Rack_colum =38- (uint)thisddj.CGKddj_tgt;
+            r.Rack_row = 13-(uint)thisddj.CGKddj_platformtgt;
             if (DdjId == 1)
             {
                 if ((int)thisddj.CGKddj_forktgt == 1)
@@ -384,7 +384,7 @@ namespace WZYB.Control
             {
                 
                 ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, ( thisData.CGKcar_source -1)* unitLength);
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, (UInt16)thisData.CGKcar_state);
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, thisData.CGKcar_state);
                 ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, (thisData.CGKcar_tgt - 1) * unitLength);
                 UInt16 outPalletState = getOutPalletState(thisData);
                
@@ -396,7 +396,7 @@ namespace WZYB.Control
                 if (thisData.CGKcar_source != lastData.CGKcar_source)
                     ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_source, (thisData.CGKcar_source - 1) * unitLength);
                 if (thisData.CGKcar_state != lastData.CGKcar_state)
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, (UInt16)thisData.CGKcar_state);
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_state, thisData.CGKcar_state);
                 if (thisData.CGKcar_tgt != lastData.CGKcar_tgt)
                     ComTCPLib.SetOutputAsREAL32(1, CarXmlIndex_tgt, (thisData.CGKcar_tgt - 1) * unitLength);
                 

@@ -87,11 +87,11 @@ namespace WZYB.BLL
         }
 
 
-        public static int DelCGKpellert(int id)
+        public static int DelCGKpellert(uint id)
         {
             try
             {
-                int i = CGKDAL.delPalletById(id, CGK_pallert);
+                int i = CGKDAL.delPalletById((int)id, CGK_pallert);
                 return i;
             }
             catch (Exception ex)
@@ -114,35 +114,35 @@ namespace WZYB.BLL
                     model = new CGKcar();
                     if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.CGKcar_id = int.Parse(dt.Rows[n]["id"].ToString());
+                        model.CGKcar_id = uint.Parse(dt.Rows[n]["id"].ToString());
                     }
                     if (dt.Rows[n]["Carstate"].ToString() != "")
                     {
-                        model.CGKcar_state = int.Parse(dt.Rows[n]["Carstate"].ToString());
+                        model.CGKcar_state = uint.Parse(dt.Rows[n]["Carstate"].ToString());
                     }
                     if (dt.Rows[n]["target"].ToString() != "")
                     {
-                        model.CGKcar_tgt =int.Parse( dt.Rows[n]["target"].ToString());
+                        model.CGKcar_tgt = uint.Parse(dt.Rows[n]["target"].ToString());
                     }
                     if (dt.Rows[n]["source"].ToString() != "")
                     {
-                        model.CGKcar_source = int.Parse(dt.Rows[n]["source"].ToString());
+                        model.CGKcar_source = uint.Parse(dt.Rows[n]["source"].ToString());
                     }
                     if (dt.Rows[n]["currentlocation"].ToString() != "")
                     {
-                        model.CGKcar_current = int.Parse(dt.Rows[n]["currentlocation"].ToString());
+                        model.CGKcar_current = uint.Parse(dt.Rows[n]["currentlocation"].ToString());
                     }
                     if (dt.Rows[n]["palletstate"].ToString() != "")
                     {
-                        model.CGKcar_pallertstate = int.Parse(dt.Rows[n]["palletstate"].ToString());
+                        model.CGKcar_pallertstate = uint.Parse(dt.Rows[n]["palletstate"].ToString());
                     }
                     if (dt.Rows[n]["action"].ToString() != "")
                     {
-                        model.CGKcar_action = int.Parse(dt.Rows[n]["action"].ToString());
+                        model.CGKcar_action = uint.Parse(dt.Rows[n]["action"].ToString());
                     }
                     if (dt.Rows[n]["target_z"].ToString() != "")
                     {
-                        model.target_z = int.Parse(dt.Rows[n]["target_z"].ToString());
+                        model.target_z = uint.Parse(dt.Rows[n]["target_z"].ToString());
                     }
                     modelList.Add(model);
                 }
@@ -162,11 +162,11 @@ namespace WZYB.BLL
                     model = new CGKddj();
                     if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.CGKddj_id = int.Parse(dt.Rows[n]["id"].ToString());
+                        model.CGKddj_id = uint.Parse(dt.Rows[n]["id"].ToString());
                     }
                     if (dt.Rows[n]["carstate"].ToString() != "")
                     {
-                        model.CGKddj_state = int.Parse(dt.Rows[n]["carstate"].ToString());
+                        model.CGKddj_state = uint.Parse(dt.Rows[n]["carstate"].ToString());
                     }
                     if (dt.Rows[n]["target"].ToString() != "")
                     {
@@ -182,7 +182,7 @@ namespace WZYB.BLL
                     }
                     if (dt.Rows[n]["palletstate"].ToString() != "")
                     {
-                        model.CGKddj_pallertstate = int.Parse(dt.Rows[n]["palletstate"].ToString());
+                        model.CGKddj_pallertstate = uint.Parse(dt.Rows[n]["palletstate"].ToString());
                     }
                     if (dt.Rows[n]["fork_tgt"].ToString() != "")
                     {
@@ -211,11 +211,11 @@ namespace WZYB.BLL
                     model = new CGKpellert();
                     if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.CGKpellertid = int.Parse(dt.Rows[n]["id"].ToString());
+                        model.CGKpellertid = uint.Parse(dt.Rows[n]["id"].ToString());
                     }
                     if (dt.Rows[n]["state"].ToString() != "")
                     {
-                        model.CGKpellertstate = int.Parse(dt.Rows[n]["state"].ToString());
+                        model.CGKpellertstate = uint.Parse(dt.Rows[n]["state"].ToString());
                     }
 
                     modelList.Add(model);

@@ -131,12 +131,12 @@ namespace WZYB.BLL
                     model = new OCSStatus();
                     if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.carId = int.Parse(dt.Rows[n]["id"].ToString());
+                        model.carId = uint.Parse(dt.Rows[n]["id"].ToString());
                     }
                     model.line = dt.Rows[n]["line"].ToString();
                     if (dt.Rows[n]["displaystate"].ToString() != "")
                     {
-                        model.displayState = int.Parse(dt.Rows[n]["displaystate"].ToString());
+                        model.displayState = uint.Parse(dt.Rows[n]["displaystate"].ToString());
                     }
                     if (dt.Rows[n]["position"].ToString() != "")
                     {

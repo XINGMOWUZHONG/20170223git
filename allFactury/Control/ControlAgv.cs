@@ -148,8 +148,8 @@ namespace WZYB.Control
             if (lastData == null)
             {
                 ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_line, UInt32.Parse(thisData.line));
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, (UInt16)thisData.palletstate );
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, (UInt16)thisData.taskstate);
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, thisData.palletstate );
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, thisData.taskstate);
                 if (PostiveLineArr.Contains(thisData.line.ToString()))
                 {
                     ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_dir, 1);
@@ -167,7 +167,7 @@ namespace WZYB.Control
                 {
                     ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_islastline, 0);
                 }
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, (UInt16)thisData.carstate);
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, thisData.carstate);
                 setPlatForm(thisData, lastData);
             }
             else if (!thisData.Equals(lastData))
@@ -185,9 +185,9 @@ namespace WZYB.Control
                     }
                 }
                 if (thisData.palletstate != lastData.palletstate)
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, (UInt16)thisData.palletstate);
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_palletstate, thisData.palletstate);
                 if (thisData.taskstate != lastData.taskstate)
-                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, (UInt16)thisData.taskstate);
+                ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_taskstate, thisData.taskstate);
                 if (thisData.target != lastData.target)
                 {
                     string Platlines = platFormDic[thisData.target];
@@ -201,7 +201,7 @@ namespace WZYB.Control
                     }
                 }
                 if (thisData.carstate != lastData.carstate)
-                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, (UInt32)thisData.carstate);
+                    ComTCPLib.SetOutputAsUINT(1, CarXmlIndex_carstate, thisData.carstate);
                 setPlatForm(thisData,lastData);
 
             }

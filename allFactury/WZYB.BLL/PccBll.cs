@@ -37,19 +37,19 @@ namespace WZYB.BLL
             {
                 if (row["id"] != null && row["id"].ToString() != "")
                 {
-                    model.id = int.Parse(row["id"].ToString());
+                    model.id = uint.Parse(row["id"].ToString());
                 }
                 if (row["source"] != null && row["source"].ToString() != "")
                 {
-                    model.source = int.Parse(row["source"].ToString());
+                    model.source = uint.Parse(row["source"].ToString());
                 }
                 if (row["target"] != null && row["target"].ToString() != "")
                 {
-                    model.target = int.Parse(row["target"].ToString());
+                    model.target = uint.Parse(row["target"].ToString());
                 }
                 if (row["target_z"] != null && row["target_z"].ToString() != "")
                 {
-                    model.target_z = int.Parse(row["target_z"].ToString());
+                    model.target_z = uint.Parse(row["target_z"].ToString());
                 }
                 if (row["currentlocation"] != null && row["currentlocation"].ToString() != "")
                 {
@@ -57,19 +57,19 @@ namespace WZYB.BLL
                 }
                 if (row["Carstate"] != null && row["Carstate"].ToString() != "")
                 {
-                    model.Carstate = int.Parse(row["Carstate"].ToString());
+                    model.Carstate = uint.Parse(row["Carstate"].ToString());
                 }
                 if (row["Palletstate"] != null && row["Palletstate"].ToString() != "")
                 {
-                    model.Palletstate = int.Parse(row["Palletstate"].ToString());
+                    model.Palletstate = uint.Parse(row["Palletstate"].ToString());
                 }
                 if (row["TaskState"] != null && row["TaskState"].ToString() != "")
                 {
-                    model.TaskState = int.Parse(row["TaskState"].ToString());
+                    model.TaskState = uint.Parse(row["TaskState"].ToString());
                 }
                 if (row["ComplateState"] != null && row["ComplateState"].ToString() != "")
                 {
-                    model.ComplateState = int.Parse(row["ComplateState"].ToString());
+                    model.ComplateState = uint.Parse(row["ComplateState"].ToString());
                 }
                 if (row["Time"] != null && row["Time"].ToString() != "")
                 {

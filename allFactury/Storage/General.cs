@@ -60,7 +60,7 @@ namespace Storage
             }
         }
 
-        public void Change(int StorageArea, int columns, int rows, int type, int id)
+        public void Change(uint StorageArea, uint columns, uint rows, uint type, uint id)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace Storage
 
         public void FullAll()
         {
-            int xx = 0;
+            uint xx = 0;
             for (int i = 0; i < StorageAreaCount; i++)
             {
                 for (int x = 0; x < int.Parse(columns); x++)
@@ -81,7 +81,7 @@ namespace Storage
                     for (int y = 0; y < int.Parse(rows); y++)
                     {
                         xx++;
-                        Change(i, x, y, StorageType*10+1, xx);
+                        Change((uint)i, (uint)x, (uint)y, (uint)StorageType * 10 + 1, xx);
                         System.Threading.Thread.Sleep(100);
                     }
                 }

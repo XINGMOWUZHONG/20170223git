@@ -130,10 +130,10 @@ namespace WZYB.Control
             {
                 ComTCPLib.SetOutputAsREAL32(1, PCC_ATTRI01_IN_TGT, thisData.target * 1.40f + 0.37f);
                 ComTCPLib.SetOutputAsREAL32(1, PCC_ATTRI01_IN_ORI, thisData.source * 1.40f + 0.37f);
-                ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_L_OR_R, (UInt16)thisData.target_z);
-                ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_TASK_STATE, (UInt16)thisData.TaskState);
-                ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_PALLET_STATE, (UInt16)thisData.Palletstate);
-                ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_STATE, (UInt16)thisData.Carstate);
+                ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_L_OR_R, thisData.target_z);
+                ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_TASK_STATE, thisData.TaskState);
+                ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_PALLET_STATE, thisData.Palletstate);
+                ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_STATE, thisData.Carstate);
                
                 
             }
@@ -149,19 +149,19 @@ namespace WZYB.Control
                 }
                 if (thisData.target_z != lastData.target_z)
                 {
-                    ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_L_OR_R, (UInt16)thisData.target_z);
+                    ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_L_OR_R, thisData.target_z);
                 }
                 if (thisData.TaskState != lastData.TaskState)
                 {
-                    ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_TASK_STATE, (UInt16)thisData.TaskState);
+                    ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_TASK_STATE, thisData.TaskState);
                 }
                 if (thisData.Palletstate != lastData.Palletstate)
                 {
-                    ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_PALLET_STATE, (UInt16)thisData.Palletstate);
+                    ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_PALLET_STATE, thisData.Palletstate);
                 }
                 if (thisData.Carstate != lastData.Carstate)
                 {
-                    ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_STATE, (UInt16)thisData.Carstate);
+                    ComTCPLib.SetOutputAsUINT(1, PCC_ATTRI01_IN_STATE, thisData.Carstate);
                 }
 
 

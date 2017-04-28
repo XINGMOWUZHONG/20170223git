@@ -47,15 +47,15 @@ namespace WZYB.BLL
                     model = new OCSLift();
                     if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.LiftId = int.Parse(dt.Rows[n]["id"].ToString());
+                        model.LiftId = uint.Parse(dt.Rows[n]["id"].ToString());
                     }
                     if (dt.Rows[n]["LiftTopstate"].ToString() != "")
                     {
-                        model.LiftTopstate = dt.Rows[n]["LiftTopstate"].ToString() == "True" ? 1 : 0 ;
+                        model.LiftTopstate = dt.Rows[n]["LiftTopstate"].ToString() == "True" ? (uint)1 : (uint)0;
                     }
                     if (dt.Rows[n]["LiftDownstate"].ToString() != "")
                     {
-                        model.LiftDownstate = dt.Rows[n]["LiftDownstate"].ToString() == "True" ? 1 : 0;
+                        model.LiftDownstate = dt.Rows[n]["LiftDownstate"].ToString() == "True" ? (uint)1 : (uint)0;
                     }
                    
                     modelList.Add(model);

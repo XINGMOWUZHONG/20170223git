@@ -45,7 +45,7 @@ namespace WZYB.BLL
                     model = new AGVStatus();
                     if (dt.Rows[n]["id"].ToString() != "")
                     {
-                        model.id = int.Parse(dt.Rows[n]["id"].ToString());
+                        model.id = uint.Parse(dt.Rows[n]["id"].ToString());
                     }
                     if (dt.Rows[n]["line"].ToString() != "")
                     {
@@ -53,11 +53,11 @@ namespace WZYB.BLL
                     }
                     if (dt.Rows[n]["carstate"].ToString() != "")
                     {
-                        model.carstate = int.Parse(dt.Rows[n]["carstate"].ToString());
+                        model.carstate = uint.Parse(dt.Rows[n]["carstate"].ToString());
                     }
                     if (dt.Rows[n]["palletstate"].ToString() != "")
                     {
-                        model.palletstate = int.Parse(dt.Rows[n]["palletstate"].ToString());
+                        model.palletstate = uint.Parse(dt.Rows[n]["palletstate"].ToString());
                     }
                     if (dt.Rows[n]["source"].ToString() != "")
                     {
@@ -69,11 +69,11 @@ namespace WZYB.BLL
                     }
                     if (dt.Rows[n]["taskstate"].ToString() != "")
                     {
-                        model.taskstate = int.Parse(dt.Rows[n]["taskstate"].ToString());
+                        model.taskstate = uint.Parse(dt.Rows[n]["taskstate"].ToString());
                     }
                     if (dt.Rows[n]["complatestate"].ToString() != "")
                     {
-                        model.complatestate = int.Parse(dt.Rows[n]["complatestate"].ToString());
+                        model.complatestate = uint.Parse(dt.Rows[n]["complatestate"].ToString());
                     }
                     modelList.Add(model);
                 }

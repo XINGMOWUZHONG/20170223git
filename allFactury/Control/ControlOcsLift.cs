@@ -83,7 +83,7 @@ namespace WZYB.Control
             {
                 foreach (OCSLift Lift in o)
                 {
-                    if(Lift.LiftDownstate == last [Lift .LiftId-1 ].LiftDownstate  && Lift.LiftTopstate  == last [Lift .LiftId-1 ].LiftTopstate)
+                    if(Lift.LiftDownstate == last [(int)Lift .LiftId-1 ].LiftDownstate  && Lift.LiftTopstate  == last [(int)Lift .LiftId-1 ].LiftTopstate)
                     {
                         continue ; 
                     }
