@@ -92,9 +92,20 @@ namespace PccNew
             ThreadNewLikuPallert.Start();
         }
 
+
+        //update data industrial
+        private ControlUpdateData DataControl = new ControlUpdateData();
+        private Thread ThreadUpdateData;
+        private void StartThreadUpdateData()
+        {
+            ThreadUpdateData = new Thread(new ParameterizedThreadStart(DataControl.DataThreadFunc));
+            ThreadUpdateData.Start();
+        }
        
         public void threadStartAll()
         {
+            StartThreadUpdateData();
+
             StartThreadPcc();
             StartThreadNewLikuDDJ();
             StartThreadNewLikuCsc();
@@ -132,6 +143,9 @@ namespace PccNew
             ThreadOcsLift.Abort();
             if (ThreadNewLikuPallert != null)
             ThreadNewLikuPallert.Abort();
+
+            if (ThreadUpdateData != null)
+                ThreadUpdateData.Abort();
         }
 
         public void threadPauseAll()
@@ -141,6 +155,7 @@ namespace PccNew
             OcsControl.IsStart = false;
             OcsLiftcontrol.IsStart = false;
             agvControl.IsStart = false;
+            DataControl.IsStart = false;
         }
 
         public void threadContinueAll()
@@ -150,6 +165,7 @@ namespace PccNew
             OcsControl.IsStart = true;
             OcsLiftcontrol.IsStart = true;
             agvControl.IsStart = true;
+            DataControl.IsStart = true;
         }
     }
 }

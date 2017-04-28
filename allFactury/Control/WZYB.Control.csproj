@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComTCPLib.cs" />
+    <Compile Include="ControlUpdateData.cs" />
     <Compile Include="ControlAgv.cs" />
     <Compile Include="ControlClickAndLightThread.cs" />
     <Compile Include="ControlInterfaceMethod.cs" />

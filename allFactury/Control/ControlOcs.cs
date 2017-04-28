@@ -105,6 +105,8 @@ namespace WZYB.Control
                 }
 
             }
+            //double time, timeStep;
+            //ComTCPLib.UpdateData(handle, out time, out timeStep);
 
         }
 

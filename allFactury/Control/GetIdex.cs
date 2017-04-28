@@ -175,8 +175,8 @@ namespace WZYB.Control
         //设置数据
         public void updateValue(string name, string value, int type, int handle)
         {
-            double time, timeStep;
-            ComTCPLib.UpdateData(handle, out time, out timeStep);
+            //double time, timeStep;
+            //ComTCPLib.UpdateData(handle, out time, out timeStep);
             int index = getDicOutputIndex(name);
             if (type == 1)
             {
@@ -194,8 +194,8 @@ namespace WZYB.Control
 
         public object readValue(string name, int type, int handle)
         {
-            double time, timeStep;
-            ComTCPLib.UpdateData(handle, out time, out timeStep);
+            //double time, timeStep;
+            //ComTCPLib.UpdateData(handle, out time, out timeStep);
             int index = getDicInputIndex(name);
             if (type == 1)
             {
