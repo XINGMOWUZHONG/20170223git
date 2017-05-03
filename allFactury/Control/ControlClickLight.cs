@@ -30,7 +30,7 @@ namespace WZYB.Control
             gi = new GetIdex();
             Click_Type_index = GetIdex.getDicInputIndex("ATTRIBUTE01_CLICK_TYPE");
             Click_Num_index = GetIdex.getDicInputIndex("ATTRIBUTE01_CLICK_NUM");
-            Click_Reset_index = GetIdex.getDicOutputIndex(" ATTRIBUTE01_CLICK_RETURN");
+            Click_Reset_index = GetIdex.getDicOutputIndex("ATTRIBUTE01_CLICK_RETURN");
         }
 
         public void ClickThreadFunc(object obj)

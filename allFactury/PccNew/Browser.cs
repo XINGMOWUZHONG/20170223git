@@ -25,6 +25,7 @@ namespace PccNew
         }
         public string linkStr = "";
         public string modelName = "";
+        public int modelType = 0;
         int handle = -1;
         //建立链接
         private int Connect()
@@ -135,7 +136,7 @@ namespace PccNew
             Initialization(this.splitContainer1.Panel1);
             loadLink(linkStr);
             System.Threading.Thread.Sleep(500);
-            loadModel(modelName);
+            loadModel(modelType);
             remote.setCustomView("v_pcc_car");
         }
 
@@ -147,16 +148,50 @@ namespace PccNew
             }
         }
 
-        private void loadModel(string name)
+        private void loadModel(int type)
         {
-            if (name.Length < 1)
-                return; 
+            string name = "";
+            if(type >0)
+            {
+                switch (type)
+                { 
+                    case 1:
+                        name = "/pcc_car.iphz";
+                        break;
+                    case 2:
+                        name = "/pcc_car.iphz";
+                        break;
+                    case 3:
+                        name = "/pcc_car.iphz";
+                        break;
+                    case 4:
+                        name = "/pcc_car.iphz";
+                        break;
+                    case 5:
+                        name = "/pcc_car.iphz";
+                        break;
+                    case 6:
+                        name = "/pcc_car.iphz";
+                        break;
+                    case 7:
+                        name = "/pcc_car.iphz";
+                        break;
+
+                }
+            }
+            else
+            {
+                int origionWidth = splitContainer1.Panel1.Width;
+                splitContainer1.SplitterDistance = splitContainer1.Width;  
+                return;
+            }
+             
             if (!remote.IsStarted)
             {
                 return;
             }  
             System.Threading.Thread.Sleep(400);
-            IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory + "/pcc_car.iphz");
+            IPhysics_Command command = new LoadDocument(Environment.CurrentDirectory +name);
             remote.execute(command);
             if (System.Configuration.ConfigurationManager.AppSettings["isDebug"].ToString() == "0")
             {
