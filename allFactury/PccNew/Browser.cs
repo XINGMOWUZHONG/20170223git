@@ -133,11 +133,16 @@ namespace PccNew
 
         private void Browser_Shown(object sender, EventArgs e)
         {
-            Initialization(this.splitContainer1.Panel1);
+            //某些模型不展示
+            if (modelType > 0 && modelType < 6)
+            {
+                Initialization(this.splitContainer1.Panel1);
+                System.Threading.Thread.Sleep(500);
+                loadModel(modelType);
+                remote.setCustomView("v_pcc_car");
+            }
             loadLink(linkStr);
-            System.Threading.Thread.Sleep(500);
-            loadModel(modelType);
-            remote.setCustomView("v_pcc_car");
+            
         }
 
         private void loadLink(string link)
@@ -151,7 +156,7 @@ namespace PccNew
         private void loadModel(int type)
         {
             string name = "";
-            if(type >0)
+            if(type >0 && type<6)
             {
                 switch (type)
                 { 
@@ -181,8 +186,9 @@ namespace PccNew
             }
             else
             {
-                int origionWidth = splitContainer1.Panel1.Width;
-                splitContainer1.SplitterDistance = splitContainer1.Width;  
+                //int origionWidth = splitContainer1.Panel1.Width;
+                //splitContainer1.SplitterDistance = splitContainer1.Width;  
+                splitContainer1.SplitterDistance = 0;
                 return;
             }
              
