@@ -62,7 +62,7 @@ namespace WZYB.Control
         //AGV 点击获取任务
         private static string getAgvClick(string Num)
         {
-            return "http://10.1.50.93:8080/mes/main.shtml";
+            return "https://www.baidu.com/";
         }
 
         //DDJ 点击获取任务

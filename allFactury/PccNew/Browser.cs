@@ -16,7 +16,7 @@ namespace PccNew
 {
     public partial class Browser : Form
     {
-        public string url;
+         
         public RemoteInterface remote;
         public ExternalAppDock iPhysicsDoc;
         public Browser()
@@ -141,6 +141,12 @@ namespace PccNew
                 loadModel(modelType);
                 remote.setCustomView("v_pcc_car");
             }
+            else
+            {
+                this.splitContainer1.SplitterDistance = 1;
+                this.splitContainer1.Panel1.Hide();
+                //return;
+            }
             loadLink(linkStr);
             
         }
@@ -188,7 +194,8 @@ namespace PccNew
             {
                 //int origionWidth = splitContainer1.Panel1.Width;
                 //splitContainer1.SplitterDistance = splitContainer1.Width;  
-                splitContainer1.SplitterDistance = 0;
+                this.splitContainer1.SplitterDistance = 1;
+                this.splitContainer1.Panel1.Hide();
                 return;
             }
              

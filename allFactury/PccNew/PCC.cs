@@ -283,7 +283,7 @@ namespace PccNew
         {
             this.timerClick.Enabled = false;
             Browser bb = new Browser();
-            bb.url = linkStr;
+            bb.linkStr = linkStr;
             bb.ShowDialog();
             if (bb.DialogResult == System.Windows.Forms.DialogResult.OK)
             {
