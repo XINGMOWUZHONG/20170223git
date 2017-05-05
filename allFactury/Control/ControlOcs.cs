@@ -34,6 +34,7 @@ namespace WZYB.Control
                     if (IsStart)
                     {
                         OCSStatus thisModel = OCSStatusBLL.GetModel(ID);
+                        //OCSStatus thisModel = getOCSStatus(lastModel,(uint)ID);
                         if (thisModel != null)
                         {
                             setCarData(lastModel, thisModel, XmlIndex);
@@ -48,6 +49,46 @@ namespace WZYB.Control
                 throw ex;
             }
         }
+
+        #region 不通过数据库 直接造假数据
+        string[] path = { "1080", "2011", "2012", "1040", "1060" };
+        decimal[] pathLength = { 21.0m, 5.65m, 6.0m, 19.0m, 11.5m };
+        int m = 0;
+        private OCSStatus getOCSStatus(OCSStatus lastmodel, uint id)
+        {
+            OCSStatus model = new OCSStatus();
+            if(lastmodel == null)
+            { 
+                model.carId = id;
+                model.line = "B" + path[0];
+                model.position =0.01f;
+                model.displayState = 1;
+                return model;
+            }
+            else
+            {
+                model.carId = id;
+                model.displayState = 1;
+                if (Convert.ToDecimal(lastmodel.position) >  pathLength[m])
+                {
+                    m = m + 1;
+                    if (m == path.Length)
+                    {
+                        m = 0;
+                    }
+                    model.line = "B" + path[m];
+                    model.position = 0.01f; 
+                }
+                else
+                {
+                    model.line = lastmodel.line;
+                    model.position = lastmodel.position + 0.3f;
+                }
+                return model;
+            }
+           
+        }
+        #endregion
 
         private int[] getXmlIndex(int index)
         {

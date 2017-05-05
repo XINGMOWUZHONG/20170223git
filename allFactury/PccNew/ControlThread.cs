@@ -56,6 +56,7 @@ namespace PccNew
             {
                 ocsThread[i] = new Thread(new ParameterizedThreadStart(OcsControl.OcsThreadFunc));
                 ocsThread[i].Start(i + 1);
+                //Thread.Sleep(500);
             }
         }
 
