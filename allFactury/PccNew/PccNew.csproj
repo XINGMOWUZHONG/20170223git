@@ -156,10 +156,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Control\WZYB.Control.csproj">
-      <Project>{2bc12b03-7bed-43d5-b793-7d21b3eff87f}</Project>
-      <Name>WZYB.Control</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IPhysicsSocketInterface\IPhysics_SocketInterface.csproj">
       <Project>{dfd63cc0-7b92-4248-ba6d-eaa44feb7185}</Project>
       <Name>IPhysics_SocketInterface</Name>
@@ -171,6 +167,10 @@
     <ProjectReference Include="..\WZYB.BLL\WZYB.BLL.csproj">
       <Project>{2bbd41be-1c10-4e2c-90f3-966eed71ef50}</Project>
       <Name>WZYB.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WZYB.Control\WZYB.Control.csproj">
+      <Project>{2bc12b03-7bed-43d5-b793-7d21b3eff87f}</Project>
+      <Name>WZYB.Control</Name>
     </ProjectReference>
     <ProjectReference Include="..\WZYB.DAL\WZYB.DAL.csproj">
       <Project>{7d270bac-f1d9-4501-959e-b03ab4c46681}</Project>
